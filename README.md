@@ -80,6 +80,6 @@ sail yarn dev
 ## Contributors
 
 -   Weerawong Vonggatunyu 6410406860
--
+-   Sittipong Hemloun 6410401183
 -
 -
