@@ -65,6 +65,12 @@ Install node dependencies
 sail yarn install
 ```
 
+Run migration
+
+```sh
+sail artisan migrate:fresh --seed
+```
+
 Run dev server
 
 ```sh
