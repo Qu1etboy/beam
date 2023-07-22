@@ -9,18 +9,29 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\AuthController;
+use App\Models\User;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    // Route::get('register', [RegisteredUserController::class, 'create'])
+    //             ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
+    // Route::get('login', [AuthenticatedSessionController::class, 'create'])
+    //             ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    // Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('login.google');
+    
+    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('handleGoogleCallback');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
@@ -32,8 +43,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.reset');
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
-                ->name('password.store');
-});
+                ->name('password.store');});
 
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
