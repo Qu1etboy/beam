@@ -71,6 +71,12 @@ Run migration
 sail artisan migrate:fresh --seed
 ```
 
+Link storage
+
+```sh
+sail artisan storage:link
+```
+
 Run dev server
 
 ```sh
