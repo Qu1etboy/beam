@@ -44,6 +44,10 @@ Route::get('/organizer/events/information', function () {
     return view('organizer.event.information');
 });
 
+Route::get('/organizer/events/financial', function () {
+    return view('organizer.event.financial');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
