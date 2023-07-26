@@ -48,6 +48,10 @@ Route::get('/organizer/events/financial', function () {
     return view('organizer.event.financial');
 });
 
+Route::get('/organizer/events/order/add', function () {
+    return view('organizer.event.add-order');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
