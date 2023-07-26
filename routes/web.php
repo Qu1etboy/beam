@@ -36,6 +36,10 @@ Route::get('/organizer/members', function () {
     return view('organizer.members');
 });
 
+Route::get('/organizer/events/dashboard', function () {
+    return view('organizer.event.dashboard');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
