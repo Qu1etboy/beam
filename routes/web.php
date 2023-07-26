@@ -19,6 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/event', function () {
+    return view('event-detail');
+});
+
+Route::get('/organizer/events', function () {
+    return view('organizer.events');
+});
+
+Route::get('/organizer/events/create', function () {
+    return view('organizer.create-event');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
