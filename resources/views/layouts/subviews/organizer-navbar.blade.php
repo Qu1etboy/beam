@@ -1,10 +1,10 @@
 <header class="p-3 border-b">
   <nav class="container mx-auto flex justify-between items-center">
     <div class="flex gap-5">
-      <a href="/" class="text-3xl font-bold">Beam</a>
+      <a href="{{ route('index') }}" class="text-3xl font-bold">Beam</a>
     </div>
 
-    <div>
+    <div class="flex items-center gap-5">
 
       <ul class="flex items-center gap-5">
         <li><a href="{{ route('organizer.events') }}">Events</a></li>
@@ -13,7 +13,6 @@
     
       @auth
           <div class="flex items-center gap-3">
-            <a href="/organizer/events" class="hover:text-emerald-500 duration-300">Create event</a>        
             <div>
                   <x-dropdown align="right" width="48">
                       <x-slot name="trigger">

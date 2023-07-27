@@ -1,4 +1,4 @@
-@extends('layouts.organizer')
+@extends('layouts.event')
 
 @section('sub-content')
 <div class="p-3">
