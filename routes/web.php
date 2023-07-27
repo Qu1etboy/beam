@@ -23,6 +23,10 @@ Route::get('/event', function () {
     return view('event-detail');
 });
 
+Route::get('/orders', function () {
+    return view('orders');
+})->name('orders');
+
 Route::get('/organizer', function () {
     return view('organizer.home');
 });
