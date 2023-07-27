@@ -27,6 +27,10 @@ Route::get('/orders', function () {
     return view('orders');
 })->name('orders');
 
+Route::get('/settings', function () {
+    return view('settings');
+})->name('settings');
+
 Route::get('/organizer', function () {
     return view('organizer.home');
 });
@@ -37,7 +41,7 @@ Route::get('/organizer/create', function () {
 
 Route::get('/organizer/events', function () {
     return view('organizer.events');
-});
+})->name('organizer.events');
 
 Route::get('/organizer/events/create', function () {
     return view('organizer.create-event');
@@ -46,7 +50,7 @@ Route::get('/organizer/events/create', function () {
 
 Route::get('/organizer/members', function () {
     return view('organizer.members');
-});
+})->name('organizer.members');
 
 Route::get('/organizer/events/dashboard', function () {
     return view('organizer.event.dashboard');

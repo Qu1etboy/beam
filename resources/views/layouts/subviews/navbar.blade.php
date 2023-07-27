@@ -28,12 +28,16 @@
 
                     <x-slot name="content">
                         <h2 class="text-sm px-4 py-3">{{ Auth::user()->name }}</h2>
-                        <x-dropdown-link :href="route('profile.edit')">
+                        {{-- <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link> --}}
 
                         <x-dropdown-link :href="route('orders')">
                             {{ __('My Orders') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('settings')">
+                            {{ __('Settings') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
