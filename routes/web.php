@@ -23,6 +23,14 @@ Route::get('/event', function () {
     return view('event-detail');
 });
 
+Route::get('/organizer', function () {
+    return view('organizer.home');
+});
+
+Route::get('/organizer/create', function () {
+    return view('organizer.create-organization');
+});
+
 Route::get('/organizer/events', function () {
     return view('organizer.events');
 });
