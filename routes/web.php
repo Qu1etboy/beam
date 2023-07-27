@@ -52,6 +52,11 @@ Route::get('/organizer/events/order/add', function () {
     return view('organizer.event.add-order');
 });
 
+Route::get('/organizer/events/participants', function () {
+    return view('organizer.event.participants');
+});
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
