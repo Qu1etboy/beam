@@ -72,6 +72,17 @@ Route::get('/organizer/events/participants', function () {
     return view('organizer.event.participants');
 })->name('organizer.event.participants');
 
+Route::get('/organizer/events/tasks/board', function () {
+    return view('organizer.event.tasks.board');
+})->name('organizer.event.tasks.board');
+
+Route::get('/organizer/events/tasks/list', function () {
+    return view('organizer.event.tasks.list');
+})->name('organizer.event.tasks.list');
+
+Route::get('/organizer/events/tasks/add', function () {
+    return view('organizer.event.tasks.add');
+})->name('organizer.event.tasks.add');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
