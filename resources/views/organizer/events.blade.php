@@ -31,7 +31,7 @@
     <section class="text-center mt-16">
       <img src="/_static/undraw_children.svg" class="mx-auto" width="400"/>
       <p class="text-lg my-8">Oh, you don't have any event yet.</p>
-      <a href="#" class="text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Click here to create your event</a>
+      <a href="/organizer/events/create" class="text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Click here to create your event</a>
     </section>
     @endif 
 
