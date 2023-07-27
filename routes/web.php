@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('index');
 
 Route::get('/event', function () {
     return view('event-detail');
-});
+})->name('event-detail');
 
 Route::get('/orders', function () {
     return view('orders');
@@ -33,11 +33,11 @@ Route::get('/settings', function () {
 
 Route::get('/organizer', function () {
     return view('organizer.home');
-});
+})->name('organizer.home');
 
 Route::get('/organizer/create', function () {
     return view('organizer.create-organization');
-});
+})->name('organizer.create-organization');
 
 Route::get('/organizer/events', function () {
     return view('organizer.events');
@@ -45,7 +45,7 @@ Route::get('/organizer/events', function () {
 
 Route::get('/organizer/events/create', function () {
     return view('organizer.create-event');
-});
+})->name('organizer.create-event');
 
 
 Route::get('/organizer/members', function () {
@@ -54,23 +54,23 @@ Route::get('/organizer/members', function () {
 
 Route::get('/organizer/events/dashboard', function () {
     return view('organizer.event.dashboard');
-});
+})->name('organizer.event.dashboard');
 
 Route::get('/organizer/events/information', function () {
     return view('organizer.event.information');
-});
+})->name('organizer.event.information');
 
 Route::get('/organizer/events/financial', function () {
     return view('organizer.event.financial');
-});
+})->name('organizer.event.financial');
 
 Route::get('/organizer/events/order/add', function () {
     return view('organizer.event.add-order');
-});
+})->name('organizer.event.add-order');
 
 Route::get('/organizer/events/participants', function () {
     return view('organizer.event.participants');
-});
+})->name('organizer.event.participants');
 
 
 Route::get('/dashboard', function () {

@@ -1,7 +1,7 @@
 <header class="p-3 border-b">
   <nav class="container mx-auto flex justify-between items-center">
     <div class="flex gap-5">
-      <a href="/" class="text-3xl font-bold">Beam</a>
+      <a href="{{ route('index') }}" class="text-3xl font-bold">Beam</a>
       <form>
         <label for="simple-search" class="sr-only">Search</label>
         <div class="relative w-full">
@@ -17,7 +17,7 @@
 
     @auth
         <div class="flex items-center gap-3">
-          <a href="/organizer/events" class="hover:text-emerald-500 duration-300">Create event</a>        
+          <a href="{{ route('organizer.home') }}" class="hover:text-emerald-500 duration-300">Create event</a>        
           <div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">

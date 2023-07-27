@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.organizer')
 
 @section('content')
 <div class="container mx-auto p-3">
