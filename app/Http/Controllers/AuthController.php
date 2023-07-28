@@ -20,6 +20,7 @@ class AuthController extends Controller
         if (!$newUser) {
             $newUser = new User();
             $newUser->name = $user->name;
+            $newUser->avatar = $user->avatar;
             $newUser->email = $user->email;
             $newUser->provider_id = $user->id;
             $newUser->save();

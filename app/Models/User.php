@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'avatar',
         'email',
         'password',
+        'social',
+        'certificate'
     ];
 
     /**
@@ -42,4 +45,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function organizations()
+    {
+        return $this->hasMany(Organizer::class, 'owner_id');
+    }
+
+    public function joinedOrganizations()
+    {
+        return $this->belongsToMany(Organizer::class, 'organization_user', 'user_id', 'organization_id');
+    }
+
+    public function joinedEvents()
+    {
+        return $this->belongsToMany(Event::class, 'event_user', 'user_id', 'event_id');
+    }
 }
