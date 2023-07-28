@@ -53,6 +53,11 @@ Create sail alias first if you haven't
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 ```
 
+Copy .env.example to .env
+```sh
+cp .env.example .env
+```
+
 Run all container
 
 ```sh
@@ -82,6 +87,15 @@ Run dev server
 ```sh
 sail yarn dev
 ```
+
+
+## Accessing the app
+
+The app is mapped to port 80 on host machine
+[http://localhost](http://localhost)
+
+PhpMyAdmin is mapped to port 8080 on host machine
+[http://localhost:8080](http://localhost:8080)
 
 ## Contributors
 

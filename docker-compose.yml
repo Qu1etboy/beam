@@ -90,6 +90,19 @@ services:
             - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: mysql
+            PMA_USER: ${DB_USERNAME}
+            PMA_PASSWORD: ${DB_PASSWORD}
+            PMA_ARBITRARY: 1
+        ports:
+            - '${FORWARD_PHPMYADMIN_PORT:-8080}:80'
+        depends_on:
+            - mysql
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
