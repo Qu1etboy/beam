@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('event_user', function (Blueprint $table) {
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('status')->default('Pending'); // Accepted, Pending, Rejected
             $table->primary(['event_id', 'user_id']);
         });
     }
