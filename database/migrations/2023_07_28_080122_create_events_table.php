@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('organizer_id')->constrained('organizers')->onDelete('cascade');
+            $table->string('event_name');
+            $table->text('event_description');
+            $table->string('poster_image');
+            $table->string('location');
             $table->timestamps();
         });
     }

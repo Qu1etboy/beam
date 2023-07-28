@@ -13,9 +13,20 @@ class Task extends Model
         'title',
         'description',
         'status',
+
         'due_date',
         'event_id',
     ];
+
+    // Define task statuses
+    const STATUS_TODO = 1;
+    const STATUS_DOING = 2;
+    const STATUS_DONE = 3;
+
+    // Define priority levels
+    const PRIORITY_LOW = 1;
+    const PRIORITY_MEDIUM = 2;
+    const PRIORITY_HIGH = 3;
 
     public function event()
     {
