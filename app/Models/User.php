@@ -60,4 +60,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Event::class, 'event_user', 'user_id', 'event_id');
     }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'task_user', 'user_id', 'task_id');
+    }
+
+    public function registrantQuestions()
+    {
+        return $this->belongsToMany(RegistrantQuestion::class, 'registrant_question_user', 'user_id', 'registrant_question_id');
+    }
 }

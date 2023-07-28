@@ -32,4 +32,9 @@ class Task extends Model
     {
         return $this->belongsTo(Event::class, 'event_id');
     }
+
+    public function assignees()
+    {
+        return $this->belongsToMany(User::class, 'task_user', 'task_id', 'user_id');
+    }
 }

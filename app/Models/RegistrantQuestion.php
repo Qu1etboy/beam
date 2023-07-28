@@ -19,4 +19,9 @@ class RegistrantQuestion extends Model
     {
         return $this->belongsTo(Event::class, 'event_id');
     }
+
+    public function respondents()
+    {
+        return $this->belongsToMany(User::class, 'registrant_question_user', 'registrant_question_id', 'user_id');
+    }
 }
