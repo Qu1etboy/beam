@@ -4,7 +4,8 @@
 <div class="container mx-auto p-3">
     <h1 class="font-bold text-4xl my-3">Create New Event</h1>
 
-    <form>
+    {{-- TODO: change to a real route --}}
+    <form action="{{ route('test.create.event') }}" method="POST">
       @csrf
       <div class="mb-6">
         <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Event name</label>
@@ -13,7 +14,7 @@
 
       <div class="mb-6">
         <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Event description</label>
-        <textarea type="text" id="description" placeholder="Enter your event description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+        <textarea id="description" class="ckeditor form-control" name="description"></textarea>
       </div>
 
       <div class="mb-6">
