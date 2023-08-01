@@ -33,7 +33,7 @@
           </div>
 
           <div class="mb-6">
-            <label for="poster" class="block mb-2 text-sm font-medium text-gray-900">Upload poster image</label>
+            <label for="poster" class="block mb-2 text-sm font-medium text-gray-900">Upload event poster</label>
             <input type="file" accept="image/*" id="poster" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full file:bg-gray-100 file:mr-4 file:border-0 file:transparent file:py-3 file:px-4">
           </div>
 

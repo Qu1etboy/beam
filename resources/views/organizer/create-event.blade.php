@@ -13,11 +13,11 @@
 
       <div class="mb-6">
         <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Event description</label>
-        <input type="text" id="description" placeholder="Enter your event description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <textarea type="text" id="description" placeholder="Enter your event description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
       </div>
 
       <div class="mb-6">
-        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Event address</label>
+        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Event location</label>
         <input type="text" id="address" placeholder="Where is your event hosted?" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
       </div>
 
@@ -27,7 +27,7 @@
       </div>
 
       <div class="mb-6">
-        <label for="poster" class="block mb-2 text-sm font-medium text-gray-900">Why do you want to join?</label>
+        <label for="poster" class="block mb-2 text-sm font-medium text-gray-900">Upload event poster</label>
         <input type="file" accept="image/*" id="poster" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full file:bg-gray-100 file:mr-4 file:border-0 file:transparent file:py-3 file:px-4">
       </div>
 

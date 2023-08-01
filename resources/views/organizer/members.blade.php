@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto p-3">
-    <h1 class="font-bold text-4xl my-3">Your members</h1>
+    <h1 class="font-bold text-4xl my-3">Your Members</h1>
 
     <form method="POST">
       @csrf

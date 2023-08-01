@@ -1,4 +1,4 @@
-<div class="relative block max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+<div class="relative block p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
     <x-dropdown align="right" width="48">
         <x-slot name="trigger">
             <button class="absolute right-0 top-0">

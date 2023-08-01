@@ -6,7 +6,7 @@
     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
       <ul class="flex flex-wrap -mb-px">
           <li class="mr-2">
-              <a href="#" class="inline-block p-4 text-blue-600 border-blue-600 border-b-2 rounded-t-lg">Submission</a>
+              <a href="#" class="inline-block p-4 text-purple-600 border-purple-600 border-b-2 rounded-t-lg">Submission</a>
           </li>
           <li class="mr-2">
               <a href="#" class="inline-block p-4 hover:text-gray-600 hover:border-gray-300 border-transparent marker:border-b-2 rounded-t-lg active" aria-current="page">Accepted</a>
