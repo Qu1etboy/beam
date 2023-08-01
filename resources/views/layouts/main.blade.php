@@ -5,4 +5,5 @@
     <main>
         @yield('content')
     </main>
+    <x-footer />
 @endsection 
