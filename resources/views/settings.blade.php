@@ -7,7 +7,7 @@
     <form class="mt-8">
       <div>
         <div class="flex gap-5">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80" alt="user avatar" class="rounded-full object-cover h-20 w-20">
+          <img src="{{ Auth::user()->avatar }}" alt="user avatar" class="rounded-full object-cover h-20 w-20">
           <div class="mb-6">
             <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Upload profile picture</label>
             <x-file-input accept="image/*" id="profile" name="profile" />
