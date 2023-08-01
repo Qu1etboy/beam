@@ -47,11 +47,13 @@
         @if(true)
           <h2 class="text-3xl font-bold my-3">Questions</h2>
           <div class="mb-6">
-            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Why do you want to join?</label>
-            <input type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <x-input-label for="q1" :value="__('Why do you want to join?')"/>
+            <x-text-input id="q1" name="q1" />
+            <x-input-error :messages="[]" />
           </div>
         @endif
-        <button type="submit" class="w-full text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Submit</button>
+        
+        <x-buttons.primary type="submit" class="w-full">Submit</x-buttons.primary> 
       </form>
     </section>
 

@@ -7,11 +7,12 @@
     <form method="POST">
       @csrf
       <div class="mb-6 w-full">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Invite member</label>
+        <x-input-label for="email" :value="__('Invite member')" />
         <div class="flex">
-          <input type="email" id="email" placeholder="Email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-          <button type="submit" class="text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4">Invite</button>
+          <x-text-input type="email" id="email" placeholder="Email" />
+          <x-buttons.primary type="submit">Invite</x-buttons.primary> 
         </div>
+        <x-input-error :messages="[]" />
       </div>
     </form>
 
