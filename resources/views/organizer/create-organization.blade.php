@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'Create - Beam Organizer')
+
 @section('body')
 <div class="w-full h-screen grid grid-cols-1 md:grid-cols-2">
   <div class="hidden md:flex w-full px-16 text-center text-white flex-col justify-center bg-black/60 h-screen bg-cover bg-center bg-blend-overlay bg-[url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')]">

@@ -1,5 +1,7 @@
 @extends('layouts.event')
 
+@section('title', 'Information - Beam Organizer')
+
 @section('sub-content')
 <form class="p-3">
   @csrf

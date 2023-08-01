@@ -1,5 +1,7 @@
 @extends('layouts.organizer')
 
+@section('title', 'Create Event - Beam Organizer')
+
 @section('content')
 <div class="container mx-auto p-3">
     <h1 class="font-bold text-4xl my-3">Create New Event</h1>

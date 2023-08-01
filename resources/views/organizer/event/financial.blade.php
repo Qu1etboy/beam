@@ -1,5 +1,7 @@
 @extends('layouts.event')
 
+@section('title', 'Financial - Beam Organizer')
+
 @section('sub-content')
 <div class="p-3">
     <div class="flex justify-between">

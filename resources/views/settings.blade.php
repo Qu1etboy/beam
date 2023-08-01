@@ -1,5 +1,8 @@
 @extends('layouts.main')
 
+@section('title', 'Settings - Beam')
+
+
 @section('content')
 <div class="container mx-auto p-3">
     <h1 class="font-bold text-4xl my-3">My Account</h1>

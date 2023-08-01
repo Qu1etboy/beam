@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'KU First Meet - Beam')
+
 @section('content')
 <div class="mx-auto">
     

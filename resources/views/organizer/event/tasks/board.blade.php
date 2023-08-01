@@ -1,5 +1,7 @@
 @extends('layouts.task')
 
+@section('title', 'Tasks - Beam Organizer')
+
 @section('sub-content')
   <div>
     <h1 class="font-bold text-4xl my-3">Board</h1>
