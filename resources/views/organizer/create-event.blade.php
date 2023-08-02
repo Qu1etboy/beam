@@ -7,7 +7,7 @@
     <h1 class="font-bold text-4xl my-3">Create New Event</h1>
 
     {{-- TODO: change to a real route --}}
-    <form action="{{ route('test.create.event') }}" method="POST">
+    <form action="{{ route('organizer.store-event', $organizer) }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="mb-6">
         <x-input-label for="name" :value="__('Event name')"/>

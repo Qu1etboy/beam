@@ -16,7 +16,8 @@
       <h2 class="text-3xl font-semibold my-4">Let's create your <span class="text-4xl font-bold text-purple-500">organization!</span></h2>
       <p class="text-gray-600">Publish your awesome event for everyone to join!</p>
     </div>
-    <form>
+    <form action="{{ route('organizer.store-organization') }}" method="POST">
+      @csrf
       <div class="mb-6">
         <x-input-label for="name" :value="__('Organization name')"/>
         <x-text-input id="name" name="name" placeholder="Enter your organization name" />

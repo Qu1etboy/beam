@@ -7,8 +7,10 @@
     <div class="flex items-center gap-5">
 
       <ul class="flex items-center gap-5">
-        <li><a href="{{ route('organizer.events') }}" class="hover:text-purple-500 duration-300">Events</a></li>
-        <li><a href="{{ route('organizer.members') }}" class="hover:text-purple-500 duration-300">Members</a></li>
+        {{-- <li><a href="{{ route('organizer.events') }}" class="hover:text-purple-500 duration-300">Events</a></li> --}}
+        {{-- get organizer id from params (http://localhost/organizer/1) --}}
+        <li><a href="{{ route('organizer.events', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Events</a></li>
+        <li><a href="{{ route('organizer.members', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Members</a></li>
       </ul>
     
       @auth

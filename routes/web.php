@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrganizerController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\RegistrantQuestionController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,40 +24,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 })->name('index');
-
 Route::get('/event', function () {
     return view('event-detail');
 })->name('event-detail');
-
-Route::get('/orders', function () {
-    return view('orders');
-})->name('orders');
-
-Route::get('/settings', function () {
-    return view('settings');
-})->name('settings');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/orders', [UserController::class, 'orders'])->name('orders');
+Route::get('/settings', [UserController::class, 'settings'])->name('settings');
+Route::put('/settings', [UserController::class, 'update'])->name('settings.update');
+Route::get('/organizer', [OrganizerController::class, 'home'])->name('organizer.home');
+Route::get('/organizer/create', [OrganizerController::class, 'createOrganization'])->name('organizer.create-organization');
+Route::post('/organizer/create', [OrganizerController::class, 'storeOrganization'])->name('organizer.store-organization');
 
 // Define routes related to organizer
-Route::group(['prefix' => 'organizer'], function () {
-    Route::get('/', function () {
-        return view('organizer.home');
-    })->name('organizer.home');
-    Route::get('/create', function () {
-        return view('organizer.create-organization');
-    })->name('organizer.create-organization');
-    Route::get('/events', function () {
-        return view('organizer.events');
-    })->name('organizer.events');
-    Route::get('/events/create', function () {
-        return view('organizer.create-event');
-    })->name('organizer.create-event');
-    Route::get('/members', function () {
-        return view('organizer.members');
-    })->name('organizer.members');
+Route::prefix('organizer/{organizer}')->group(function () {
+    Route::get('/', [OrganizerController::class, 'events'])->name('organizer.events');
+    Route::get('/events/create', [OrganizerController::class, 'createEvent'])->name('organizer.create-event');
+    Route::post('/events/create', [OrganizerController::class, 'storeEvent'])->name('organizer.store-event');
+    Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');
+    Route::post('/members/add', [OrganizerController::class, 'addMember'])->name('organizer.add-member');
     // Define routes related to event
     Route::group(['prefix' => 'events'], function () {
         Route::get('/dashboard', function () {

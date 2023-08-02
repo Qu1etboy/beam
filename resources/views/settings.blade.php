@@ -7,7 +7,9 @@
 <div class="container mx-auto p-3">
     <h1 class="font-bold text-4xl my-3">My Account</h1>
 
-    <form class="mt-8">
+    <form action="{{ route('settings.update', Auth::user()) }}" method="POST" enctype="multipart/form-data" class="mt-8">
+      @csrf
+      @method('PUT')
       <div>
         <div class="flex gap-5">
           <img src="{{ Auth::user()->avatar }}" alt="user avatar" class="rounded-full object-cover h-20 w-20">
@@ -21,19 +23,19 @@
 
           <div class="mb-6">
             <x-input-label for="first-name" :value="__('Event name')"/>
-            <x-text-input id="first-name" name="first-name" placeholder="Enter your first name" />
+            <x-text-input id="first-name" name="first-name" placeholder="Enter your first name" value="{{ $first_name }}"/>
             <x-input-error :messages="[]" />
           </div>
 
           <div class="mb-6">
             <x-input-label for="last-name" :value="__('Last name')"/>
-            <x-text-input id="last-name" name="last-name" placeholder="Enter your last name" />
+            <x-text-input id="last-name" name="last-name" placeholder="Enter your last name" value="{{ $last_name }}"/>
             <x-input-error :messages="[]" />
           </div>
 
           <div class="mb-6">
             <x-input-label for="socials" :value="__('Socials')"/>
-            <x-text-input id="socials" name="socials" placeholder="Facebook, Instagram, Line" />
+            <x-text-input id="socials" name="socials" placeholder="Facebook, Instagram, Line" value="{{ Auth::user()->social }}"/>
             <x-input-error :messages="[]" />
           </div>
 
