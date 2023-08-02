@@ -73,17 +73,6 @@ class OrganizerController extends Controller
             'poster' => 'required|file|mimes:jpeg,bmp,png',
         ]);
 
-        // // Handle file upload
-        // $poster_path = $request->file('poster')->store('posters', 'public');
-
-        // // Create a new event
-        // $event = new Event([
-        //     'event_name' => $request->input('name'),
-        //     'event_description' => $request->input('description'),
-        //     'location' => $request->input('address'),
-        //     'date' => $request->input('date'),
-        //     'poster_image' => $poster_path,
-        // ]);
         $poster_path = $request->file('poster')->store('posters', 'public');
         $event = new Event;
         $event->event_name = $request->get('name');
@@ -94,9 +83,10 @@ class OrganizerController extends Controller
 
         // Associate the event with the organizer
         $organizer->events()->save($event);
+        $events = $organizer->events;
 
         // Redirect back with success message
-        return redirect()->view('organizer.events', compact('organizer'))->with('success', 'Event successfully created.');
+        return redirect()->route('organizer.events', compact('events', 'organizer'))->with('success', 'Event successfully created.');
     }
 
     /**
