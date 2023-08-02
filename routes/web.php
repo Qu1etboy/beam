@@ -21,8 +21,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [EventController::class, 'index'])->name('index');
-Route::get('/event', [EventController::class, 'show'])->name('event-detail');
+Route::get('/', function () {
+    return view('index');
+})->name('index');
+Route::get('/event', function () {
+    return view('event-detail');
+})->name('event-detail');
 Route::get('/orders', [UserController::class, 'orders'])->name('orders');
 Route::get('/settings', [UserController::class, 'settings'])->name('settings');
 Route::put('/settings', [UserController::class, 'update'])->name('settings.update');
@@ -38,84 +42,36 @@ Route::prefix('organizer/{organizer}')->group(function () {
     Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');
     Route::post('/members/add', [OrganizerController::class, 'addMember'])->name('organizer.add-member');
     // Define routes related to event
-    Route::prefix('events/{event}')->group(function () {
-        Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
-        Route::post('/information', [EventController::class, 'information'])->name('organizer.event.information');
-        Route::get('/financial', [OrderController::class, 'financial'])->name('organizer.event.financial');
-        Route::post('/order/add', [OrderController::class, 'addOrder'])->name('organizer.event.add-order');
-        Route::get('/participants', [EventController::class, 'participants'])->name('organizer.event.participants');
+    Route::group(['prefix' => 'events'], function () {
+        Route::get('/dashboard', function () {
+            return view('organizer.event.dashboard');
+        })->name('organizer.event.dashboard');
+        Route::get('/information', function () {
+            return view('organizer.event.information');
+        })->name('organizer.event.information');
+        Route::get('/financial', function () {
+            return view('organizer.event.financial');
+        })->name('organizer.event.financial');
+        Route::get('/order/add', function () {
+            return view('organizer.event.add-order');
+        })->name('organizer.event.add-order');
+        Route::get('/participants', function () {
+            return view('organizer.event.participants');
+        })->name('organizer.event.participants');
         // Define routes related to event tasks
-        Route::prefix('tasks')->group(function () {
-            Route::get('/board', [TaskController::class, 'board'])->name('organizer.event.tasks.board');
-            Route::get('/list', [TaskController::class, 'list'])->name('organizer.event.tasks.list');
-            Route::post('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
+        Route::group(['prefix' => 'tasks'], function () {
+            Route::get('/board', function () {
+                return view('organizer.event.tasks.board');
+            })->name('organizer.event.tasks.board');
+            Route::get('/list', function () {
+                return view('organizer.event.tasks.list');
+            })->name('organizer.event.tasks.list');
+            Route::get('/add', function () {
+                return view('organizer.event.tasks.add');
+            })->name('organizer.event.tasks.add');
         });
     });
 });
-
-// ------------------- 1 -------------------
-
-// Route::get('/', function () {
-//     return view('index');
-// })->name('index');
-// Route::get('/event', function () {
-//     return view('event-detail');
-// })->name('event-detail');
-// Route::get('/orders', function () {
-//     return view('orders');
-// })->name('orders');
-// Route::get('/settings', function () {
-//     return view('settings');
-// })->name('settings');
-
-// Define routes related to organizer
-// Route::group(['prefix' => 'organizer'], function () {
-    // Route::get('/', function () {
-    //     return view('organizer.home');
-    // })->name('organizer.home');
-    // Route::get('/create', function () {
-    //     return view('organizer.create-organization');
-    // })->name('organizer.create-organization');
-//     Route::get('/events', function () {
-//         return view('organizer.events');
-//     })->name('organizer.events');
-//     Route::get('/events/create', function () {
-//         return view('organizer.create-event');
-//     })->name('organizer.create-event');
-//     Route::get('/members', function () {
-//         return view('organizer.members');
-//     })->name('organizer.members');
-//     // Define routes related to event
-//     Route::group(['prefix' => 'events'], function () {
-//         Route::get('/dashboard', function () {
-//             return view('organizer.event.dashboard');
-//         })->name('organizer.event.dashboard');
-//         Route::get('/information', function () {
-//             return view('organizer.event.information');
-//         })->name('organizer.event.information');
-//         Route::get('/financial', function () {
-//             return view('organizer.event.financial');
-//         })->name('organizer.event.financial');
-//         Route::get('/order/add', function () {
-//             return view('organizer.event.add-order');
-//         })->name('organizer.event.add-order');
-//         Route::get('/participants', function () {
-//             return view('organizer.event.participants');
-//         })->name('organizer.event.participants');
-//         // Define routes related to event tasks
-//         Route::group(['prefix' => 'tasks'], function () {
-//             Route::get('/board', function () {
-//                 return view('organizer.event.tasks.board');
-//             })->name('organizer.event.tasks.board');
-//             Route::get('/list', function () {
-//                 return view('organizer.event.tasks.list');
-//             })->name('organizer.event.tasks.list');
-//             Route::get('/add', function () {
-//                 return view('organizer.event.tasks.add');
-//             })->name('organizer.event.tasks.add');
-//         });
-//     });
-// });
 
 // Define routes for profile operations with auth middleware
 Route::middleware('auth')->group(function () {

@@ -14,8 +14,8 @@ class UserController extends Controller
     public function orders()
     {
         $user = User::find(Auth::id());
-        $orders = $user->joinedEvents()->get();
-        return view('orders', compact('orders'));
+        $events = $user->joinedEvents()->get();
+        return view('orders', compact('events'));
     }
 
     /**
