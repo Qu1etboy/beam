@@ -46,21 +46,26 @@ class UserController extends Controller
 
         if ($request->hasFile('profile')) {
             $file = $request->file('profile');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('avatars'), $filename);
+
+            $path = $file->storeAs(
+                'public/avatars',
+                $user->id . '.' . $file->getClientOriginalExtension()
+            );
+        
+            $filePath = str_replace('public/', '', $path);
 
             // Update avatar field in user model
-            $user->avatar = 'avatars/' . $filename;
+            $user->avatar = $filePath;
         }
 
         // update certificates
         if ($request->hasFile('certificates')) {
             $file = $request->file('certificates');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('certificates'), $filename);
+            
+            $filePath = $request->file('certificates')->store('certificates', 'public');
 
             // Update certificates field in user model
-            $user->certificate = 'certificates/' . $filename;
+            $user->certificate = $filePath;
         }
 
         // update other fields
