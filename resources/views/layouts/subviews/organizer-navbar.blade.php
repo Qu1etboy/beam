@@ -19,7 +19,7 @@
                   <x-dropdown align="right" width="48">
                       <x-slot name="trigger">
                           <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80" alt="user avatar" class="rounded-full object-cover h-10 w-10">
+                                <x-user-avatar :profile_url="Auth::user()->avatar" class="w-10 h-10" />
                           </button>
                       </x-slot>
 

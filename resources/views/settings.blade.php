@@ -12,7 +12,7 @@
       @method('PUT')
       <div>
         <div class="flex gap-5">
-          <img src="{{ Auth::user()->avatar }}" alt="user avatar" class="rounded-full object-cover h-20 w-20">
+          <x-user-avatar :profile_url="Auth::user()->avatar" class="w-20 h-20" />
           <div class="mb-6">
             <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Upload profile picture</label>
             <x-file-input accept="image/*" id="profile" name="profile" />
