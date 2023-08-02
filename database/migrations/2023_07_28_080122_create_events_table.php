@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('event_description');
             $table->string('poster_image');
             $table->string('location');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }

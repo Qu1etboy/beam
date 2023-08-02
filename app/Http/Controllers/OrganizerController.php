@@ -33,12 +33,9 @@ class OrganizerController extends Controller
      */
     public function storeOrganization(Request $request)
     {
-        $request->validate([
-            'organizer_name' => 'required|string|max:255',
-        ]);
         $user = User::find(Auth::id());
         $organization = new Organizer;
-        $organization->organizer_name = $request->name;
+        $organization->organizer_name = $request->get('name');
         $organization->owner_id = $user->id;
         $organization->save();
 
@@ -67,17 +64,39 @@ class OrganizerController extends Controller
      */
     public function storeEvent(Request $request, Organizer $organizer)
     {
+        // Validate the request
         $request->validate([
-            'event_name' => 'required|string|max:255',
-            // Add other event fields here as needed
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'address' => 'required|string',
+            'date' => 'required|date',
+            'poster' => 'required|file|mimes:jpeg,bmp,png',
         ]);
-        $event = new Event;
-        $event->event_name = $request->event_name;
-        // Add other event fields here as needed
-        $event->organizer_id = $organizer->id;
-        $event->save();
 
-        return redirect()->route('organizer.events', ['organizer' => $organizer->id]);
+        // // Handle file upload
+        // $poster_path = $request->file('poster')->store('posters', 'public');
+
+        // // Create a new event
+        // $event = new Event([
+        //     'event_name' => $request->input('name'),
+        //     'event_description' => $request->input('description'),
+        //     'location' => $request->input('address'),
+        //     'date' => $request->input('date'),
+        //     'poster_image' => $poster_path,
+        // ]);
+        $poster_path = $request->file('poster')->store('posters', 'public');
+        $event = new Event;
+        $event->event_name = $request->get('name');
+        $event->event_description = $request->get('description');
+        $event->location = $request->get('address');
+        $event->date = $request->get('date');
+        $event->poster_image = $poster_path;
+
+        // Associate the event with the organizer
+        $organizer->events()->save($event);
+
+        // Redirect back with success message
+        return redirect()->view('organizer.events', compact('organizer'))->with('success', 'Event successfully created.');
     }
 
     /**
@@ -106,6 +125,4 @@ class OrganizerController extends Controller
         // Redirect back with success message
         return redirect()->back()->with('success', 'Member successfully added.');
     }
-
-
 }
