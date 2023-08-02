@@ -24,6 +24,52 @@ class UserController extends Controller
     public function settings()
     {
         $user = User::find(Auth::id());
-        return view('settings', compact('user'));
+
+        // split the name into first and last
+        $name = explode(' ', $user->name, 2);
+        $first_name = $name[0];
+        $last_name = $name[1];
+
+        return view('settings', compact('user', 'first_name', 'last_name'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        // $request->validate([
+        //     'name' => 'required|max:255',
+        //     // 'email' => 'required|email|max:255|unique:users,email,' . $user->id, // This line enforces unique emails and ignores the current user
+        //     'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'certificate' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+
+        $user = User::find(Auth::id());
+
+        if ($request->hasFile('profile')) {
+            $file = $request->file('profile');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('avatars'), $filename);
+
+            // Update avatar field in user model
+            $user->avatar = 'avatars/' . $filename;
+        }
+
+        // update certificates
+        if ($request->hasFile('certificates')) {
+            $file = $request->file('certificates');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('certificates'), $filename);
+
+            // Update certificates field in user model
+            $user->certificate = 'certificates/' . $filename;
+        }
+
+        // update other fields
+        $user->name = $request->input('first-name') . ' ' . $request->input('last-name');
+        // $user->email = Auth::user()->email;
+        $user->social = $request->input('socials');
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }

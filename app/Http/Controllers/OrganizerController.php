@@ -64,15 +64,6 @@ class OrganizerController extends Controller
      */
     public function storeEvent(Request $request, Organizer $organizer)
     {
-        // Validate the request
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'address' => 'required|string',
-            'date' => 'required|date',
-            'poster' => 'required|file|mimes:jpeg,bmp,png',
-        ]);
-
         $poster_path = $request->file('poster')->store('posters', 'public');
         $event = new Event;
         $event->event_name = $request->get('name');
@@ -87,6 +78,29 @@ class OrganizerController extends Controller
 
         // Redirect back with success message
         return redirect()->route('organizer.events', compact('events', 'organizer'))->with('success', 'Event successfully created.');
+
+        // $file = $request->file('poster');
+        // $path = $file->storeAs(
+        //     'public/images',
+        //     $request->get('name') . '.' . $file->getClientOriginalExtension()
+        // );
+
+        // $filePath = str_replace('public/', '', $path);
+
+        // $event = new Event;
+        // $event->event_name = $request->get('name');
+        // $event->event_description = gettype($request->get('description'));
+        // $event->location = $request->get('address');
+        // $event->date = $request->get('date');
+        // $event->poster_image = $filePath;
+
+        // // Associate the event with the organizer
+        // $organizer->events()->save($event);
+        // $events = $organizer->events;
+
+        // // Redirect back with success message
+        // return redirect()->route('organizer.events', compact('events', 'organizer'))->with('success', 'Event successfully created.');
+    
     }
 
     /**

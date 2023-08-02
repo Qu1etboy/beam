@@ -25,6 +25,7 @@ Route::get('/', [EventController::class, 'index'])->name('index');
 Route::get('/event', [EventController::class, 'show'])->name('event-detail');
 Route::get('/orders', [UserController::class, 'orders'])->name('orders');
 Route::get('/settings', [UserController::class, 'settings'])->name('settings');
+Route::put('/settings', [UserController::class, 'update'])->name('settings.update');
 Route::get('/organizer', [OrganizerController::class, 'home'])->name('organizer.home');
 Route::get('/organizer/create', [OrganizerController::class, 'createOrganization'])->name('organizer.create-organization');
 Route::post('/organizer/create', [OrganizerController::class, 'storeOrganization'])->name('organizer.store-organization');
