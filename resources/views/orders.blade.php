@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'My Orders - Beam')
+
 @section('content')
 <div class="container mx-auto p-3">
     <h1 class="font-bold text-4xl my-3">My Orders</h1>

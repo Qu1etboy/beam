@@ -1,5 +1,7 @@
 @extends('layouts.event')
 
+@section('title', 'Add order - Beam Organizer')
+
 @section('sub-content')
 <div class="p-3">
     <h1 class="font-bold text-4xl my-3">Add Order</h1>
@@ -14,7 +16,7 @@
         <input type="number" min="0" id="cost" placeholder="Cost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
       </div>
 
-      <button type="submit" class="text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Add order</button>
+       <x-buttons.primary type="submit">Add order</x-buttons.primary>
     </form>
 
 </div>

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>@yield('title')</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -14,5 +14,13 @@
     </head>
     <body>
       @yield('body')
+
+      <!-- CK Editor -->
+      <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ckeditor').ckeditor();
+        });
+      </script>
     </body>
 </html>

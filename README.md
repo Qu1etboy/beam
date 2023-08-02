@@ -53,11 +53,6 @@ Create sail alias first if you haven't
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 ```
 
-Copy .env.example to .env
-```sh
-cp .env.example .env
-```
-
 Run all container
 
 ```sh

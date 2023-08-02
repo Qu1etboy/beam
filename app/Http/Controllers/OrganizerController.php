@@ -38,7 +38,7 @@ class OrganizerController extends Controller
         ]);
         $user = User::find(Auth::id());
         $organization = new Organizer;
-        $organization->organizer_name = $request->organizer_name;
+        $organization->organizer_name = $request->name;
         $organization->owner_id = $user->id;
         $organization->save();
 

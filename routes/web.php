@@ -122,6 +122,17 @@ Route::middleware('auth')->group(function () {
 });
 
 /**
+ * Test get rich text editor content
+ */
+Route::post('/test/create/event', function (Request $request) {
+
+    // Rich text editor content -> HTML
+    $description = $request->get('description');
+    
+    return gettype($description); // It a string!
+})->name('test.create.event');
+
+/**
  * Sample on how to upload a file in laravel
  */
 Route::post('/test/file', function (Request $request) {

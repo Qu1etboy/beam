@@ -1,5 +1,7 @@
 @extends('layouts.event')
 
+@section('title', 'Financial - Beam Organizer')
+
 @section('sub-content')
 <div class="p-3">
     <div class="flex justify-between">
@@ -7,8 +9,8 @@
       <div class="flex items-center gap-3">
         <a href="{{ route('organizer.event.add-order') }}" class="underline ">Add order</a>
         <form>
-          <button type="submit" class="text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2">Export</button>
-        </form>
+          <x-buttons.primary type="submit">Export</x-buttons.primary>
+        </form> 
       </div>
     </div>
 
