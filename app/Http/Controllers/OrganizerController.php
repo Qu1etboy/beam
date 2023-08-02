@@ -51,7 +51,7 @@ class OrganizerController extends Controller
     public function events(Organizer $organizer)
     {
         $events = $organizer->events;
-        return view('organizer.events', compact('events'));
+        return view('organizer.events', compact('events', 'organizer'));
     }
 
     /**
@@ -71,7 +71,6 @@ class OrganizerController extends Controller
             'event_name' => 'required|string|max:255',
             // Add other event fields here as needed
         ]);
-
         $event = new Event;
         $event->event_name = $request->event_name;
         // Add other event fields here as needed
@@ -87,6 +86,26 @@ class OrganizerController extends Controller
     public function members(Organizer $organizer)
     {
         $members = $organizer->members;
-        return view('organizer.members', compact('members'));
+        return view('organizer.members', compact('members', 'organizer'));
     }
+
+    /**
+     * Add a new member to the organizer by email.
+     */
+    public function addMember(Request $request, Organizer $organizer)
+    {
+        // Find the user by email
+        $user = User::where('email', $request->get('email'))->first();
+        // Check if the user is already a member of the organizer
+        if ($organizer->members->contains($user)) {
+            // Redirect back with error if the user is already a member
+            return redirect()->back()->with('error', 'This user is already a member of the organizer.');
+        }
+        // Add the user to the members of the organizer
+        $organizer->members()->attach($user);
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Member successfully added.');
+    }
+
+
 }

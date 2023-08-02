@@ -33,7 +33,8 @@ Route::post('/organizer/create', [OrganizerController::class, 'storeOrganization
 Route::prefix('organizer/{organizer}')->group(function () {
     Route::get('/', [OrganizerController::class, 'events'])->name('organizer.events');
     Route::post('/events/create', [OrganizerController::class, 'createEvent'])->name('organizer.create-event');
-    Route::post('/members', [OrganizerController::class, 'members'])->name('organizer.members');
+    Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');
+    Route::post('/members/add', [OrganizerController::class, 'addMember'])->name('organizer.add-member');
     // Define routes related to event
     Route::prefix('events/{event}')->group(function () {
         Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
