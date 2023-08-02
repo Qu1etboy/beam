@@ -7,7 +7,7 @@
     <form class="mt-8">
       <div>
         <div class="flex gap-5">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80" alt="user avatar" class="rounded-full object-cover h-20 w-20">
+          <img src="{{ $user->avatar }}" alt="user avatar" class="rounded-full object-cover h-20 w-20">
           <div class="mb-6">
             <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Upload profile picture</label>
             <input type="file" accept="image/*" id="profile" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full file:bg-gray-100 file:mr-4 file:border-0 file:transparent file:py-3 file:px-4">
@@ -18,12 +18,7 @@
 
           <div class="mb-6">
             <label for="first-name" class="block mb-2 text-sm font-medium text-gray-900">First name</label>
-            <input type="text" id="first-name" placeholder="Enter your first name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
-          </div>
-
-          <div class="mb-6">
-            <label for="last-name" class="block mb-2 text-sm font-medium text-gray-900">Last name</label>
-            <input type="text" id="last-name" placeholder="Enter your last name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+            <input type="text" id="first-name" placeholder="Enter your first name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required value="{{ $user->name }}">
           </div>
 
           <div class="mb-6">
