@@ -13,7 +13,7 @@
           <div class="p-3 border-b">Order no. #{{ $loop->iteration }}</div>
           <div class="flex p-3">
             <img 
-              src="{{ $event->poster_image }}" 
+              src="{{ file_exists('storage/' . $event->poster_image) ? asset('storage/' . $event->poster_image) : $event->poster_image }}" 
               alt="poster"
               class="rounded-lg object-cover" 
               width="125"

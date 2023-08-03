@@ -53,7 +53,7 @@ Route::prefix('organizer/{organizer}')->group(function () {
     });
 });
 
-// ------------------- 1 -------------------
+// ------------------- for show view -------------------
 
 // Route::get('/', function () {
 //     return view('index');
