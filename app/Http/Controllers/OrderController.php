@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Organizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -37,5 +38,50 @@ class OrderController extends Controller
         $event->orders()->save($order);
 
         return redirect()->route('organizer.event.financial', ['organizer' => $organizer->id, 'event' => $event->id]);
+    }
+
+    /**
+     * Route for export orders into csv file
+     * credit: https://dev.to/techsolutionstuff/how-to-export-csv-file-in-laravel-example-12ip
+     */
+    public function exportOrderToCSV(Organizer $organizer, Event $event) {
+        $fileName = $event->event_name . '-orders.csv';
+        $orders = $event->orders;
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        // Define columns. Add more columns by putting column name in array
+        $columns = array('Detail', 'Cost');
+
+        $callback = function() use($orders, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            // Loop data into each row
+            foreach ($orders as $order) {
+                $row['Detail']  = $order->detail;
+                $row['Cost']    = $order->cost;
+
+                fputcsv($file, array($row['Detail'], $row['Cost']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportOrderToPDF(Organizer $organizer, Event $event) {
+        $pdf = PDF::loadView('organizer.event.pdf-order', array('event' => $event))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download($event->event_name . '-orders.pdf');
+
     }
 }
