@@ -31,7 +31,7 @@
         @foreach($members as $member)
           <tr>
             <td class="px-6 py-3">
-              <img src="{{ $member->avatar_url }}" alt="user avatar" class="h-10 w-10 rounded-full object-cover">
+              <img src="{{ file_exists('storage/' . $member->avatar) ? asset('storage/' . $member->avatar) : $member->avatar }}" alt="user avatar" class="h-10 w-10 rounded-full object-cover">
             </td>
             <td class="px-6 py-3">{{ $member->name }}</td>
             <td class="px-6 py-3">{{ $member->email }}</td>

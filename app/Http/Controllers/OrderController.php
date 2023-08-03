@@ -15,8 +15,8 @@ class OrderController extends Controller
      */
     public function financial(Organizer $organizer, Event $event)
     {
-        $orders = $event->orders;
-        return view('organizer.event.financial', compact('organizer', 'event', 'orders'));
+        // $orders = $event->orders;
+        // return view('organizer.event.financial', compact('organizer', 'event', 'orders'));
     }
 
     /**
@@ -24,13 +24,13 @@ class OrderController extends Controller
      */
     public function addOrder(Request $request, Organizer $organizer, Event $event)
     {
-        $validatedData = $request->validate([
-            'detail' => 'required|max:255',
-            'cost' => 'required|numeric|min:0',
-        ]);
-        $order = new Order($validatedData);
-        $event->orders()->save($order);
+        // $validatedData = $request->validate([
+        //     'detail' => 'required|max:255',
+        //     'cost' => 'required|numeric|min:0',
+        // ]);
+        // $order = new Order($validatedData);
+        // $event->orders()->save($order);
 
-        return redirect()->route('organizer.event.dashboard', ['organizer' => $organizer->id, 'event' => $event->id]);
+        // return redirect()->route('organizer.event.dashboard', ['organizer' => $organizer->id, 'event' => $event->id]);
     }
 }

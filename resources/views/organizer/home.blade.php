@@ -6,19 +6,19 @@
     <div class="container mx-auto p-3">
         <h1 class="font-bold text-4xl my-3">Select your organization</h1>
 
-        @if ($organizations->isNotEmpty())
+        @if ($allOrganizations->isNotEmpty())
             <ul class="space-y-4">
-                @foreach ($organizations as $organization)
-                    <a href="{{ route('organizer.events', $organization->id) }}" >
+                @foreach ($allOrganizations as $allOrganization)
+                    <a href="{{ route('organizer.events', $allOrganization->id) }}" >
                         <li
                             class="border rounded-lg px-6 py-4 mb-4 flex justify-between items-center hover:bg-gray-100 transition-colors duration-200">
                             <div>
                                 <h2 class="font-bold text-xl">
-                                    {{ $organization->organizer_name }}
+                                    {{ $allOrganization->organizer_name }}
                                 </h2>
                             </div>
                             <div class="text-gray-600">
-                                {{ $organization->owner->name }}
+                                {{ $allOrganization->owner->name }}
                             </div>
                         </li>
                     </a>

@@ -24,12 +24,10 @@ class UserController extends Controller
     public function settings()
     {
         $user = User::find(Auth::id());
-
         // split the name into first and last
         $name = explode(' ', $user->name, 2);
         $first_name = $name[0];
         $last_name = $name[1];
-
         return view('settings', compact('user', 'first_name', 'last_name'));
     }
 
@@ -41,22 +39,18 @@ class UserController extends Controller
         //     'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         //     'certificate' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         // ]);
-
         $user = User::find(Auth::id());
-
         if ($request->hasFile('profile')) {
             $file = $request->file('profile');
             $path = $file->storeAs(
                 'public/avatars',
                 $user->id . '.' . $file->getClientOriginalExtension()
             );
-
             $filePath = str_replace('public/', '', $path);
 
             // Update avatar field in user model
             $user->avatar = $filePath;
         }
-
         // update certificates
         if ($request->hasFile('certificates')) {
             $file = $request->file('certificates');
@@ -65,14 +59,11 @@ class UserController extends Controller
             // Update certificates field in user model
             $user->certificate = $filePath;
         }
-
         // update other fields
         $user->name = $request->input('first-name') . ' ' . $request->input('last-name');
         // $user->email = Auth::user()->email;
         $user->social = $request->input('socials');
-
         $user->save();
-
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }
