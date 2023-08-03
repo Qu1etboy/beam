@@ -15,14 +15,18 @@ class OrderController extends Controller
      */
     public function financial(Organizer $organizer, Event $event)
     {
-        // $orders = $event->orders;
-        // return view('organizer.event.financial', compact('organizer', 'event', 'orders'));
+        $orders = $event->orders;
+        return view('organizer.event.financial', compact('organizer', 'event', 'orders'));
+    }
+
+    public function addOrder(Organizer $organizer, Event $event) {
+        return view('organizer.event.add-order', compact('organizer', 'event'));
     }
 
     /**
      * Store a newly created order for the given event.
      */
-    public function addOrder(Request $request, Organizer $organizer, Event $event)
+    public function storeOrder(Request $request, Organizer $organizer, Event $event)
     {
         // $validatedData = $request->validate([
         //     'detail' => 'required|max:255',
