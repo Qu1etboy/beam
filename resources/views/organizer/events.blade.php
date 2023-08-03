@@ -18,7 +18,7 @@
             <x-event-card 
                 {{-- :href="route('event.show', $event->id)"  --}}
                 :href="__('/event')"
-                :poster="asset('storage/public/' . $event->poster_image)"
+                :poster="asset('storage/' . $event->poster_image)"
                 :date="$event->created_at->format('D, d M')"
                 :title="$event->event_name"
                 :location="$event->location"

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Organizer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +15,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::get();
+        $events = Event::paginate(10);
         return view('index', compact('events'));
     }
 
@@ -31,7 +33,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('event-detail', compact('event'));
+        $owner = $event->organizer->owner;
+        return view('event-detail', ['event' => $event, 'owner' => $owner]);
     }
 
     /**
@@ -48,6 +51,11 @@ class EventController extends Controller
     public function information(Organizer $organizer, Event $event)
     {
         return view('organizer.event.information', compact('organizer', 'event'));
+    }
+
+    public function updateInformation(Request $request, Organizer $organizer, Event $event)
+    {
+
     }
 
     /**

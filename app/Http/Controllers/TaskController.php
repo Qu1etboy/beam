@@ -15,11 +15,6 @@ class TaskController extends Controller
      */
     public function board(Organizer $organizer, Event $event)
     {
-        // Ensure that the organizer owns the event
-        if ($organizer->id !== $event->organizer_id) {
-            return redirect()->route('organizer.home');
-        }
-
         $tasks = $event->tasks;
         return view('organizer.event.tasks.board', compact('organizer', 'event', 'tasks'));
     }
@@ -29,11 +24,6 @@ class TaskController extends Controller
      */
     public function list(Organizer $organizer, Event $event)
     {
-        // Ensure that the organizer owns the event
-        if ($organizer->id !== $event->organizer_id) {
-            return redirect()->route('organizer.home');
-        }
-
         $tasks = $event->tasks;
         return view('organizer.event.tasks.list', compact('organizer', 'event', 'tasks'));
     }

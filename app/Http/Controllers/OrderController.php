@@ -15,11 +15,6 @@ class OrderController extends Controller
      */
     public function financial(Organizer $organizer, Event $event)
     {
-        // Ensure that the organizer owns the event
-        if ($organizer->id !== $event->organizer_id) {
-            return redirect()->route('organizer.home');
-        }
-
         $orders = $event->orders;
         return view('organizer.event.financial', compact('organizer', 'event', 'orders'));
     }
@@ -29,16 +24,10 @@ class OrderController extends Controller
      */
     public function addOrder(Request $request, Organizer $organizer, Event $event)
     {
-        // Ensure that the organizer owns the event
-        if ($organizer->id !== $event->organizer_id) {
-            return redirect()->route('organizer.home');
-        }
-
         $validatedData = $request->validate([
             'detail' => 'required|max:255',
             'cost' => 'required|numeric|min:0',
         ]);
-
         $order = new Order($validatedData);
         $event->orders()->save($order);
 
