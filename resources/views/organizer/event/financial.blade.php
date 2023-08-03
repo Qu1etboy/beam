@@ -7,7 +7,7 @@
     <div class="flex justify-between">
       <h1 class="font-bold text-4xl my-3">Financial</h1>
       <div class="flex items-center gap-3">
-        <a href="{{ route('organizer.event.add-order') }}" class="underline ">Add order</a>
+        <a href="{{ route('organizer.event.add-order', ['organizer' => $organizer->id, 'event' => $event->id]) }}" class="underline ">Add order</a>
         <form>
           <x-buttons.primary type="submit">Export</x-buttons.primary>
         </form> 
