@@ -46,12 +46,10 @@ class UserController extends Controller
 
         if ($request->hasFile('profile')) {
             $file = $request->file('profile');
-
             $path = $file->storeAs(
                 'public/avatars',
                 $user->id . '.' . $file->getClientOriginalExtension()
             );
-        
             $filePath = str_replace('public/', '', $path);
 
             // Update avatar field in user model
@@ -61,7 +59,6 @@ class UserController extends Controller
         // update certificates
         if ($request->hasFile('certificates')) {
             $file = $request->file('certificates');
-            
             $filePath = $request->file('certificates')->store('certificates', 'public');
 
             // Update certificates field in user model
