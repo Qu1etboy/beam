@@ -81,7 +81,7 @@ class OrderController extends Controller
         $pdf = PDF::loadView('organizer.event.pdf-order', array('event' => $event))
             ->setPaper('a4', 'portrait');
 
-        return $pdf->download('orders.pdf');
+        return $pdf->download($event->event_name . '-orders.pdf');
 
     }
 }
