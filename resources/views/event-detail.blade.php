@@ -42,10 +42,10 @@
     </div>
 
     <section class="container mx-auto p-3 my-5">
-      <h2 class="text-3xl font-bold my-3">Event Description</h2>
-      <p>  
-        {{ $event->event_description }}
-      </p>
+      {{-- <h2 class="text-3xl font-bold my-3">Event Description</h2> --}}
+      <article class="prose">  
+        {!! $event->event_description !!}
+      </article>
       <form class="mt-8">
         @if(true)
           <h2 class="text-3xl font-bold my-3">Questions</h2>
