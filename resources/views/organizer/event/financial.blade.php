@@ -9,7 +9,7 @@
       <div class="flex items-center gap-3">
         <a href="{{ route('organizer.event.add-order', ['organizer' => $organizer->id, 'event' => $event->id]) }}" class="underline ">Add order</a>
         
-        <x-dropdown align="right" width="48">
+        <x-dropdown align="right" width="48" class="print:hidden">
           <x-slot name="trigger">
               <x-buttons.primary type="submit" class="flex jutify-center items-center gap-2">
                 <span>Export</span>
@@ -19,15 +19,36 @@
           </x-slot>
 
           <x-slot name="content">
-              <x-dropdown-link>{{ __('Export as PDF') }}</x-dropdown-link>
-              <form action="{{ route('organizer.event.export-order-csv', ['organizer' => $organizer->id, 'event' => $event])}}" method="POST">
+              <form id="pdf-form" action="{{ route('organizer.event.export-order-pdf', ['organizer' => $organizer->id, 'event' => $event])}}" method="POST">
+                  @csrf
+                  <x-dropdown-link :href="route('organizer.event.export-order-pdf', ['organizer' => $organizer->id, 'event' => $event])"
+                          onclick="event.preventDefault(); document.getElementById('pdf-form').submit();">
+                      {{ __('Export as PDF') }}
+                  </x-dropdown-link>
+              </form>
+              <form id="csv-form" action="{{ route('organizer.event.export-order-csv', ['organizer' => $organizer->id, 'event' => $event])}}" method="POST">
+                  @csrf
+                  <x-dropdown-link :href="route('organizer.event.export-order-csv', ['organizer' => $organizer->id, 'event' => $event])"
+                          onclick="event.preventDefault(); document.getElementById('csv-form').submit();">
+                      {{ __('Export as CSV') }}
+                  </x-dropdown-link>
+              </form>
+              {{-- <form action="{{ route('organizer.event.export-order-pdf', ['organizer' => $organizer->id, 'event' => $event])}}" method="POST">
+                  @csrf
+                  <x-dropdown-link :href="route('organizer.event.export-order-pdf', ['organizer' => $organizer->id, 'event' => $event])"
+                          onclick="event.preventDefault();
+                                      this.closest('form').submit();">
+                      {{ __('Export as PDF') }}
+                  </x-dropdown-link>
+              </form> --}}
+              {{-- <form action="{{ route('organizer.event.export-order-csv', ['organizer' => $organizer->id, 'event' => $event])}}" method="POST">
                   @csrf
                   <x-dropdown-link :href="route('organizer.event.export-order-csv', ['organizer' => $organizer->id, 'event' => $event])"
                           onclick="event.preventDefault();
                                       this.closest('form').submit();">
                       {{ __('Export as CSV') }}
                   </x-dropdown-link>
-              </form>
+              </form> --}}
           </x-slot>
         </x-dropdown>
       </div>

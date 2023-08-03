@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Organizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -74,5 +75,13 @@ class OrderController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportOrderToPDF(Organizer $organizer, Event $event) {
+        $pdf = PDF::loadView('organizer.event.pdf-order', array('event' => $event))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('orders.pdf');
+
     }
 }

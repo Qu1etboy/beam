@@ -46,6 +46,8 @@ Route::prefix('organizer/{organizer}')->group(function () {
         Route::get('/order/add', [OrderController::class, 'addOrder'])->name('organizer.event.add-order');
         Route::post('/order/store', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');
         Route::post('/order/export-csv', [OrderController::class, 'exportOrderToCSV'])->name('organizer.event.export-order-csv');
+        Route::post('/order/export-pdf', [OrderController::class, 'exportOrderToPDF'])->name('organizer.event.export-order-pdf');
+        
         Route::get('/participants', [EventController::class, 'participants'])->name('organizer.event.participants');
         // Define routes related to event tasks
         Route::prefix('tasks')->group(function () {
