@@ -50,7 +50,6 @@ class UserController extends Controller
                 'public/avatars',
                 $user->id . '.' . $file->getClientOriginalExtension()
             );
-
             $filePath = str_replace('public/', '', $path);
 
             // Update avatar field in user model
