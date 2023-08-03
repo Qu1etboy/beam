@@ -17,26 +17,26 @@
     <table class="w-full">
       <thead class="bg-gray-50 text-left">
         <tr>
-          <th class="px-6 py-3">Id</th>
+          <th class="px-6 py-3">#</th>
           <th class="px-6 py-3">Detail</th>
           <th class="px-6 py-3">Cost</th>
         </tr>
       </thead>
 
       <tbody>
-        @for($i = 0; $i < 5; $i++)
+        @foreach($event->orders as $order)
           <tr>
-            <td class="px-6 py-3">{{ $i }}</td>
-            <td class="px-6 py-3">ป้ายไวนิล</td>
-            <td class="px-6 py-3">40</td>
+            <td class="px-6 py-3">{{ $loop->iteration }}</td>
+            <td class="px-6 py-3">{{ $order->detail }}</td>
+            <td class="px-6 py-3">{{ $order->cost }}</td>
           </tr>  
-        @endfor
+        @endforeach
       </tbody>
     
     </table>
 
     <div class="text-right mt-3">
-      <p>Total cost : 999 Baht</p>
+      <p>Total cost : {{ $event->getTotalOrderCost() }} Baht</p>
     </div>
 
 </div>
