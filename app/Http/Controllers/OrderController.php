@@ -28,13 +28,14 @@ class OrderController extends Controller
      */
     public function storeOrder(Request $request, Organizer $organizer, Event $event)
     {
-        // $validatedData = $request->validate([
-        //     'detail' => 'required|max:255',
-        //     'cost' => 'required|numeric|min:0',
-        // ]);
-        // $order = new Order($validatedData);
-        // $event->orders()->save($order);
+        $validatedData = $request->validate([
+            'detail' => 'required|max:255',
+            'cost' => 'required|numeric|min:0',
+        ]);
+        
+        $order = new Order($validatedData);
+        $event->orders()->save($order);
 
-        // return redirect()->route('organizer.event.dashboard', ['organizer' => $organizer->id, 'event' => $event->id]);
+        return redirect()->route('organizer.event.financial', ['organizer' => $organizer->id, 'event' => $event->id]);
     }
 }

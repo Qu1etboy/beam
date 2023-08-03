@@ -43,4 +43,13 @@ class Event extends Model
         return $this->belongsToMany(User::class, 'event_user', 'event_id', 'user_id')
             ->withPivot('status');
     }
+
+    /**
+     * Find a total cost of order in specified event
+     */
+    public function getTotalOrderCost() {
+        return $this->orders->pluck('cost')->reduce(function ($carry, $num) {
+            return $carry + $num;
+        }, 0);
+    }
 }

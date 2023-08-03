@@ -44,7 +44,7 @@ Route::prefix('organizer/{organizer}')->group(function () {
         Route::get('/information', [EventController::class, 'information'])->name('organizer.event.information');
         Route::get('/financial', [OrderController::class, 'financial'])->name('organizer.event.financial');
         Route::get('/order/add', [OrderController::class, 'addOrder'])->name('organizer.event.add-order');
-        Route::post('/order/add', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');
+        Route::post('/order/store', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');
         Route::get('/participants', [EventController::class, 'participants'])->name('organizer.event.participants');
         // Define routes related to event tasks
         Route::prefix('tasks')->group(function () {
