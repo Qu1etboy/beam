@@ -31,7 +31,9 @@ class EventFactory extends Factory
             'event_description' => $this->faker->paragraph,
             'poster_image' => $this->faker->imageUrl(),
             'location' => $this->faker->city,
-            'date' => $this->faker->dateTimeBetween('now', '+1 year'),
+            'start_date' => $this->faker->dateTimeBetween('now', '+1 year'),
+            'end_date' => $this->faker->dateTimeBetween('now', '+2 year'),
+            'is_published' => true,
         ];
     }
 }
