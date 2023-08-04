@@ -1,7 +1,7 @@
 <header class="p-3 border-b">
   <nav class="container mx-auto flex justify-between items-center">
     <div class="flex gap-5">
-      <a href="{{ route('index') }}" class="text-3xl font-bold">Beam</a>
+      <a href="{{ route('index') }}" class="text-3xl font-bold">Beam <span class="text-base">for <span class="text-purple-800">Organizer</span></span></a>
     </div>
 
     <div class="flex items-center gap-5">
