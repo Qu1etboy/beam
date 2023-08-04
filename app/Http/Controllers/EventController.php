@@ -10,12 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class EventController extends Controller
 {
     /**
-     * Display a listing of events.
+     * Display a listing of published events.
      */
     public function index()
     {
-        $events = Event::get();
-        $events = Event::paginate(10);
+        $events = Event::where('is_published', true)->paginate(10);
         return view('index', compact('events'));
     }
 
@@ -65,5 +64,17 @@ class EventController extends Controller
     {
         $participants = $event->participants;
         return view('organizer.event.participants', compact('organizer', 'event', 'participants'));
+    }
+
+    /**
+     * Display a listing of the participants for the given event.
+     */
+    public function togglePublish(Organizer $organizer, Event $event)
+    {
+        // Toogle between publish and unpublish
+        $event->is_published = !$event->is_published;
+        $event->save();
+
+        return redirect()->back();
     }
 }

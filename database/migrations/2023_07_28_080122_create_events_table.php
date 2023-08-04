@@ -17,8 +17,12 @@ return new class extends Migration
             $table->string('event_name');
             $table->text('event_description');
             $table->string('poster_image');
-            $table->string('location');
-            $table->dateTime('date');
+            // location, start_date, end_date are null mean "To be announced"
+            $table->string('location')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            // If not published will not show to users
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
         });
     }
