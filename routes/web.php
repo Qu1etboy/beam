@@ -40,7 +40,7 @@ Route::prefix('organizer/{organizer}')->group(function () {
     // Define routes related to event
     Route::prefix('events/{event}')->group(function () {
         Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
-        Route::post('/information', [EventController::class, 'updateInformation'])->name('organizer.event.update-information');
+        Route::put('/information', [EventController::class, 'updateInformation'])->name('organizer.event.update-information');
         Route::get('/information', [EventController::class, 'information'])->name('organizer.event.information');
         Route::post('/publish',[EventController::class, 'togglePublish'])->name('organizer.event.publish');
         Route::get('/financial', [OrderController::class, 'financial'])->name('organizer.event.financial');

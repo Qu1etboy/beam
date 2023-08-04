@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\User;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,8 +54,29 @@ class EventController extends Controller
     }
 
     public function updateInformation(Request $request, Organizer $organizer, Event $event)
-    {
+    {   
+        $validatedData = $request->validate([
+            'event_name' => ['required'],
+            'event_description' => ['required'],
+            'start_date' => ['nullable', 'date', 'after:tomorrow'],
+            'end_date' => ['nullable', 'date', 'after:start_date'],
+            'location' => ['nullable', 'string'],
+        ]);
 
+        $file = $request->file('poster');
+
+        // If user upload a new poster store in storage and update.
+        if ($file) {
+            $poster_path = $file->store('posters', 'public');
+            $event->poster_image = $poster_path;
+            $event->save();
+        }
+
+        // $poster_path = $request->file('poster')->store('posters', 'public');
+
+        Event::where('id', $event->id)->update($validatedData);
+
+        return redirect()->back();
     }
 
     /**

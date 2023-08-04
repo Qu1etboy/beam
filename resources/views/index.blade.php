@@ -21,7 +21,7 @@
                 <x-event-card 
                     :href="route('event-detail', ['event' => $event])"
                     :poster="file_exists('storage/' . $event->poster_image) ? asset('storage/' . $event->poster_image) : $event->poster_image"
-                    :date="\Carbon\Carbon::parse($event->date)->format('d M Y, H:i')" 
+                    :date="\Carbon\Carbon::parse($event->start_date)->format('d M Y, H:i')" 
                     :title="$event->event_name" 
                     :location="$event->location"
                 />
