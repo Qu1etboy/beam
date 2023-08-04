@@ -74,9 +74,16 @@
       </div>
     </div>
     <div class="mb-6">
-      <x-input-label for="location" :value="__('Event location')"/>
-      <x-text-input id="location" name="location" value="{{ $event->location }}" placeholder="Where is your event hosted?" />
+      <x-input-label for="search-location" :value="__('Event location')"/>
+      <x-text-input id="search-location" name="location" type="text" value="{{ $event->location }}" placeholder="Where is your event hosted?" />
+      {{-- <x-text-input id="location" name="location" value="{{ $event->location }}" placeholder="Where is your event hosted?" /> --}}
       <x-input-error :messages="[]" />
+      <div id="map" class="mt-3 rounded-lg h-[300px]"></div>
+      <!-- Display location description on map-->
+      <div id="infowindow-content" class="hidden">
+        <span id="place-name" class="font-bold"></span><br />
+        <span id="place-address"></span>
+      </div>
     </div>
   </div>
 
