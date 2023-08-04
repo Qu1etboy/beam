@@ -42,6 +42,7 @@ Route::prefix('organizer/{organizer}')->group(function () {
         Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
         Route::post('/information', [EventController::class, 'updateInformation'])->name('organizer.event.update-information');
         Route::get('/information', [EventController::class, 'information'])->name('organizer.event.information');
+        Route::post('/publish',[EventController::class, 'togglePublish'])->name('organizer.event.publish');
         Route::get('/financial', [OrderController::class, 'financial'])->name('organizer.event.financial');
         Route::get('/order/add', [OrderController::class, 'addOrder'])->name('organizer.event.add-order');
         Route::post('/order/store', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');

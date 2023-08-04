@@ -1,5 +1,22 @@
 <aside class="px-3 py-10 bg-white">
-  <h2 class="text-2xl px-2.5 font-bold">{{ $event->event_name }}</h2>
+  <div class="mb-6">
+    <h2 class="text-2xl px-2.5 font-bold">{{ $event->event_name }}</h2>
+    @if ($event->is_published)
+      <span class="bg-green-100 text-green-800 text-xs font-medium ml-2 px-2.5 py-0.5 rounded-full">Published</span>
+    @else 
+      <span class="bg-blue-100 text-blue-800 text-xs font-medium ml-2 px-2.5 py-0.5 rounded-full">Draft</span>
+    @endif
+  </div>
+  <form action="{{ route('organizer.event.publish', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
+    @csrf 
+    @if ($event->is_published)
+      <button type="submit" class="w-full text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Unpublish</button>
+    @else 
+      <button type="submit" class="w-full focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Publish</button>    
+    @endif 
+    </button>
+  </form>
+  
   <div class="space-y-2 py-4">
     <a href="{{ route('organizer.event.dashboard',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.dashboard') ? 'bg-purple-200 block hover:bg-purple-300 rounded-lg px-2.5 py-3' : 'block hover:bg-gray-100 rounded-lg px-2.5 py-3' }}">Dashboard</a>
     <a href="{{ route('organizer.event.information',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.information') ? 'bg-purple-200 block hover:bg-purple-300 rounded-lg px-2.5 py-3' : 'block hover:bg-gray-100 rounded-lg px-2.5 py-3' }}">Information</a>
