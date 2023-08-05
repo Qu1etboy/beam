@@ -33,8 +33,14 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        $user = User::find(Auth::id());
         $owner = $event->organizer->owner;
-        return view('event-detail', ['event' => $event, 'owner' => $owner]);
+        $is_registered = false;
+        if ($user) {
+            // Check if user already registered this event
+            $is_registered = $user->joinedEvents()->find($event->id);
+        }
+        return view('event-detail', ['event' => $event, 'owner' => $owner, 'is_registered' => $is_registered]);
     }
 
     /**
@@ -86,6 +92,32 @@ class EventController extends Controller
     {
         $participants = $event->participants;
         return view('organizer.event.participants', compact('organizer', 'event', 'participants'));
+    }
+
+    /**
+     * Register user to an event.
+     */
+    public function register(Request $request, Event $event)
+    {
+        $user = User::find(Auth::id());
+
+        $joinedEvent = $user->joinedEvents()->find($event->id);
+
+        // If user already registered this event
+        if ($joinedEvent) {
+            abort(409, 'You already registered this event.');
+        }
+
+        // If event ask user to answer question add it
+        if (!$event->registrantQuestions()->count() > 0) {
+            // TODO: add registrant question
+        }
+
+        $event->participants()->attach($user->id);
+
+        $events = $user->joinedEvents()->get();
+        
+        return view('orders', compact('events'));
     }
 
     /**

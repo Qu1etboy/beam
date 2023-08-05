@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [EventController::class, 'index'])->name('index');
 Route::get('/event/{event}', [EventController::class, 'show'])->name('event-detail');
+Route::post('/event/{event}', [EventController::class, 'register'])->name('event-register');
 Route::get('/orders', [UserController::class, 'orders'])->name('orders');
 Route::get('/settings', [UserController::class, 'settings'])->name('settings');
 Route::put('/settings', [UserController::class, 'update'])->name('settings.update');
