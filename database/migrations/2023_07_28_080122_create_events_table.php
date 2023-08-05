@@ -14,9 +14,14 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('organizer_id')->constrained('organizers')->onDelete('cascade');
+            // Name is 100% required. If you don't know what event should be
+            // called then don't create it.
             $table->string('event_name');
-            $table->text('event_description');
-            $table->string('poster_image');
+            // The meaning of event description and poster image can be null
+            // is that sometime organizer don't know what to write or don't 
+            // have any poster to upload yet. So it should allow to be null.
+            $table->text('event_description')->nullable();
+            $table->string('poster_image')->nullable();
             // location, start_date, end_date are null mean "To be announced"
             $table->string('location')->nullable();
             $table->dateTime('start_date')->nullable();
