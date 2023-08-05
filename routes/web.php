@@ -52,6 +52,7 @@ Route::prefix('organizer/{organizer}')->group(function () {
         Route::post('/order/export-pdf', [OrderController::class, 'exportOrderToPDF'])->name('organizer.event.export-order-pdf');
         Route::get('/participants/submission', [EventController::class, 'participantSubmissions'])->name('organizer.event.participants.submission');
         Route::get('/participants/accepted', [EventController::class, 'participantAccepted'])->name('organizer.event.participants.accepted');
+        Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
         // Define routes related to event tasks
         Route::prefix('tasks')->group(function () {
             Route::get('/board', [TaskController::class, 'board'])->name('organizer.event.tasks.board');

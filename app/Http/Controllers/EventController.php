@@ -116,6 +116,24 @@ class EventController extends Controller
     }
 
     /**
+     * Set between ACCPETED or REJECTED
+     */
+    public function setParticipantStatus(Request $request, Organizer $organizer, Event $event) {
+        $user_id = $request->get('user_id');
+        $status = $request->get('status');
+        
+        $event->participants()->sync([$user_id => ['status' => $status]]);
+
+        if ($status == "ACCEPTED") {
+            // TODO: sent email to users that they got accepted
+        } else {
+            // TODO: sent email to users that they got rejected
+        }
+
+        return redirect()->back();
+    }
+
+    /**
      * Register user to an event.
      */
     public function register(Request $request, Event $event)
@@ -141,9 +159,6 @@ class EventController extends Controller
         return view('orders', compact('events'));
     }
 
-    /**
-     * Display a listing of the participants for the given event.
-     */
     public function togglePublish(Organizer $organizer, Event $event)
     {
         // Toogle between publish and unpublish

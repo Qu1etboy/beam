@@ -16,55 +16,42 @@
       </ul>
     </div>
 
-    @if(true)
-      <table class="w-full">
-        <thead class="bg-gray-50 text-left">
+    <table class="w-full">
+      <thead class="bg-gray-50 text-left">
+        <tr>
+          <th class="px-6 py-3">Avatar</th>
+          <th class="px-6 py-3">Name</th>
+          <th class="px-6 py-3">Email</th>
+          <th class="px-6 py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($participants as $participant)
           <tr>
-            <th class="px-6 py-3">Avatar</th>
-            <th class="px-6 py-3">Name</th>
-            <th class="px-6 py-3">Email</th>
-            <th class="px-6 py-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($participants as $participant)
-            <tr>
-              <td class="px-6 py-3">
-                <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
-              </td>
-              <td class="px-6 py-3">{{ $participant->name }}</td>
-              <td class="px-6 py-3">{{ $participant->email }}</td>
-              <td>
-                <button class="bg-green-500 hover:bg-green-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Accept</button>
-                <button class="bg-red-500 hover:bg-red-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Decline</button>
-              </td>
-            </tr>  
-          @endforeach
-        </tbody>
-      </table>
-    @else 
-       <table class="w-full">
-        <thead class="bg-gray-50 text-left">
-          <tr>
-            <th class="px-6 py-3">Avatar</th>
-            <th class="px-6 py-3">Name</th>
-            <th class="px-6 py-3">Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for($i = 0; $i < 3; $i++)
-            <tr>
-              <td class="px-6 py-3">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80" alt="user avatar" class="h-10 w-10 rounded-full object-cover">
-              </td>
-              <td class="px-6 py-3">Weerawong Vonggatunyu</td>
-              <td class="px-6 py-3">weerawong.v@ku.th</td>
-            </tr>  
-          @endfor
-        </tbody>
-      </table>
-    @endif
-
-
+            <td class="px-6 py-3">
+              <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
+            </td>
+            <td class="px-6 py-3">{{ $participant->name }}</td>
+            <td class="px-6 py-3">{{ $participant->email }}</td>
+            <td class="flex items-center gap-2 px-6 py-3">
+              <form action="{{ route('organizer.event.set-participants-status', ['organizer' => $organizer, 'event' => $event])}}" method="POST"> 
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="user_id" value="{{ $participant->id }}"/>
+                <input type="hidden" name="status" value="ACCEPTED"/>
+                <button type="submit" class="bg-green-500 hover:bg-green-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Accept</button>
+              </form>
+              <form action="{{ route('organizer.event.set-participants-status', ['organizer' => $organizer, 'event' => $event])}}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="user_id" value="{{ $participant->id }}"/>
+                <input type="hidden" name="status" value="REJECTED"/>
+                <button class="bg-red-500 hover:bg-red-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Reject</button>
+              </form>
+            </td>
+          </tr>  
+        @endforeach
+      </tbody>
+    </table>
 </div>
 @endsection
