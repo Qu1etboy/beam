@@ -89,6 +89,25 @@ class EventController extends Controller
     }
 
     /**
+     * Register user to an event.
+     */
+    public function register(Request $request, Event $event)
+    {
+        $user = User::find(Auth::id());
+
+        // If event ask user to answer question add it
+        if (!$event->registrantQuestions()->count() > 0) {
+            // TODO: add registrant question
+        }
+
+        $event->participants()->attach($user->id);
+
+        $events = $user->joinedEvents()->get();
+        
+        return view('orders', compact('events'));
+    }
+
+    /**
      * Display a listing of the participants for the given event.
      */
     public function togglePublish(Organizer $organizer, Event $event)

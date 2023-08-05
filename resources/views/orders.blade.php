@@ -33,8 +33,10 @@
               </p>
               
               <div>
-                @if ($event->pivot->status == 'accepted')
+                @if ($event->pivot->status == 'ACCEPTED')
                   <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">Accepted</span>
+                @elseif ($event->pivot->status == 'PENDING')
+                  <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">Pending</span>
                 @else 
                   <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">Rejected</span>
                 @endif

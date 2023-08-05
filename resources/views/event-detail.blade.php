@@ -50,8 +50,9 @@
       <article class="prose">  
         {!! $event->event_description !!}
       </article>
-      <form class="mt-8">
-        @if(true)
+      <form action="{{ route('event-register', ['event' => $event]) }}" method="POST" class="mt-8">
+        @csrf
+        @if(false)
           <h2 class="text-3xl font-bold my-3">Questions</h2>
           <div class="mb-6">
             <x-input-label for="q1" :value="__('Why do you want to join?')"/>
@@ -60,7 +61,7 @@
           </div>
         @endif
         
-        <x-buttons.primary type="submit" class="w-full">Submit</x-buttons.primary> 
+        <x-buttons.primary type="submit" class="w-full">Register</x-buttons.primary> 
       </form>
     </section>
 
