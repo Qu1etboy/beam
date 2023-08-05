@@ -13,7 +13,6 @@ class Task extends Model
         'title',
         'description',
         'status',
-
         'due_date',
         'event_id',
     ];

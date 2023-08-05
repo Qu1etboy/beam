@@ -19,7 +19,7 @@
                 {{-- :href="route('event.show', $event->id)"  --}}
                 :href="route('organizer.event.dashboard', ['organizer' => $organizer->id, 'event' => $event->id])"
                 :poster="asset('storage/' . $event->poster_image)"
-                :date="$event->created_at->format('D, d M')"
+                :date="\Carbon\Carbon::parse($event->date)->format('d M Y, H:i')"
                 :title="$event->event_name"
                 :location="$event->location"
             /> 

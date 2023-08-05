@@ -3,57 +3,130 @@
 @section('title', 'Tasks - Beam Organizer')
 
 @section('sub-content')
-  <div>
-    <h1 class="font-bold text-4xl my-3">List</h1>
-    
-    <table class="w-full">
-      <thead class="text-left border-b">
-        <tr>
-          <th class="px-6 py-3">Task</th>
-          <th class="px-6 py-3">Assginees</th>
-          <th class="px-6 py-3">Due date</th>
-          <th class="px-6 py-3">Priority</th>
-          <th class="px-6 py-3">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for($i = 0; $i < 3; $i++)
-          <tr>
-            <td class="px-6 py-3">
-              Planning
-              <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Doing</span>
-            </td>
-            <td class="px-6 py-3">
-              <div class="flex -space-x-4 mt-3">
-                <img class="w-8 h-8 border-2 border-white rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-8 h-8 border-2 border-white rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="">
-                <span class="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600">+3</span>
-              </div>
-            </td>
-            <td class="px-6 py-3">27 Jul 2023</td>
-            <td class="px-6 py-3">
-              <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Medium</span>
-            </td>
-            <td class="px-6 py-3">
-               <x-dropdown align="right" width="48">
-                  <x-slot name="trigger">
-                      <button>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-more-horizontal"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-                      </button>
-                  </x-slot>
+    <div>
+        <h1 class="font-bold text-4xl my-3">List</h1>
 
-                  <x-slot name="content">            
-                      <x-dropdown-link>Mark as Todo</x-dropdown-link>
-                      <x-dropdown-link>Mark as Doing</x-dropdown-link>
-                      <x-dropdown-link>Mark as Done</x-dropdown-link>
-                  </x-slot>
-              </x-dropdown>
-            </td>
-          </tr>
-        @endfor
-      </tbody>
-    </table>
-    
-  </div>
+        <table class="w-full">
+            <thead class="text-left border-b">
+                <tr>
+                    <th class="px-6 py-3">Task</th>
+                    <th class="px-6 py-3">Assignees</th>
+                    <th class="px-6 py-3">Due date</th>
+                    <th class="px-6 py-3">Priority</th>
+                    <th class="px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($tasks as $task)
+                    <tr>
+                        <td class="px-6 py-3">
+                            {{ $task->title }}
+                            <!-- Display task status -->
+                            @if ($task->status == \App\Models\Task::STATUS_TODO)
+                                <span
+                                    class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Todo</span>
+                            @elseif ($task->status == \App\Models\Task::STATUS_DOING)
+                                <span
+                                    class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Doing</span>
+                            @else
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Done</span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-3">
+                            <div class="flex -space-x-4 mt-3">
+                                <!-- Display task assignees -->
+                                @foreach ($task->assignees->take(2) as $assignee)
+                                    <img class="w-8 h-8 border-2 border-white rounded-full"
+                                        src="{{ file_exists('storage/' . $assignee->avatar) ? asset('storage/' . $assignee->avatar) : $assignee->avatar }}"
+                                        alt="{{ $assignee->name }}">
+                                @endforeach
+                                @if ($task->assignees->count() > 2)
+                                    <span
+                                        class="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600">
+                                        +{{ $task->assignees->count() - 2 }}
+                                    </span>
+                                @endif
+                            </div>
+                        </td>
+                        <td class="px-6 py-3">
+                            {{ \Carbon\Carbon::parse($task->due_date)->format('d M Y') }}
+                        </td>
+                        <td class="px-6 py-3">
+                            <!-- Display task priority -->
+                            @if ($task->priority == \App\Models\Task::PRIORITY_LOW)
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Low</span>
+                            @elseif ($task->priority == \App\Models\Task::PRIORITY_MEDIUM)
+                                <span
+                                    class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Medium</span>
+                            @else
+                                <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">High</span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-3">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-more-horizontal">
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                            <circle cx="5" cy="12" r="1" />
+                                        </svg>
+                                    </button>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <!-- Mark task as different status -->
+                                    <x-dropdown-link>
+                                        <form method="POST"
+                                            action="{{ route('organizer.event.tasks.update', ['organizer' => $organizer->id, 'event' => $event->id, 'task' => $task->id]) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="status"
+                                                value="{{ \App\Models\Task::STATUS_TODO }}">
+                                            <button type="submit" class="w-full flex justify-start">Mark as
+                                                Todo</button>
+                                        </form>
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-link>
+                                        <form method="POST"
+                                            action="{{ route('organizer.event.tasks.update', ['organizer' => $organizer->id, 'event' => $event->id, 'task' => $task->id]) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="status"
+                                                value="{{ \App\Models\Task::STATUS_DOING }}">
+                                            <button type="submit" class="w-full flex justify-start">Mark as
+                                                Doing</button>
+                                        </form>
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-link>
+                                        <form method="POST"
+                                            action="{{ route('organizer.event.tasks.update', ['organizer' => $organizer->id, 'event' => $event->id, 'task' => $task->id]) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="status"
+                                                value="{{ \App\Models\Task::STATUS_DONE }}">
+                                            <button type="submit" class="w-full flex justify-start">Mark as
+                                                Done</button>
+                                        </form>
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </td>
+
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        {{ $tasks->links() }}
+
+    </div>
 @endsection
-
