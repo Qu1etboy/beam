@@ -37,6 +37,7 @@ Route::prefix('organizer/{organizer}')->group(function () {
     Route::post('/events/create', [OrganizerController::class, 'storeEvent'])->name('organizer.store-event');
     Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');
     Route::post('/members/add', [OrganizerController::class, 'addMember'])->name('organizer.add-member');
+    Route::delete('/members/{user}', [OrganizerController::class, 'removeMember'])->name('organizer.remove-member');
     // Define routes related to event
     Route::prefix('events/{event}')->group(function () {
         Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
@@ -48,7 +49,6 @@ Route::prefix('organizer/{organizer}')->group(function () {
         Route::post('/order/store', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');
         Route::post('/order/export-csv', [OrderController::class, 'exportOrderToCSV'])->name('organizer.event.export-order-csv');
         Route::post('/order/export-pdf', [OrderController::class, 'exportOrderToPDF'])->name('organizer.event.export-order-pdf');
-        
         Route::get('/participants', [EventController::class, 'participants'])->name('organizer.event.participants');
         // Define routes related to event tasks
         Route::prefix('tasks')->group(function () {

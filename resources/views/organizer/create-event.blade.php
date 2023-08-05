@@ -27,8 +27,14 @@
       </div>
 
       <div class="mb-6">
-        <x-input-label for="date" :value="__('Event date')"/>
-        <x-text-input type="date" id="date" name="date" />
+        <x-input-label for="start_date" :value="__('Event start date')"/>
+        <x-text-input type="date" id="start_date" name="start_date" />
+        <x-input-error :messages="[]" />
+      </div>
+
+      <div class="mb-6">
+        <x-input-label for="end_date" :value="__('Event end date')"/>
+        <x-text-input type="date" id="end_date" name="end_date" />
         <x-input-error :messages="[]" />
       </div>
 

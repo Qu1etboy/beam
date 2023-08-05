@@ -20,6 +20,12 @@ class OrganizerController extends Controller
         $organizations = $user->organizations;
         // Get the organizations the user has joined
         $joinedOrganizations = $user->joinedOrganizations;
+        // if you are owner of joinedOrganizations, remove it from the joinedOrganizations
+        foreach ($joinedOrganizations as $joinedOrganization) {
+            if ($joinedOrganization->owner_id == $user->id) {
+                $joinedOrganizations->forget($joinedOrganizations->search($joinedOrganization));
+            }
+        } 
         // Merge the two collections
         $allOrganizations = $organizations->concat($joinedOrganizations);
         return view('organizer.home', compact('allOrganizations'));
@@ -43,6 +49,8 @@ class OrganizerController extends Controller
         $organization->organizer_name = $request->get('name');
         $organization->owner_id = $user->id;
         $organization->save();
+        // also owner is a member
+        $organization->members()->attach($user);
 
         return redirect()->route('organizer.home');
     }
@@ -74,7 +82,9 @@ class OrganizerController extends Controller
         $event->event_name = $request->get('name');
         $event->event_description = $request->get('description');
         $event->location = $request->get('address');
-        $event->date = $request->get('date');
+        // $event->date = $request->get('date');
+        $event->start_date = $request->get('start_date');
+        $event->end_date = $request->get('end_date');
         $event->poster_image = $poster_path;
         // Associate the event with the organizer
         $organizer->events()->save($event);
@@ -89,6 +99,12 @@ class OrganizerController extends Controller
     public function members(Organizer $organizer)
     {
         $members = $organizer->members;
+        // if you are owner of members, remove it from the members
+        foreach ($members as $member) {
+            if ($member->id == $organizer->owner_id) {
+                $members->forget($members->search($member));
+            }
+        }
         return view('organizer.members', compact('members', 'organizer'));
     }
 
@@ -108,5 +124,21 @@ class OrganizerController extends Controller
         $organizer->members()->attach($user);
         // Redirect back with success message
         return redirect()->back()->with('success', 'Member successfully added.');
+    }
+
+    /**
+     * Remove the specified member from the organizer.
+     */
+    public function removeMember(Organizer $organizer, User $user)
+    {
+        // Check if the user is the owner of the organizer
+        if ($user->id == $organizer->owner_id) {
+            // Redirect back with error if the user is the owner
+            return redirect()->back()->with('error', 'You cannot remove the owner of the organizer.');
+        }
+        // Remove the user from the members of the organizer
+        $organizer->members()->detach($user);
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Member successfully removed.');
     }
 }
