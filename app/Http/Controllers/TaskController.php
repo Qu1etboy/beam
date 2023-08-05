@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -16,7 +15,10 @@ class TaskController extends Controller
     public function board(Organizer $organizer, Event $event)
     {
         $tasks = $event->tasks;
-        return view('organizer.event.tasks.board', compact('organizer', 'event', 'tasks'));
+        $tasksTodo = $tasks->where('status', Task::STATUS_TODO);
+        $tasksDoing = $tasks->where('status', Task::STATUS_DOING);
+        $tasksDone = $tasks->where('status', Task::STATUS_DONE);
+        return view('organizer.event.tasks.board', compact('organizer', 'event','tasksTodo', 'tasksDoing', 'tasksDone', 'tasks'));
     }
 
     /**
@@ -24,30 +26,48 @@ class TaskController extends Controller
      */
     public function list(Organizer $organizer, Event $event)
     {
-        $tasks = $event->tasks;
+        $tasks = Task::where('event_id', $event->id)->paginate(8);
         return view('organizer.event.tasks.list', compact('organizer', 'event', 'tasks'));
+    }
+
+    /**
+     * Update the status of a task.
+     */
+    public function updateStatus(Request $request, Organizer $organizer, Event $event, Task $task)
+    {
+        $newStatus = $request->get('status');
+        if (!in_array($newStatus, [Task::STATUS_TODO, Task::STATUS_DOING, Task::STATUS_DONE])) {
+            return back()->withErrors('Invalid status provided.');
+        }
+        $task = Task::find($task->id);
+        $task->status = $newStatus;
+        $task->save();
+        return back()->with('status', 'Task status updated successfully!');
+    }
+
+
+    /**
+     * Store a newly created task for the given event.
+     */
+    public function add(Organizer $organizer, Event $event)
+    {
+        return view('organizer.event.tasks.add', compact('organizer', 'event'));
     }
 
     /**
      * Store a newly created task for the given event.
      */
-    public function add(Request $request, Organizer $organizer, Event $event)
+    public function store(Request $request, Organizer $organizer, Event $event)
     {
-        // Ensure that the organizer owns the event
-        if ($organizer->id !== $event->organizer_id) {
-            return redirect()->route('organizer.home');
-        }
-
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'status' => 'required|integer|between:1,3',
-            'due_date' => 'required|date',
-        ]);
-
-        $task = new Task($validatedData);
-        $event->tasks()->save($task);
-
-        return redirect()->route('organizer.event.dashboard', ['organizer' => $organizer->id, 'event' => $event->id]);
+        $task = new Task;
+        $task->title = $request->get('title');
+        $task->description = $request->get('description');
+        $task->status = Task::STATUS_TODO;
+        $task->priority = $request->get('priority');
+        $task->due_date = $request->get('due_date');
+        $task->event_id = $event->id;
+        $task->save();
+        $task->assignees()->attach($request->get('member_id'));
+        return redirect()->route('organizer.event.tasks.list', compact('organizer', 'event'))->with('status', 'Task added successfully!');
     }
 }

@@ -53,7 +53,10 @@ Route::prefix('organizer/{organizer}')->group(function () {
         Route::prefix('tasks')->group(function () {
             Route::get('/board', [TaskController::class, 'board'])->name('organizer.event.tasks.board');
             Route::get('/list', [TaskController::class, 'list'])->name('organizer.event.tasks.list');
-            Route::post('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
+            Route::put('/board/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
+            Route::put('/list/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
+            Route::get('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
+            Route::post('/store', [TaskController::class, 'store'])->name('organizer.event.tasks.store');
         });
     });
 });
