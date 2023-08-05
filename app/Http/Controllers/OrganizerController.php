@@ -77,20 +77,13 @@ class OrganizerController extends Controller
      */
     public function storeEvent(Request $request, Organizer $organizer)
     {
-        $poster_path = $request->file('poster')->store('posters', 'public');
         $event = new Event;
         $event->event_name = $request->get('name');
-        $event->event_description = $request->get('description');
-        $event->location = $request->get('address');
-        // $event->date = $request->get('date');
-        $event->start_date = $request->get('start_date');
-        $event->end_date = $request->get('end_date');
-        $event->poster_image = $poster_path;
-        // Associate the event with the organizer
+
         $organizer->events()->save($event);
         $events = $organizer->events;
         // Redirect back with success message
-        return redirect()->route('organizer.events', compact('events', 'organizer'))->with('success', 'Event successfully created.');
+        return redirect()->route('organizer.event.information', compact('event', 'organizer'))->with('success', 'Event successfully created.');
     }
 
     /**

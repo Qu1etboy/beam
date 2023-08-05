@@ -5,6 +5,8 @@
 @section('sub-content')
 
 <h1 class="font-bold text-4xl m-3">Event Information</h1>
+<p class="text-gray-600 mx-3">Edit your event information before publish to everyone.</p>
+
 <form action="{{ route('organizer.event.update-information', ['organizer' => $organizer, 'event' => $event]) }}" method="POST" class="p-3 space-y-5" enctype="multipart/form-data">
   @csrf
   @method("PUT")
@@ -14,13 +16,14 @@
       <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">1</span>
       <h2 class="text-xl font-bold">Upload Poster</h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3">
+    <div class="flex flex-col md:flex-row">
       <img 
         src="{{ asset('storage/' . $event->poster_image) }}" 
         alt="poster"
-        class="rounded-lg object-cover"    
+        class="rounded-lg object-cover w-[200px] h-[300px]" 
+        onerror="this.src='https://placehold.co/800x1032';"   
       >
-      <div class="mb-6 px-3 col-span-2">
+      <div class="my-6 md:my-0 md:px-3 col-span-2 w-full">
           <x-input-label for="poster" :value="__('Upload event poster')"/>
           <x-file-input accept="image/*" id="poster" name="poster" />
           <x-input-error :messages="[]" />

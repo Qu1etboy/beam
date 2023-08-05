@@ -57,7 +57,7 @@ class EventController extends Controller
     {   
         $validatedData = $request->validate([
             'event_name' => ['required'],
-            'event_description' => ['required'],
+            'event_description' => ['nullable'],
             'start_date' => ['nullable', 'date', 'after:tomorrow'],
             'end_date' => ['nullable', 'date', 'after:start_date'],
             'location' => ['nullable', 'string'],
