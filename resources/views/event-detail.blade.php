@@ -50,6 +50,7 @@
       <article class="prose">  
         {!! $event->event_description !!}
       </article>
+      
       <form action="{{ route('event-register', ['event' => $event]) }}" method="POST" class="mt-8">
         @csrf
         @if(false)
@@ -61,7 +62,15 @@
           </div>
         @endif
         
-        <x-buttons.primary type="submit" class="w-full">Register</x-buttons.primary> 
+        {{-- If user already registered this event remove register button --}}
+        @if ($is_registered)
+          <div class="text-center border border-purple-300 rounded-lg p-3">You are already registered this event</div>
+        {{-- If user not sign in ask to sign in first --}}
+        @elseif (!Auth::user()) 
+          <a href="{{ url('/auth/google') }}" class="w-full inline-block text-center text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2">Please sign in to register this event</a>
+        @else
+          <x-buttons.primary type="submit" class="w-full">Register</x-buttons.primary> 
+        @endif
       </form>
     </section>
 
