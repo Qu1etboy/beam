@@ -146,6 +146,11 @@ class EventController extends Controller
         if ($joinedEvent) {
             abort(409, 'You already registered this event.');
         }
+        
+        // This event has started or the application has close so can't register anymore
+        if ($event->start_date < date("Y-m-d")) {
+            abort(400, 'The application period has closed.');
+        }
 
         // If event ask user to answer question add it
         if (!$event->registrantQuestions()->count() > 0) {

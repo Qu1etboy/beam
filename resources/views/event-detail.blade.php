@@ -66,6 +66,8 @@
         @if ($is_registered)
           <div class="text-center border border-purple-300 rounded-lg p-3">You are already registered this event</div>
         {{-- If user not sign in ask to sign in first --}}
+        @elseif ($event->start_date < date("Y-m-d"))
+          <div class="text-center border border-purple-300 rounded-lg p-3">The application period has closed.</div>
         @elseif (!Auth::user()) 
           <a href="{{ url('/auth/google') }}" class="w-full inline-block text-center text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2">Please sign in to register this event</a>
         @else
