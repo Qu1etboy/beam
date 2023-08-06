@@ -88,10 +88,49 @@ class EventController extends Controller
     /**
      * Display a listing of the participants for the given event.
      */
-    public function participants(Organizer $organizer, Event $event)
+    public function participantSubmissions(Organizer $organizer, Event $event)
     {
-        $participants = $event->participants;
-        return view('organizer.event.participants', compact('organizer', 'event', 'participants'));
+        // Get pending participants
+        $eventWithPendingParticipants = Event::with(['participants' => function ($query) {
+            $query->where('status', '=', 'PENDING');
+        }])->find($event->id);
+
+        $participants = $eventWithPendingParticipants->participants;
+        
+        return view('organizer.event.participants.submission', compact('organizer', 'event', 'participants'));
+    }
+
+    /**
+     * Display a listing of the participants for the given event.
+     */
+    public function participantAccepted(Organizer $organizer, Event $event)
+    {
+        // Get pending participants
+        $eventWithAcceptedParticipants = Event::with(['participants' => function ($query) {
+            $query->where('status', '=', 'ACCEPTED');
+        }])->find($event->id);
+
+        $participants = $eventWithAcceptedParticipants->participants;
+        
+        return view('organizer.event.participants.accepted', compact('organizer', 'event', 'participants'));
+    }
+
+    /**
+     * Set between ACCPETED or REJECTED
+     */
+    public function setParticipantStatus(Request $request, Organizer $organizer, Event $event) {
+        $user_id = $request->get('user_id');
+        $status = $request->get('status');
+        
+        $event->participants()->sync([$user_id => ['status' => $status]]);
+
+        if ($status == "ACCEPTED") {
+            // TODO: sent email to users that they got accepted
+        } else {
+            // TODO: sent email to users that they got rejected
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -120,9 +159,6 @@ class EventController extends Controller
         return view('orders', compact('events'));
     }
 
-    /**
-     * Display a listing of the participants for the given event.
-     */
     public function togglePublish(Organizer $organizer, Event $event)
     {
         // Toogle between publish and unpublish

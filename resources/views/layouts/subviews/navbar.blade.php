@@ -17,7 +17,7 @@
 
     @auth
         <div class="flex items-center gap-3">
-          <a href="{{ route('organizer.home') }}" class="hover:text-emerald-500 duration-300">Organization</a>        
+          <a href="{{ route('organizer.home') }}" class="hover:text-purple-500 duration-300">Organization</a>        
           <div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
