@@ -6,17 +6,18 @@
     <div>
         <h1 class="font-bold text-4xl my-3">List</h1>
 
-        <table class="w-full">
-            <thead class="text-left border-b">
-                <tr>
-                    <th class="px-6 py-3">Task</th>
-                    <th class="px-6 py-3">Assignees</th>
-                    <th class="px-6 py-3">Due date</th>
-                    <th class="px-6 py-3">Priority</th>
-                    <th class="px-6 py-3">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
+        {{-- @if ($tasks->isNotEmpty()) --}}
+          <table class="w-full">
+              <thead class="text-left border-b">
+                  <tr>
+                      <th class="px-6 py-3">Task</th>
+                      <th class="px-6 py-3">Assignees</th>
+                      <th class="px-6 py-3">Due date</th>
+                      <th class="px-6 py-3">Priority</th>
+                      <th class="px-6 py-3">Actions</th>
+                  </tr>
+              </thead>
+              <tbody>  
                 @foreach ($tasks as $task)
                     <tr>
                         <td class="px-6 py-3">
@@ -123,10 +124,15 @@
 
                     </tr>
                 @endforeach
-            </tbody>
-        </table>
-
-        {{ $tasks->links() }}
+              </tbody>
+          </table>
+          {{ $tasks->links() }}
+        {{-- @else
+          <section class="text-center mt-16">
+            <img src="/_static/undraw_partying.svg" class="mx-auto" width="300"/>
+            <p class="my-8">Hooray! you have no tasks. Let's party!</p>
+          </section>
+        @endif  --}}
 
     </div>
 @endsection
