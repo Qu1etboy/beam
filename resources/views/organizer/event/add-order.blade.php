@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-3">
-    <h1 class="font-bold text-4xl my-3">Add Order</h1>
+    <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Add Order</h1>
 
     <form action="{{ route('organizer.event.store-order', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
       @csrf

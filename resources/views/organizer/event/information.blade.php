@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1 class="font-bold text-4xl m-3">Event Information</h1>
+<h1 class="font-bold text-2xl sm:text-3xl md:text-4xl m-3">Event Information</h1>
 <p class="text-gray-600 mx-3">Edit your event information before publish to everyone.</p>
 
 <form action="{{ route('organizer.event.update-information', ['organizer' => $organizer, 'event' => $event]) }}" method="POST" class="p-3 space-y-5" enctype="multipart/form-data">

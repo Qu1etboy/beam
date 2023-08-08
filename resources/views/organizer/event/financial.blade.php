@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="p-3">
-    <div class="flex justify-between">
-      <h1 class="font-bold text-4xl my-3">Financial</h1>
+    <div class="flex flex-col md:flex-rowjustify-between">
+      <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Financial</h1>
       <div class="flex items-center gap-3">
         <a href="{{ route('organizer.event.add-order', ['organizer' => $organizer->id, 'event' => $event->id]) }}" class="underline ">Add order</a>
         

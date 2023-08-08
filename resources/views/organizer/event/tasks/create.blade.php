@@ -4,7 +4,7 @@
 
 @section('sub-content')
   <div>
-    <h1 class="font-bold text-4xl my-3">Add Task</h1>
+    <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Add Task</h1>
     
     <form action="{{ route('task.store', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
       @csrf

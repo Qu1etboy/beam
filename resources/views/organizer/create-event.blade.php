@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mx-auto p-3">
-    <h1 class="font-bold text-4xl my-3">Create New Event</h1>
+    <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Create New Event</h1>
     <p class="text-gray-600">Create your new event. Manage with your team, and publish to the world!</p>
 
     {{-- TODO: change to a real route --}}
@@ -12,7 +12,7 @@
       @csrf
       <div class="my-6">
         <x-input-label for="name" :value="__('Event name')"/>
-        <x-text-input id="name" name="name" placeholder="Enter your event name" class="@error('name') border-red-600 @enderror"/>
+        <x-text-input id="name" name="name" placeholder="Enter your event name" />
         <x-input-error :messages="$errors->get('name')" />
         <p class="text-sm text-gray-600 mt-2">After creating an event. You can go to the Event Information page to edit your event information. Don't worry you can change it later.</p>
       </div>

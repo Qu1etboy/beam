@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="container mx-auto p-3">
-    <div class="flex justify-between my-3">
-        <h1 class="font-bold text-4xl">Your Events</h1>
+    <div class="flex flex-wrap gap-3 justify-between my-3">
+        <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl">Your Events</h1>
         <a href="{{ route('organizer.create-event', $organizer) }}" class="text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Click here to create your event</a>
     </div>
 
