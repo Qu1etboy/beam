@@ -7,17 +7,19 @@
         <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">List</h1>
 
         {{-- @if ($tasks->isNotEmpty()) --}}
-        <table class="w-full">
-            <thead class="text-left border-b">
-                <tr>
-                    <th class="px-6 py-3">Task</th>
-                    <th class="px-6 py-3">Assignees</th>
-                    <th class="px-6 py-3">Due date</th>
-                    <th class="px-6 py-3">Priority</th>
-                    <th class="px-6 py-3">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
+
+        <div class="overflow-x-auto pb-36">
+          <table class="w-full">
+              <thead class="text-left border-b">
+                  <tr class="pb">
+                      <th class="px-6 py-3">Task</th>
+                      <th class="px-6 py-3">Assignees</th>
+                      <th class="px-6 py-3">Due date</th>
+                      <th class="px-6 py-3">Priority</th>
+                      <th class="px-6 py-3">Actions</th>
+                  </tr>
+              </thead>
+              <tbody>  
                 @foreach ($tasks as $task)
                     <tr>
                         <td class="px-6 py-3">
@@ -138,9 +140,16 @@
 
                     </tr>
                 @endforeach
+<<<<<<< HEAD
             </tbody>
         </table>
         {{ $tasks->links() }}
+=======
+              </tbody>
+          </table>
+        </div>
+          {{ $tasks->links() }}
+>>>>>>> 1e87de7 (feat(ui): responsive table)
         {{-- @else
           <section class="text-center mt-16">
             <img src="/_static/undraw_partying.svg" class="mx-auto" width="300"/>

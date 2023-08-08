@@ -16,42 +16,44 @@
       </ul>
     </div>
 
-    <table class="w-full">
-      <thead class="bg-gray-50 text-left">
-        <tr>
-          <th class="px-6 py-3">Avatar</th>
-          <th class="px-6 py-3">Name</th>
-          <th class="px-6 py-3">Email</th>
-          <th class="px-6 py-3">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($participants as $participant)
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50 text-left">
           <tr>
-            <td class="px-6 py-3">
-              <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
-            </td>
-            <td class="px-6 py-3">{{ $participant->name }}</td>
-            <td class="px-6 py-3">{{ $participant->email }}</td>
-            <td class="flex items-center gap-2 px-6 py-3">
-              <form action="{{ route('organizer.event.set-participants-status', ['organizer' => $organizer, 'event' => $event])}}" method="POST"> 
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="user_id" value="{{ $participant->id }}"/>
-                <input type="hidden" name="status" value="ACCEPTED"/>
-                <button type="submit" class="bg-green-500 hover:bg-green-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Accept</button>
-              </form>
-              <form action="{{ route('organizer.event.set-participants-status', ['organizer' => $organizer, 'event' => $event])}}" method="POST">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="user_id" value="{{ $participant->id }}"/>
-                <input type="hidden" name="status" value="REJECTED"/>
-                <button class="bg-red-500 hover:bg-red-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Reject</button>
-              </form>
-            </td>
-          </tr>  
-        @endforeach
-      </tbody>
-    </table>
+            <th class="px-6 py-3">Avatar</th>
+            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Email</th>
+            <th class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($participants as $participant)
+            <tr>
+              <td class="px-6 py-3">
+                <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
+              </td>
+              <td class="px-6 py-3">{{ $participant->name }}</td>
+              <td class="px-6 py-3">{{ $participant->email }}</td>
+              <td class="flex items-center gap-2 px-6 py-3">
+                <form action="{{ route('organizer.event.set-participants-status', ['organizer' => $organizer, 'event' => $event])}}" method="POST"> 
+                  @csrf
+                  @method('PUT')
+                  <input type="hidden" name="user_id" value="{{ $participant->id }}"/>
+                  <input type="hidden" name="status" value="ACCEPTED"/>
+                  <button type="submit" class="bg-green-500 hover:bg-green-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Accept</button>
+                </form>
+                <form action="{{ route('organizer.event.set-participants-status', ['organizer' => $organizer, 'event' => $event])}}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <input type="hidden" name="user_id" value="{{ $participant->id }}"/>
+                  <input type="hidden" name="status" value="REJECTED"/>
+                  <button class="bg-red-500 hover:bg-red-600 duration-300 rounded-lg px-3 py-2 text-gray-100">Reject</button>
+                </form>
+              </td>
+            </tr>  
+          @endforeach
+        </tbody>
+      </table>
+    </div>
 </div>
 @endsection

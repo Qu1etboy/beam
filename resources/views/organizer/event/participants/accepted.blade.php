@@ -16,26 +16,28 @@
       </ul>
     </div>
 
-    <table class="w-full">
-      <thead class="bg-gray-50 text-left">
-        <tr>
-          <th class="px-6 py-3">Avatar</th>
-          <th class="px-6 py-3">Name</th>
-          <th class="px-6 py-3">Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($participants as $participant)
+    <div class="overflow-x-auto overflow-y-clip">
+      <table class="w-full">
+        <thead class="bg-gray-50 text-left">
           <tr>
-            <td class="px-6 py-3">
-              <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
-            </td>
-            <td class="px-6 py-3">{{ $participant->name }}</td>
-            <td class="px-6 py-3">{{ $participant->email }}</td>
-          </tr>  
-        @endforeach
-      </tbody>
-    </table>
+            <th class="px-6 py-3">Avatar</th>
+            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($participants as $participant)
+            <tr>
+              <td class="px-6 py-3">
+                <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
+              </td>
+              <td class="px-6 py-3">{{ $participant->name }}</td>
+              <td class="px-6 py-3">{{ $participant->email }}</td>
+            </tr>  
+          @endforeach
+        </tbody>
+      </table>
+    </div>
 
 
 </div>
