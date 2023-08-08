@@ -2,7 +2,7 @@
 
 @section('title', 'Participants - Beam Organizer')
 
-@section('sub-content')
+@section('content')
 <div class="p-3">
     <h1 class="font-bold text-4xl my-3">Participants</h1>
     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">

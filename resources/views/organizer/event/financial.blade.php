@@ -2,7 +2,7 @@
 
 @section('title', 'Financial - Beam Organizer')
 
-@section('sub-content')
+@section('content')
 <div class="p-3">
     <div class="flex justify-between">
       <h1 class="font-bold text-4xl my-3">Financial</h1>

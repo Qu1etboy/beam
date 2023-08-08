@@ -2,7 +2,7 @@
 
 @section('title', 'Information - Beam Organizer')
 
-@section('sub-content')
+@section('content')
 
 <h1 class="font-bold text-4xl m-3">Event Information</h1>
 <p class="text-gray-600 mx-3">Edit your event information before publish to everyone.</p>

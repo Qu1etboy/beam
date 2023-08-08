@@ -2,7 +2,7 @@
 
 @section('title', 'Add order - Beam Organizer')
 
-@section('sub-content')
+@section('content')
 <div class="p-3">
     <h1 class="font-bold text-4xl my-3">Add Order</h1>
 
