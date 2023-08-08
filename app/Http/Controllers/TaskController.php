@@ -77,6 +77,22 @@ class TaskController extends Controller
                         $fail('Please assignee member to do this task');
                     }
                 },
+                function ($attribute, $value, $fail) use ($organizer) {
+                    $member_ids = json_decode($value, true);
+                    
+                    foreach ($member_ids as $memberId) {
+                        $userExists = DB::table('organization_user')
+                            ->where('user_id', $memberId)
+                            ->where('organization_id', $organizer->id)
+                            ->exists();
+        
+                        if (!$userExists) {
+                            $fail("One or more selected members don't belong to the organizer.");
+                            break; // Stop further checking if any member is invalid
+                        }
+                    }
+                    
+                },
             ]
         ]);
         
@@ -124,6 +140,22 @@ class TaskController extends Controller
                     if (count($member_ids) <= 0) {
                         $fail('Please assignee member to do this task');
                     }
+                },
+                function ($attribute, $value, $fail) use ($organizer) {
+                    $member_ids = json_decode($value, true);
+                    
+                    foreach ($member_ids as $memberId) {
+                        $userExists = DB::table('organization_user')
+                            ->where('user_id', $memberId)
+                            ->where('organization_id', $organizer->id)
+                            ->exists();
+        
+                        if (!$userExists) {
+                            $fail("One or more selected members don't belong to the organizer.");
+                            break; // Stop further checking if any member is invalid
+                        }
+                    }
+                    
                 },
             ]
         ]);
