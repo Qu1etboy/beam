@@ -2,11 +2,11 @@
 
 @section('body')
     <main>
-        <div class="md:grid md:grid-cols-5 w-full md:h-screen">
-            <div class="hidden md:block">
+        <div class="lg:grid lg:grid-cols-5 w-full lg:h-screen">
+            <div class="hidden lg:block">
                 @include('layouts.subviews.sidebar')
             </div>
-            <div class="col-span-4 md:overflow-y-auto">
+            <div class="col-span-4 lg:overflow-y-auto">
                 <div class="sticky top-0">
                     @include('layouts.subviews.organizer-navbar', ['organizer' => $organizer])
                     

@@ -4,9 +4,9 @@
       <a href="{{ route('index') }}" class="text-3xl font-bold">Beam <span class="text-base">for <span class="text-purple-800">Organizer</span></span></a>
     </div>
 
-    <div class="flex items-center gap-5">
+    <div class="flex items-center lg:gap-5">
 
-      <ul class="hidden md:flex items-center gap-5">
+      <ul class="hidden lg:flex items-center gap-5">
         <li><a href="{{ route('organizer.events', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Events</a></li>
         <li><a href="{{ route('organizer.members', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Members</a></li>
       </ul>
@@ -55,7 +55,7 @@
           </a>
       @endauth
 
-        <x-menu-toggle onclick="toggleMenu()" />
+        <x-menu-toggle onclick="toggleMenu()" class="block lg:hidden" />
     </div>
 
 
