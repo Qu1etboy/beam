@@ -4,7 +4,7 @@
 
 @section('sub-content')
     <div>
-        <h1 class="font-bold text-4xl my-3">Board</h1>
+        <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Board</h1>
 
         <!-- Desktop Board -->
         <div class="hidden sm:block">

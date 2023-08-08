@@ -2,9 +2,9 @@
 
 @section('title', 'Participants - Beam Organizer')
 
-@section('sub-content')
+@section('content')
 <div class="p-3">
-    <h1 class="font-bold text-4xl my-3">Participants</h1>
+    <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Participants</h1>
     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
       <ul class="flex flex-wrap -mb-px">
           <li class="mr-2">
@@ -16,26 +16,28 @@
       </ul>
     </div>
 
-    <table class="w-full">
-      <thead class="bg-gray-50 text-left">
-        <tr>
-          <th class="px-6 py-3">Avatar</th>
-          <th class="px-6 py-3">Name</th>
-          <th class="px-6 py-3">Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($participants as $participant)
+    <div class="overflow-x-auto overflow-y-clip">
+      <table class="w-full">
+        <thead class="bg-gray-50 text-left">
           <tr>
-            <td class="px-6 py-3">
-              <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
-            </td>
-            <td class="px-6 py-3">{{ $participant->name }}</td>
-            <td class="px-6 py-3">{{ $participant->email }}</td>
-          </tr>  
-        @endforeach
-      </tbody>
-    </table>
+            <th class="px-6 py-3">Avatar</th>
+            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($participants as $participant)
+            <tr>
+              <td class="px-6 py-3">
+                <x-user-avatar :profile_url="$participant->avatar" class="h-10 w-10" />
+              </td>
+              <td class="px-6 py-3">{{ $participant->name }}</td>
+              <td class="px-6 py-3">{{ $participant->email }}</td>
+            </tr>  
+          @endforeach
+        </tbody>
+      </table>
+    </div>
 
 
 </div>

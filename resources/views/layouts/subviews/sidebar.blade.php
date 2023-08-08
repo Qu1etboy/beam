@@ -1,4 +1,4 @@
-<aside class="px-3 py-10 h-screen overflow-y-auto" style="background-color:#18181A">
+<aside class="px-3 py-10 lg:h-screen lg:overflow-y-auto w-full" style="background-color:#18181A">
   <div class="mb-6">
     <h2 class="text-white text-2xl px-2.5 font-bold">{{ $event->event_name }}</h2>
     @if ($event->is_published)

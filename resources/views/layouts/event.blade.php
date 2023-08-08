@@ -2,14 +2,35 @@
 
 @section('body')
     <main>
-        <div class="grid lg:grid-cols-5 w-full h-screen">
-            @include('layouts.subviews.sidebar')
-            <div class="col-span-4 overflow-y-auto">
-                @include('layouts.subviews.organizer-navbar', ['organizer' => $organizer])
+        <div class="lg:grid lg:grid-cols-5 w-full lg:h-screen">
+            <div class="hidden lg:block">
+                @include('layouts.subviews.sidebar')
+            </div>
+            <div class="col-span-4 lg:overflow-y-auto">
+                <div class="sticky top-0">
+                    @include('layouts.subviews.organizer-navbar', ['organizer' => $organizer])
+                    
+                    <!-- Mobile Sidebar -->
+                    <div class="hidden" id="mobile-sidebar">
+                        @include('layouts.subviews.sidebar')
+                    </div>
+                </div>
+                
                 <div class="p-4">
-                    @yield('sub-content')
+                    @yield('content')
                 </div>
             </div>
         </div>
     </main>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-sidebar');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden')
+            } else {
+                menu.classList.add('hidden')
+            }
+        }
+    </script>
 @endsection
