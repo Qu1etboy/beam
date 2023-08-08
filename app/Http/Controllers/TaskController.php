@@ -69,22 +69,35 @@ class TaskController extends Controller
             'status' => [Rule::in(1, 2, 3)],
             'priority' => [Rule::in(1, 2, 3)],
             'due_date' => ['required', 'date'],
-            'member_id' => [
-                'required', 
+            'selected_members' => [
                 function ($attribute, $value, $fail) use ($organizer) {
-                    // Check if the user with member_id belongs to the organizer
-                    $userExists = DB::table('organization_user')
-                        ->where('user_id', $value)
-                        ->where('organization_id', $organizer->id)
-                        ->exists();
-        
-                    if (!$userExists) {
-                        $fail("The selected member doesn't belong to the organizer.");
+                    $member_ids = json_decode($value, true);
+
+                    if (count($member_ids) <= 0) {
+                        $fail('Please assignee member to do this task');
                     }
+                },
+                function ($attribute, $value, $fail) use ($organizer) {
+                    $member_ids = json_decode($value, true);
+                    
+                    foreach ($member_ids as $memberId) {
+                        $userExists = DB::table('organization_user')
+                            ->where('user_id', $memberId)
+                            ->where('organization_id', $organizer->id)
+                            ->exists();
+        
+                        if (!$userExists) {
+                            $fail("One or more selected members don't belong to the organizer.");
+                            break; // Stop further checking if any member is invalid
+                        }
+                    }
+                    
                 },
             ]
         ]);
         
+        $member_ids = json_decode($request->get('selected_members'), true);
+
         $task = new Task;
         $task->title = $request->get('title');
         $task->description = $request->get('description');
@@ -93,7 +106,9 @@ class TaskController extends Controller
         $task->due_date = $request->get('due_date');
         $task->event_id = $event->id;
         $task->save();
-        $task->assignees()->attach($request->get('member_id'));
+        // $task->assignees()->attach($request->get('member_id'));
+        $task->assignees()->sync($member_ids);
+        
         return redirect()->route('organizer.event.tasks.list', compact('organizer', 'event'))->with('status', 'Task added successfully!');
     }
 
@@ -110,11 +125,51 @@ class TaskController extends Controller
      */
     public function update(Request $request, Organizer $organizer, Event $event, Task $task)
     {
+
+        // TODO: refactor to use Enum to check priority and status
+        $request->validate([
+            'title' => ['required', 'string', 'min:1', 'max:255'],
+            'description' => ['required', 'string', 'min:1'],
+            'status' => [Rule::in(1, 2, 3)],
+            'priority' => [Rule::in(1, 2, 3)],
+            'due_date' => ['required', 'date'],
+            'selected_members' => [
+                function ($attribute, $value, $fail) use ($organizer) {
+                    $member_ids = json_decode($value, true);
+
+                    if (count($member_ids) <= 0) {
+                        $fail('Please assignee member to do this task');
+                    }
+                },
+                function ($attribute, $value, $fail) use ($organizer) {
+                    $member_ids = json_decode($value, true);
+                    
+                    foreach ($member_ids as $memberId) {
+                        $userExists = DB::table('organization_user')
+                            ->where('user_id', $memberId)
+                            ->where('organization_id', $organizer->id)
+                            ->exists();
+        
+                        if (!$userExists) {
+                            $fail("One or more selected members don't belong to the organizer.");
+                            break; // Stop further checking if any member is invalid
+                        }
+                    }
+                    
+                },
+            ]
+        ]);
+
         $task->title = $request->get('title');
         $task->description = $request->get('description');
         $task->priority = $request->get('priority');
         $task->due_date = $request->get('due_date');
+
+        $member_ids = json_decode($request->get('selected_members'), true);
+        
         $task->save();
+        $task->assignees()->sync($member_ids);
+
         return redirect()->route('organizer.event.tasks.list', compact('organizer', 'event'))->with('status', 'Task updated successfully!');
     }
     
