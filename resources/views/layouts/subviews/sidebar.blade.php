@@ -1,6 +1,6 @@
-<aside class="px-3 py-10 bg-white">
+<aside class="px-3 py-10 h-screen" style="background-color:#18181A">
   <div class="mb-6">
-    <h2 class="text-2xl px-2.5 font-bold">{{ $event->event_name }}</h2>
+    <h2 class="text-white text-2xl px-2.5 font-bold">{{ $event->event_name }}</h2>
     @if ($event->is_published)
       <span class="bg-green-100 text-green-800 text-xs font-medium ml-2 px-2.5 py-0.5 rounded-full">Published</span>
     @else 
@@ -17,11 +17,11 @@
     </button>
   </form>
   
-  <div class="space-y-2 py-4">
-    <a href="{{ route('organizer.event.dashboard',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.dashboard') ? 'bg-purple-200 block hover:bg-purple-300 rounded-lg px-2.5 py-3' : 'block hover:bg-gray-100 rounded-lg px-2.5 py-3' }}">Dashboard</a>
-    <a href="{{ route('organizer.event.information',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.information') ? 'bg-purple-200 block hover:bg-purple-300 rounded-lg px-2.5 py-3' : 'block hover:bg-gray-100 rounded-lg px-2.5 py-3' }}">Information</a>
-    <a href="{{ route('organizer.event.participants.submission',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.participants') ? 'bg-purple-200 block hover:bg-purple-300 rounded-lg px-2.5 py-3' : 'block hover:bg-gray-100 rounded-lg px-2.5 py-3' }}">Participants</a>
-    <a href="{{ route('organizer.event.tasks.list',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.tasks.list') ? 'bg-purple-200 block hover:bg-purple-300 rounded-lg px-2.5 py-3' : 'block hover:bg-gray-100 rounded-lg px-2.5 py-3' }}">Tasks</a>
-    <a href="{{ route('organizer.event.financial',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.financial') ? 'bg-purple-200 block hover:bg-purple-300 rounded-lg px-2.5 py-3' : 'block hover:bg-gray-100 rounded-lg px-2.5 py-3' }}">Financial</a>
+  <div class="space-y-2 py-4 text-white">
+    <a href="{{ route('organizer.event.dashboard',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.dashboard') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }}">Dashboard</a>
+    <a href="{{ route('organizer.event.information',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.information') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }}">Information</a>
+    <a href="{{ route('organizer.event.participants.submission',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.participants') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }}">Participants</a>
+    <a href="{{ route('organizer.event.tasks.list',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.tasks.list') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }}">Tasks</a>
+    <a href="{{ route('organizer.event.financial',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.financial') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }}">Financial</a>
   </div>
 </aside>
