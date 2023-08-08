@@ -11,17 +11,17 @@
       <div class="mb-6">
         <x-input-label for="title" :value="__('Task name')"/>
         <x-text-input type="text" id="title" name="title" placeholder="Enter task name" />
-        <x-input-error :messages="[]" />
+        <x-input-error :messages="$errors->get('title')" />
       </div>
       <div class="mb-6">
         <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Task description</label>
-        <textarea type="text" id="description" name="description" placeholder="Enter task description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5" required></textarea>
-        <x-input-error :messages="[]" />
+        <textarea type="text" id="description" name="description" placeholder="Enter task description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5"></textarea>
+        <x-input-error :messages="$errors->get('description')" />
       </div>
       <div class="mb-6">
         <x-input-label for="due_date" :value="__('Due date')"/>
         <x-text-input type="date" id="due_date" name="due_date" placeholder="Enter due date" />
-        <x-input-error :messages="[]" />
+        <x-input-error :messages="$errors->get('due_date')" />
       </div>
       <div class="mb-6">
         <label for="assign" class="block mb-2 text-sm font-medium text-gray-900">Assign</label>
@@ -37,7 +37,7 @@
           <option value="{{ $member->id }}">{{ $member->name }}</option>
           @endforeach
         </select>
-        <x-input-error :messages="[]" />
+        <x-input-error :messages="$errors->get('member_id')" />
       </div>
         <div class="mb-6">
         <label for="priority" class="block mb-2 text-sm font-medium text-gray-900">Task Priority</label>
@@ -47,7 +47,7 @@
           <option value="{{ \App\Models\Task::PRIORITY_MEDIUM }}">Medium</option>
           <option value="{{ \App\Models\Task::PRIORITY_HIGH }}">High</option>
         </select>
-        <x-input-error :messages="[]" />
+        <x-input-error :messages="$errors->get('priority')" />
       </div>
 
       <button type="submit" class="text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Add</button>

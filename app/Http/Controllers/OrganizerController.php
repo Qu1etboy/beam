@@ -81,6 +81,10 @@ class OrganizerController extends Controller
      */
     public function storeEvent(Request $request, Organizer $organizer)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:1024']
+        ]);
+
         $event = new Event;
         $event->event_name = $request->get('name');
 

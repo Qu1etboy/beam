@@ -62,8 +62,8 @@ class EventController extends Controller
     public function updateInformation(Request $request, Organizer $organizer, Event $event)
     {   
         $validatedData = $request->validate([
-            'event_name' => ['required'],
-            'event_description' => ['nullable'],
+            'event_name' => ['required', 'string', 'min:1', 'max:1024'],
+            'event_description' => ['nullable', 'string'],
             'start_date' => ['nullable', 'date', 'after:tomorrow'],
             'end_date' => ['nullable', 'date', 'after:start_date'],
             'location' => ['nullable', 'string'],

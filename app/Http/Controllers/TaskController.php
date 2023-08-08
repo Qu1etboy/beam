@@ -6,6 +6,9 @@ use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+
 
 class TaskController extends Controller
 {
@@ -59,6 +62,29 @@ class TaskController extends Controller
      */
     public function store(Request $request, Organizer $organizer, Event $event)
     {
+        
+        $request->validate([
+            'title' => ['required', 'string', 'min:1', 'max:255'],
+            'description' => ['required', 'string', 'min:1'],
+            'status' => [Rule::in(1, 2, 3)],
+            'priority' => [Rule::in(1, 2, 3)],
+            'due_date' => ['required', 'date'],
+            'member_id' => [
+                'required', 
+                function ($attribute, $value, $fail) use ($organizer) {
+                    // Check if the user with member_id belongs to the organizer
+                    $userExists = DB::table('organization_user')
+                        ->where('user_id', $value)
+                        ->where('organization_id', $organizer->id)
+                        ->exists();
+        
+                    if (!$userExists) {
+                        $fail("The selected member doesn't belong to the organizer.");
+                    }
+                },
+            ]
+        ]);
+        
         $task = new Task;
         $task->title = $request->get('title');
         $task->description = $request->get('description');
