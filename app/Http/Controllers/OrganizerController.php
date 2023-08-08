@@ -142,11 +142,6 @@ class OrganizerController extends Controller
 
         // Find the user by email
         $user = User::where('email', $request->get('email'))->first();
-        // // Check if the user is already a member of the organizer
-        // if ($organizer->members->contains($user)) {
-        //     // Redirect back with error if the user is already a member
-        //     return redirect()->back()->with('error', 'This user is already a member of the organizer.');
-        // }
         // Add the user to the members of the organizer
         $organizer->members()->attach($user);
         // Redirect back with success message

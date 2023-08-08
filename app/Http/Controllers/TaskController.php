@@ -62,7 +62,7 @@ class TaskController extends Controller
      */
     public function store(Request $request, Organizer $organizer, Event $event)
     {
-        
+        // TODO: refactor to use Enum to check priority and status
         $request->validate([
             'title' => ['required', 'string', 'min:1', 'max:255'],
             'description' => ['required', 'string', 'min:1'],
