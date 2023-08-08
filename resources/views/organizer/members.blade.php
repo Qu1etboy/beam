@@ -14,7 +14,7 @@
           <x-text-input type="email" id="email" name="email" placeholder="Email" class="mb-2.5"/>
           <x-buttons.primary type="submit">Invite</x-buttons.primary> 
         </div>
-        <x-input-error :messages="[]" />
+        <x-input-error :messages="$errors->get('email')" />
       </div>
     </form>
 
