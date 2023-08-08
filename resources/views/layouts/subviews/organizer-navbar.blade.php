@@ -14,7 +14,7 @@
       @auth
           <div class="flex items-center gap-3">
             <div>
-                  <x-dropdown align="right" width="48">
+                  <x-dropdown align="right" width="48" class="z-20">
                       <x-slot name="trigger">
                           <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                 <x-user-avatar :profile_url="Auth::user()->avatar" class="w-10 h-10" />
@@ -24,6 +24,10 @@
                       <x-slot name="content">
                           <h2 class="text-sm px-4 pt-4">{{ Auth::user()->name }}</h2>
                           <p  class="text-gray-500 text-xs px-4 pb-3">{{ Auth::user()->email }}</p>
+                           <x-dropdown-link :href="route('organizer.home')">
+                                {{ __('My Organization') }}
+                            </x-dropdown-link>
+                          
                           <x-dropdown-link :href="route('orders')">
                               {{ __('My Orders') }}
                           </x-dropdown-link>

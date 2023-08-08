@@ -22,7 +22,7 @@
             @auth
                 <a href="{{ route('organizer.home') }}" class="hidden md:block hover:text-purple-500 duration-300">Organization</a>        
                 <div>
-                    <x-dropdown align="right" width="48">
+                    <x-dropdown align="right" width="48" class="z-20">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                 {{-- use default Avatar --}}

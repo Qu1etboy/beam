@@ -9,7 +9,7 @@
       <div class="flex items-center gap-3">
         <a href="{{ route('organizer.event.add-order', ['organizer' => $organizer->id, 'event' => $event->id]) }}" class="underline ">Add order</a>
         
-        <x-dropdown align="right" width="48" class="print:hidden">
+        <x-dropdown align="right" width="48" class="">
           <x-slot name="trigger">
               <x-buttons.primary type="submit" class="flex jutify-center items-center gap-2">
                 <span>Export</span>

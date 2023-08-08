@@ -7,11 +7,11 @@
                 @include('layouts.subviews.sidebar')
             </div>
             <div class="col-span-4 lg:overflow-y-auto">
-                <div class="sticky top-0">
+                <div class="top-0">
                     @include('layouts.subviews.organizer-navbar', ['organizer' => $organizer])
                     
                     <!-- Mobile Sidebar -->
-                    <div class="hidden" id="mobile-sidebar">
+                    <div class="hidden lg:hidden" id="mobile-sidebar">
                         @include('layouts.subviews.sidebar')
                     </div>
                 </div>
