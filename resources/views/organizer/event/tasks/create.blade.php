@@ -6,7 +6,7 @@
   <div>
     <h1 class="font-bold text-4xl my-3">Add Task</h1>
     
-    <form action="{{ route('organizer.event.tasks.store', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
+    <form action="{{ route('task.store', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
       @csrf
       <div class="mb-6">
         <x-input-label for="title" :value="__('Task name')"/>

@@ -52,9 +52,9 @@ class TaskController extends Controller
     /**
      * Store a newly created task for the given event.
      */
-    public function add(Organizer $organizer, Event $event)
+    public function create(Organizer $organizer, Event $event)
     {
-        return view('organizer.event.tasks.add', compact('organizer', 'event'));
+        return view('organizer.event.tasks.create', compact('organizer', 'event'));
     }
 
     /**
@@ -95,5 +95,32 @@ class TaskController extends Controller
         $task->save();
         $task->assignees()->attach($request->get('member_id'));
         return redirect()->route('organizer.event.tasks.list', compact('organizer', 'event'))->with('status', 'Task added successfully!');
+    }
+
+    /**
+     * Display edit form for a given task.
+     */
+    public function edit(Organizer $organizer, Event $event, Task $task)
+    {
+        return view('organizer.event.tasks.edit', compact('organizer', 'event', 'task'));
+    }
+
+    /**
+     * Update a given task.
+     */
+    public function update(Request $request, Organizer $organizer, Event $event, Task $task)
+    {
+        $task->title = $request->get('title');
+        $task->description = $request->get('description');
+        $task->priority = $request->get('priority');
+        $task->due_date = $request->get('due_date');
+        $task->save();
+        return redirect()->route('organizer.event.tasks.list', compact('organizer', 'event'))->with('status', 'Task updated successfully!');
+    }
+    
+    public function destroy(Organizer $organizer, Event $event, Task $task)
+    {
+        $task->delete();
+        return redirect()->route('organizer.event.tasks.list', compact('organizer', 'event'))->with('status', 'Task deleted successfully!');
     }
 }
