@@ -31,7 +31,8 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <h2 class="text-sm px-4 py-3">{{ Auth::user()->name }}</h2>
+                            <h2 class="text-sm px-4 pt-4">{{ Auth::user()->name }}</h2>
+                            <p  class="text-gray-500 text-xs px-4 pb-3">{{ Auth::user()->email }}</p>
                             <x-dropdown-link :href="route('organizer.home')">
                                 {{ __('My Organization') }}
                             </x-dropdown-link>
