@@ -49,8 +49,20 @@
             </x-dropdown-link>
         </x-slot>
     </x-dropdown>
-
-    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-90">{{ $task->title }}</h5>
+    <div class="flex gap-3 mb-2">
+        <h5 class=" text-xl font-bold tracking-tight text-gray-90">{{ $task->title }}</h5>
+        <a href="{{ route('task.edit', ['organizer' => $organizer, 'event' => $event, 'task' => $task]) }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                viewBox="0 0 24
+                                    24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pen-square">
+                <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0
+                                    2-2v-7" />
+                <path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z" />
+            </svg>
+        </a>
+    </div>
 
     @if ($task->priority == \App\Models\Task::PRIORITY_LOW)
         <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Low</span>

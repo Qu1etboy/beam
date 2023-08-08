@@ -60,13 +60,14 @@ Route::middleware('auth')->group(function () {
                 Route::get('/participants/accepted', [EventController::class, 'participantAccepted'])->name('organizer.event.participants.accepted');
                 Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
                 // Define routes related to event tasks
+                Route::resource('task', TaskController::class)->except(['index', 'show']);
                 Route::prefix('tasks')->group(function () {
                     Route::get('/board', [TaskController::class, 'board'])->name('organizer.event.tasks.board');
                     Route::get('/list', [TaskController::class, 'list'])->name('organizer.event.tasks.list');
                     Route::put('/board/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
                     Route::put('/list/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
-                    Route::get('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
-                    Route::post('/store', [TaskController::class, 'store'])->name('organizer.event.tasks.store');
+                    // Route::get('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
+                    // Route::post('/store', [TaskController::class, 'store'])->name('organizer.event.tasks.store');
                 });
             });
         });
