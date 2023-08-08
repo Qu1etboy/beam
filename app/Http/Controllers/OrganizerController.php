@@ -44,6 +44,10 @@ class OrganizerController extends Controller
      */
     public function storeOrganization(Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:255']
+        ]);
+        
         $user = User::find(Auth::id());
         $organization = new Organizer;
         $organization->organizer_name = $request->get('name');
@@ -77,6 +81,10 @@ class OrganizerController extends Controller
      */
     public function storeEvent(Request $request, Organizer $organizer)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:1024']
+        ]);
+
         $event = new Event;
         $event->event_name = $request->get('name');
 
@@ -106,13 +114,34 @@ class OrganizerController extends Controller
      */
     public function addMember(Request $request, Organizer $organizer)
     {
+
+        $request->validate([
+            'email' => [
+                'required', 
+                'email',
+                function ($attribute, $value, $fail) use ($organizer) {
+                    // Find the user by email
+                    $user = User::where('email', $value)->first();
+                    
+                    if ($organizer->members->contains($user)) {
+                        // Redirect back with error if the user is already a member
+                        return $fail('This user is already a member of the organizer');
+                    }
+                },
+                function ($attribute, $value, $fail) use ($organizer) {
+                    // Find the user by email
+                    $user = User::where('email', $value)->first();
+                    
+                    if (!$user) {
+                        // Redirect back with error if the user is already a member
+                        return $fail('User with this email address not found');
+                    }
+                },
+            ]
+        ]);
+
         // Find the user by email
         $user = User::where('email', $request->get('email'))->first();
-        // Check if the user is already a member of the organizer
-        if ($organizer->members->contains($user)) {
-            // Redirect back with error if the user is already a member
-            return redirect()->back()->with('error', 'This user is already a member of the organizer.');
-        }
         // Add the user to the members of the organizer
         $organizer->members()->attach($user);
         // Redirect back with success message
@@ -127,7 +156,7 @@ class OrganizerController extends Controller
         // Check if the user is the owner of the organizer
         if ($user->id == $organizer->owner_id) {
             // Redirect back with error if the user is the owner
-            return redirect()->back()->with('error', 'You cannot remove the owner of the organizer.');
+            return redirect()->back()->with('error', 'You cannot remove the owner of the organizer');
         }
         // Remove the user from the members of the organizer
         $organizer->members()->detach($user);

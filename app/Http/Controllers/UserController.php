@@ -33,13 +33,18 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        // $request->validate([
-        //     'name' => 'required|max:255',
-        //     // 'email' => 'required|email|max:255|unique:users,email,' . $user->id, // This line enforces unique emails and ignores the current user
-        //     'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     'certificate' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
+        $request->validate([
+            'first_name' =>  ['required', 'string', 'min:1','max:255'],
+            'last_name' => ['required', 'string', 'min:1','max:255'],
+            'socials' => ['nullable', 'string', 'max:255'],
+            // 'email' => 'required|email|max:255|unique:users,email,' . $user->id, // This line enforces unique emails and ignores the current user
+            'profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg','max:2048'],
+            'certificates' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg' ,'max:2048'],
+        ]);
+
         $user = User::find(Auth::id());
+        
+        // Check if user uploading a file, if uploaded store in storage
         if ($request->hasFile('profile')) {
             $file = $request->file('profile');
             $path = $file->storeAs(
@@ -51,7 +56,8 @@ class UserController extends Controller
             // Update avatar field in user model
             $user->avatar = $filePath;
         }
-        // update certificates
+        
+        // Check if user uploading a file, if uploaded certificates and store in storage
         if ($request->hasFile('certificates')) {
             $file = $request->file('certificates');
             $filePath = $request->file('certificates')->store('certificates', 'public');
@@ -59,8 +65,9 @@ class UserController extends Controller
             // Update certificates field in user model
             $user->certificate = $filePath;
         }
+        
         // update other fields
-        $user->name = $request->input('first-name') . ' ' . $request->input('last-name');
+        $user->name = $request->input('first_name') . ' ' . $request->input('last_name');
         // $user->email = Auth::user()->email;
         $user->social = $request->input('socials');
         $user->save();

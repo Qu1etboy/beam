@@ -30,7 +30,7 @@ class OrderController extends Controller
     public function storeOrder(Request $request, Organizer $organizer, Event $event)
     {
         $validatedData = $request->validate([
-            'detail' => 'required|max:255',
+            'detail' => 'required|min:1|max:255',
             'cost' => 'required|numeric|min:0',
         ]);
         
