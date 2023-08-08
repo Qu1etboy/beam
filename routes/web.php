@@ -24,46 +24,57 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [EventController::class, 'index'])->name('index');
 Route::get('/event/{event}', [EventController::class, 'show'])->name('event-detail');
 Route::post('/event/{event}', [EventController::class, 'register'])->name('event-register');
-Route::get('/orders', [UserController::class, 'orders'])->name('orders');
-Route::get('/settings', [UserController::class, 'settings'])->name('settings');
-Route::put('/settings', [UserController::class, 'update'])->name('settings.update');
-Route::get('/organizer', [OrganizerController::class, 'home'])->name('organizer.home');
-Route::get('/organizer/create', [OrganizerController::class, 'createOrganization'])->name('organizer.create-organization');
-Route::post('/organizer/create', [OrganizerController::class, 'storeOrganization'])->name('organizer.store-organization');
 
-// Define routes related to organizer
-Route::prefix('organizer/{organizer}')->group(function () {
-    Route::get('/', [OrganizerController::class, 'events'])->name('organizer.events');
-    Route::get('/events/create', [OrganizerController::class, 'createEvent'])->name('organizer.create-event');
-    Route::post('/events/create', [OrganizerController::class, 'storeEvent'])->name('organizer.store-event');
-    Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');
-    Route::post('/members/add', [OrganizerController::class, 'addMember'])->name('organizer.add-member');
-    Route::delete('/members/{user}', [OrganizerController::class, 'removeMember'])->name('organizer.remove-member');
-    // Define routes related to event
-    Route::prefix('events/{event}')->group(function () {
-        Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
-        Route::put('/information', [EventController::class, 'updateInformation'])->name('organizer.event.update-information');
-        Route::get('/information', [EventController::class, 'information'])->name('organizer.event.information');
-        Route::post('/publish',[EventController::class, 'togglePublish'])->name('organizer.event.publish');
-        Route::get('/financial', [OrderController::class, 'financial'])->name('organizer.event.financial');
-        Route::get('/order/add', [OrderController::class, 'addOrder'])->name('organizer.event.add-order');
-        Route::post('/order/store', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');
-        Route::post('/order/export-csv', [OrderController::class, 'exportOrderToCSV'])->name('organizer.event.export-order-csv');
-        Route::post('/order/export-pdf', [OrderController::class, 'exportOrderToPDF'])->name('organizer.event.export-order-pdf');
-        Route::get('/participants/submission', [EventController::class, 'participantSubmissions'])->name('organizer.event.participants.submission');
-        Route::get('/participants/accepted', [EventController::class, 'participantAccepted'])->name('organizer.event.participants.accepted');
-        Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
-        // Define routes related to event tasks
-        Route::prefix('tasks')->group(function () {
-            Route::get('/board', [TaskController::class, 'board'])->name('organizer.event.tasks.board');
-            Route::get('/list', [TaskController::class, 'list'])->name('organizer.event.tasks.list');
-            Route::put('/board/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
-            Route::put('/list/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
-            Route::get('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
-            Route::post('/store', [TaskController::class, 'store'])->name('organizer.event.tasks.store');
+// Define routes that required user to authenticate first to access
+Route::middleware('auth')->group(function () {
+
+    Route::get('/orders', [UserController::class, 'orders'])->name('orders');
+    Route::get('/settings', [UserController::class, 'settings'])->name('settings');
+    Route::put('/settings', [UserController::class, 'update'])->name('settings.update');
+    Route::get('/organizer', [OrganizerController::class, 'home'])->name('organizer.home');
+    Route::get('/organizer/create', [OrganizerController::class, 'createOrganization'])->name('organizer.create-organization');
+    Route::post('/organizer/create', [OrganizerController::class, 'storeOrganization'])->name('organizer.store-organization');
+    
+    // Define routes related to organizer with only owner and members of the organization can acess
+    Route::middleware('check.organizer.access')->group(function () {
+        
+        Route::prefix('organizer/{organizer}')->group(function () {
+            Route::get('/', [OrganizerController::class, 'events'])->name('organizer.events');
+            Route::get('/events/create', [OrganizerController::class, 'createEvent'])->name('organizer.create-event');
+            Route::post('/events/create', [OrganizerController::class, 'storeEvent'])->name('organizer.store-event');
+            Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');
+            Route::post('/members/add', [OrganizerController::class, 'addMember'])->name('organizer.add-member');
+            Route::delete('/members/{user}', [OrganizerController::class, 'removeMember'])->name('organizer.remove-member');
+            // Define routes related to event
+            Route::prefix('events/{event}')->group(function () {
+                Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
+                Route::put('/information', [EventController::class, 'updateInformation'])->name('organizer.event.update-information');
+                Route::get('/information', [EventController::class, 'information'])->name('organizer.event.information');
+                Route::post('/publish',[EventController::class, 'togglePublish'])->name('organizer.event.publish');
+                Route::get('/financial', [OrderController::class, 'financial'])->name('organizer.event.financial');
+                Route::get('/order/add', [OrderController::class, 'addOrder'])->name('organizer.event.add-order');
+                Route::post('/order/store', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');
+                Route::post('/order/export-csv', [OrderController::class, 'exportOrderToCSV'])->name('organizer.event.export-order-csv');
+                Route::post('/order/export-pdf', [OrderController::class, 'exportOrderToPDF'])->name('organizer.event.export-order-pdf');
+                Route::get('/participants/submission', [EventController::class, 'participantSubmissions'])->name('organizer.event.participants.submission');
+                Route::get('/participants/accepted', [EventController::class, 'participantAccepted'])->name('organizer.event.participants.accepted');
+                Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
+                // Define routes related to event tasks
+                Route::prefix('tasks')->group(function () {
+                    Route::get('/board', [TaskController::class, 'board'])->name('organizer.event.tasks.board');
+                    Route::get('/list', [TaskController::class, 'list'])->name('organizer.event.tasks.list');
+                    Route::put('/board/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
+                    Route::put('/list/{task}', [TaskController::class, 'updateStatus'])->name('organizer.event.tasks.update');
+                    Route::get('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
+                    Route::post('/store', [TaskController::class, 'store'])->name('organizer.event.tasks.store');
+                });
+            });
         });
     });
 });
+
+
+
 
 // ------------------- for show view -------------------
 
