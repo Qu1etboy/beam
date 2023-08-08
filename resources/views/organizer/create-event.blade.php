@@ -12,8 +12,8 @@
       @csrf
       <div class="my-6">
         <x-input-label for="name" :value="__('Event name')"/>
-        <x-text-input id="name" name="name" placeholder="Enter your event name" />
-        <x-input-error :messages="[]" />
+        <x-text-input id="name" name="name" placeholder="Enter your event name" class="@error('name') border-red-600 @enderror"/>
+        <x-input-error :messages="$errors->get('name')" />
         <p class="text-sm text-gray-600 mt-2">After creating an event. You can go to the Event Information page to edit your event information. Don't worry you can change it later.</p>
       </div>
 

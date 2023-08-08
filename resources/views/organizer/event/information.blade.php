@@ -26,7 +26,7 @@
       <div class="my-6 md:my-0 md:px-3 col-span-2 w-full">
           <x-input-label for="poster" :value="__('Upload event poster')"/>
           <x-file-input accept="image/*" id="poster" name="poster" />
-          <x-input-error :messages="[]" />
+          <x-input-error :messages="$errors->get('poster')" />
         </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
     <div class="mb-6">
       <x-input-label for="name" :value="__('Event name')"/>
       <x-text-input id="name" name="event_name" value="{{ $event->event_name }}" placeholder="Enter your event name" />
-      <x-input-error :messages="[]" />
+      <x-input-error :messages="$errors->get('event_name')" />
     </div>
   </div>
 
@@ -57,12 +57,12 @@
       <div class="mb-6">
         <x-input-label for="start-date" :value="__('Start date & time')"/>
         <x-text-input type="datetime-local" id="start-date" name="start_date" value="{{ $event->start_date }}" />
-        <x-input-error :messages="[]" />
+        <x-input-error :messages="$errors->get('start_date')" />
       </div>
       <div class="mb-6">
         <x-input-label for="end-date" :value="__('End date & time')" />
         <x-text-input type="datetime-local" id="end-date" name="end_date" value="{{ $event->end_date }}" />
-        <x-input-error :messages="[]" />
+        <x-input-error :messages="$errors->get('end_date')" />
       </div>
     </div>
   </div>
@@ -80,7 +80,7 @@
       <x-input-label for="search-location" :value="__('Event location')"/>
       <x-text-input id="search-location" name="location" type="text" value="{{ $event->location }}" placeholder="Where is your event hosted?" />
       {{-- <x-text-input id="location" name="location" value="{{ $event->location }}" placeholder="Where is your event hosted?" /> --}}
-      <x-input-error :messages="[]" />
+      <x-input-error :messages="$errors->get('location')" />
       <div id="map" class="mt-3 rounded-lg h-[300px]"></div>
       <!-- Display location description on map-->
       <div id="infowindow-content" class="hidden">

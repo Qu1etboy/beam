@@ -22,27 +22,27 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-3">
 
           <div class="mb-6">
-            <x-input-label for="first-name" :value="__('Event name')"/>
-            <x-text-input id="first-name" name="first-name" placeholder="Enter your first name" value="{{ $first_name }}"/>
-            <x-input-error :messages="[]" />
+            <x-input-label for="first-name" :value="__('First name')"/>
+            <x-text-input id="first-name" name="first_name" placeholder="Enter your first name" value="{{ $first_name }}"/>
+            <x-input-error :messages="$errors->get('first_name')" />
           </div>
 
           <div class="mb-6">
             <x-input-label for="last-name" :value="__('Last name')"/>
-            <x-text-input id="last-name" name="last-name" placeholder="Enter your last name" value="{{ $last_name }}"/>
-            <x-input-error :messages="[]" />
+            <x-text-input id="last-name" name="last_name" placeholder="Enter your last name" value="{{ $last_name }}"/>
+            <x-input-error :messages="$errors->get('last_name')" />
           </div>
 
           <div class="mb-6">
             <x-input-label for="socials" :value="__('Socials')"/>
             <x-text-input id="socials" name="socials" placeholder="Facebook, Instagram, Line" value="{{ Auth::user()->social }}"/>
-            <x-input-error :messages="[]" />
+            <x-input-error :messages="$errors->get('socials')" />
           </div>
 
           <div class="mb-6">
             <x-input-label for="certificates" :value="__('Upload certificates')"/>
             <x-file-input accept="image/*" id="certificate" name="certificates" />
-            <x-input-error :messages="[]" />
+            <x-input-error :messages="$errors->get('certificates')" />
           </div>
         </div>
       </div>
