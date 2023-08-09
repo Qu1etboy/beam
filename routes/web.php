@@ -7,8 +7,14 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\RegistrantQuestionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TaskController;
+use App\Mail\TestMail;
+use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -181,5 +187,13 @@ Route::post('/test/file', function (Request $request) {
 
     return redirect(asset('storage/' . $filePath));
 })->name('test.file');
+
+Route::get('/test/send-email', function (Request $request) {
+
+    Mail::to("qu1etboy@dev.io")->send(new WelcomeMail(Auth::user()));
+
+    return "successfully sent email";
+    
+})->name('test.send-email');
 
 require __DIR__ . '/auth.php';

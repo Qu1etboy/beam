@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
+
 
 class AuthController extends Controller
 {   
@@ -24,6 +27,9 @@ class AuthController extends Controller
             $newUser->email = $user->email;
             $newUser->provider_id = $user->id;
             $newUser->save();
+
+            Mail::to($newUser->email)->send(new WelcomeMail($newUser));
+            
         }
 
     
