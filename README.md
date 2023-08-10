@@ -96,5 +96,5 @@ PhpMyAdmin is mapped to port 8080 on host machine
 
 -   Weerawong Vonggatunyu 6410406860
 -   Sittipong Hemloun 6410401183
--
+-   Urawit Jearrajinda 6410406932
 -

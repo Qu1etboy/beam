@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\Mail;
 use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\User;
@@ -126,6 +128,7 @@ class EventController extends Controller
 
         if ($status == "ACCEPTED") {
             // TODO: sent email to users that they got accepted
+            //Mail::to($user)->send(new Mail($user));
         } else {
             // TODO: sent email to users that they got rejected
         }
