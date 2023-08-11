@@ -52,4 +52,12 @@ class Event extends Model
             return $carry + $num;
         }, 0);
     }
+
+    public function countAcceptedParticipants($eventId) {
+        $events = $this::with(['participants' => function ($query) {
+            $query->where('status', '=', 'ACCEPTED');
+        }])->find($eventId);
+        
+        return $events->participants->count();
+    }
 }
