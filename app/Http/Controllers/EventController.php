@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\Mail;
 use App\Models\Event;
 use App\Models\Organizer;
+use App\Models\RegistrantQuestion;
 use App\Models\User;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
@@ -156,9 +157,19 @@ class EventController extends Controller
         }
 
         // If event ask user to answer question add it
-        if (!$event->registrantQuestions()->count() > 0) {
-            // TODO: add registrant question
-        }
+        $event->registrantQuestions->each(function ($question, $index) use ($request) {
+            $answer = $request->get('q' . (string) ($index + 1));
+
+            // dd($question);
+
+            if ($answer == null) {
+                return abort(400, 'Questions is required');
+            }
+
+            $question = RegistrantQuestion::with('respondents')->find($question->id);
+            $question->respondents()->attach(Auth::id(), ['answer' => $answer]);
+
+        });
 
         $event->participants()->attach($user->id);
 

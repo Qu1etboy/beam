@@ -13,6 +13,7 @@
           src="{{ file_exists('storage/' . $event->poster_image) ? asset('storage/' . $event->poster_image) : $event->poster_image }}"
           alt="poster"
           class="object-cover w-full h-[500px] z-[2]"    
+          onerror="this.src='https://placehold.co/800x1032';"  
         >
         <div class="p-8 md:p-16 col-span-2 flex flex-col justify-center bg-white/70 backdrop-blur-lg z-[2]">
           <div class="space-y-3">
@@ -53,14 +54,18 @@
       
       <form action="{{ route('event-register', ['event' => $event]) }}" method="POST" class="mt-8">
         @csrf
-        @if(false)
-          <h2 class="text-3xl font-bold my-3">Questions</h2>
+        
+        @if ($event->registrantQuestions->count() > 0)
+          <h2 class="text-3xl font-bold mt-3">Questions</h2>
+          <p class="text-gray-600 mb-6">The event organizer wants you to answer these questions before register for the event.</p>
+        @endif
+        @foreach($event->registrantQuestions as $question)
           <div class="mb-6">
-            <x-input-label for="q1" :value="__('Why do you want to join?')"/>
-            <x-text-input id="q1" name="q1" />
+            <label for="{{ 'q' . $loop->iteration }}">{{ $loop->iteration . '. ' . $question->question }}</label>
+            <x-text-input id="{{ 'q' . $loop->iteration }}" name="{{ 'q' . $loop->iteration }}" />
             <x-input-error :messages="[]" />
           </div>
-        @endif
+        @endforeach
         
         {{-- If user already registered this event remove register button --}}
         @if ($is_registered)
