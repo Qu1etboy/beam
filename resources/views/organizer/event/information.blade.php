@@ -102,23 +102,6 @@
     </div>
   </div>
 
-  <div class="border rounded-md p-3">
-    <div class="flex items-center gap-3 mb-5">
-      <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">6</span>
-      <h2 class="text-xl font-bold">Question 
-      <span class="text-sm text-gray-600">(Optional)</span>
-      </h2>
-    </div>
-    <div>
-      <div class="mb-6">
-        <x-input-label for="q" :value="__('Question')"/>
-        <x-text-input id="q" name="q" />
-        <x-input-error :messages="[]" />
-      </div>
-    </div>
-    <x-buttons.primary>Add more questions</x-buttons.primary>
-  </div>
-
   <x-buttons.primary type="submit" class="w-full">Save</x-buttons.primary>
 </form>
 @endsection

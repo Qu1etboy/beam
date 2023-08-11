@@ -21,9 +21,13 @@ class CheckOrganizerAccess
       // This return organizer collection
       $org = $request->route()->parameter('organizer');
 
+      // dd($org->id);
+
       $user = User::find(Auth::id());
 
       $organizer = Organizer::with('members')->find($org->id);
+
+      // dd($organizer);
 
       // User not an owner or member of this organization return 403 Forbidden
       if ($organizer->owner_id != $user->id && !$organizer->members->contains('id', $user->id)) {

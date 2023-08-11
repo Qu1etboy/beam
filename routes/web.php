@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
                     // Route::get('/add', [TaskController::class, 'add'])->name('organizer.event.tasks.add');
                     // Route::post('/store', [TaskController::class, 'store'])->name('organizer.event.tasks.store');
                 });
+                Route::resource('question', RegistrantQuestionController::class)->except(['create', 'show']);
             });
         });
     });
