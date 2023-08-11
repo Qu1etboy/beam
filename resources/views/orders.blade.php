@@ -18,6 +18,7 @@
                 class="rounded-lg object-cover" 
                 width="125"
                 height="200"
+                onerror="this.src='https://placehold.co/800x1032';"  
               >
               <div class="px-6 space-y-3">
                 <h2 class="text-xl font-bold">{{ $event->event_name }}</h2>
