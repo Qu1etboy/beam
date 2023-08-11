@@ -7,8 +7,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\RegistrantQuestionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TaskController;
+use App\Mail\AcceptedMail;
 use App\Mail\TestMail;
 use App\Mail\WelcomeMail;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -192,6 +194,14 @@ Route::post('/test/file', function (Request $request) {
 Route::get('/test/send-email', function (Request $request) {
 
     Mail::to("qu1etboy@dev.io")->send(new WelcomeMail(Auth::user()));
+
+    return "successfully sent email";
+    
+})->name('test.send-email');
+
+Route::get('/test/send-email', function (Request $request) {
+
+    Mail::to("urawit3240@gmail.com")->send(new AcceptedMail(Auth::user(), Event::event()));
 
     return "successfully sent email";
     

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Mail;
+use App\Mail\AcceptedMail;
 use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\RegistrantQuestion;
@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -124,12 +125,14 @@ class EventController extends Controller
     public function setParticipantStatus(Request $request, Organizer $organizer, Event $event) {
         $user_id = $request->get('user_id');
         $status = $request->get('status');
+
+        $user = User::find($user_id);
         
         $event->participants()->sync([$user_id => ['status' => $status]]);
 
         if ($status == "ACCEPTED") {
             // TODO: sent email to users that they got accepted
-            //Mail::to($user)->send(new Mail($user));
+            Mail::to($user->email)->send(new AcceptedMail($user,$event));
         } else {
             // TODO: sent email to users that they got rejected
         }

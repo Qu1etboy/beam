@@ -1,33 +1,23 @@
 <?php
 
 namespace App\Mail;
-
+use App\Models\Event;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Mail extends Mailable
+class AcceptedMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    protected $user;
-
-    public function build()
-    {
-        return $this->subject('You are accepted')
-                    ->view('emails.welcome')
-                    ->with(['user' => $this->user]);
-    }
-
     /**
      * Create a new message instance.
      */
-    public function __construct($user)
+    public function __construct(protected User $user, protected Event $event)
     {
-        $this->user = $user;
+
     }
 
     /**
@@ -36,7 +26,7 @@ class Mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mail',
+            subject: "You have been accepted!",
         );
     }
 
@@ -46,7 +36,11 @@ class Mail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.accepted',
+            with: [
+                'userName' => $this->user->name,
+                'eventName' => $this->event->name,
+            ],
         );
     }
 
