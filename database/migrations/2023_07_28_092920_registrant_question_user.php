@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('registrant_question_user', function (Blueprint $table) {
             $table->foreignId('registrant_question_id')->constrained('registrant_questions')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('answer');
             $table->primary(['registrant_question_id', 'user_id']);
         });
     }
