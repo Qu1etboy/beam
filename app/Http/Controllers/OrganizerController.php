@@ -65,9 +65,22 @@ class OrganizerController extends Controller
 
     public function update(Request $request, Organizer $organizer) {
         $request->validate([
-            'name' => ['required', 'string', 'min:1', 'max:255']
+            'name' => ['required', 'string', 'min:1', 'max:255'],
+            'profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
         
+        if ($request->hasFile('profile')) {
+            $file = $request->file('profile');
+            $path = $file->storeAs(
+                'public/organizers',
+                $organizer->id . '.' . $file->getClientOriginalExtension()
+            );
+            $filePath = str_replace('public/', '', $path);
+
+            // Update avatar field in user model
+            $organizer->organizer_profile = $filePath;
+        }
+
         $organizer->organizer_name = $request->get('name');
         $organizer->save();
 

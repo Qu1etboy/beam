@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('organizers', function (Blueprint $table) {
             $table->id();
             $table->string('organizer_name');
+            $table->string('organizer_profile')->nullable();
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

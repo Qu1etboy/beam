@@ -10,7 +10,14 @@
     <form action="{{ route('organizer.update', ['organizer' => $organizer]) }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('put')
-      <div class="my-6">
+      <div class="flex gap-5 mt-6">
+        <x-user-avatar :profile_url="$organizer->organizer_profile" class="w-20 h-20" />
+        <div class="mb-6">
+          <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Upload organization profile picture</label>
+          <x-file-input accept="image/*" id="profile" name="profile" />
+        </div>
+      </div>
+      <div class="mb-6">
         <x-input-label for="name" :value="__('Organization name')"/>
         <x-text-input id="name" name="name" value="{{ $organizer->organizer_name }}" placeholder="Enter your organization name" />
         <x-input-error :messages="$errors->get('name')" />

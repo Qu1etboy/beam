@@ -32,11 +32,7 @@
             </div>  
           </div>
           <div class="flex items-center gap-3 mt-8">
-            <img 
-              src="{{ file_exists('storage/' . $owner->avatar) ? asset('storage/' . $owner->avatar) : $owner->avatar }}"
-              alt="organizer avatar"
-              class="rounded-full object-cover w-20 h-20"
-            >
+            <x-user-avatar :profile_url="$event->organizer->organizer_profile" class="w-20 h-20"/>
             <div>
               <p class="text-gray-600">Organized by</p>
               <p class="text-3xl font-bold">{{ $event->organizer->organizer_name }}</p>
