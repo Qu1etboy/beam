@@ -6,7 +6,7 @@
 <div class="p-3">
     <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Add Order</h1>
 
-    <form action="{{ route('organizer.event.store-order', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
+    <form action="{{ route('orders.store', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
       @csrf
       <div class="mb-6">
         <label for="detail" class="block mb-2 text-sm font-medium text-gray-900">Detail</label>

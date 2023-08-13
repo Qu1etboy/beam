@@ -20,14 +20,14 @@ class OrderController extends Controller
         return view('organizer.event.financial', compact('organizer', 'event', 'orders'));
     }
 
-    public function addOrder(Organizer $organizer, Event $event) {
-        return view('organizer.event.add-order', compact('organizer', 'event'));
+    public function create(Organizer $organizer, Event $event) {
+        return view('organizer.event.orders.add', compact('organizer', 'event'));
     }
 
     /**
      * Store a newly created order for the given event.
      */
-    public function storeOrder(Request $request, Organizer $organizer, Event $event)
+    public function store(Request $request, Organizer $organizer, Event $event)
     {
         $validatedData = $request->validate([
             'detail' => 'required|min:1|max:255',
@@ -38,6 +38,36 @@ class OrderController extends Controller
         $event->orders()->save($order);
 
         return redirect()->route('organizer.event.financial', ['organizer' => $organizer->id, 'event' => $event->id]);
+    }
+
+    public function edit(Organizer $organizer, Event $event, Order $order) {
+        return view('organizer.event.orders.edit', compact('organizer', 'event', 'order'));
+    }
+
+    /**
+     * Update an order for the given event.
+     */
+    public function update(Request $request, Organizer $organizer, Event $event, Order $order)
+    {
+        $request->validate([
+            'detail' => 'required|min:1|max:255',
+            'cost' => 'required|numeric|min:0',
+        ]);
+        
+        $order->detail = $request->get('detail');
+        $order->cost = $request->get('cost');
+        $order->save();
+
+        // $event->orders()->save($order);
+
+        return redirect()->route('organizer.event.financial', ['organizer' => $organizer->id, 'event' => $event->id]);
+    }
+
+    public function destroy(Organizer $organizer, Event $event, Order $order) {
+        
+        $order->delete();
+
+        return redirect()->back();
     }
 
     /**
