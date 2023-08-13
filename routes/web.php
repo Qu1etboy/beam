@@ -47,6 +47,11 @@ Route::middleware('auth')->group(function () {
         
         Route::prefix('organizer/{organizer}')->group(function () {
             Route::get('/', [OrganizerController::class, 'events'])->name('organizer.events');
+            Route::get('/settings', [OrganizerController::class, 'edit'])->name('organizer.edit');
+            Route::put('/', [OrganizerController::class, 'update'])->name('organizer.update');
+            Route::delete('/', [OrganizerController::class, 'destroy'])->name('organizer.destroy');
+            
+
             Route::get('/events/create', [OrganizerController::class, 'createEvent'])->name('organizer.create-event');
             Route::post('/events/create', [OrganizerController::class, 'storeEvent'])->name('organizer.store-event');
             Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');

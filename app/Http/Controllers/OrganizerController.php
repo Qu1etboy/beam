@@ -59,6 +59,27 @@ class OrganizerController extends Controller
         return redirect()->route('organizer.home');
     }
 
+    public function edit(Organizer $organizer) {
+        return view('organizer.settings', compact('organizer'));
+    }
+
+    public function update(Request $request, Organizer $organizer) {
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:255']
+        ]);
+        
+        $organizer->organizer_name = $request->get('name');
+        $organizer->save();
+
+        return redirect()->back();
+    }
+
+    public function destroy(Organizer $organizer) {
+        $organizer->delete();
+
+        return redirect()->route('organizer.home');
+    }
+
     /**
      * Display a listing of the events.
      */
