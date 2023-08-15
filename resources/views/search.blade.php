@@ -24,7 +24,10 @@
               {{ $events->appends(request()->query())->links() }}
           </div>
         @else 
-          <div>No result found.</div>
+          <section class="text-center mt-16">
+            <img src="/_static/undraw_empty.svg" class="mx-auto" width="400"/>
+            <p class="text-lg my-8">No event found.</p>
+          </section>
         @endif 
     </section>
 
