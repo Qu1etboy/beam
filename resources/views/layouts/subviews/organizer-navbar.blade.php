@@ -9,7 +9,9 @@
       <ul class="hidden lg:flex items-center gap-5">
         <li><a href="{{ route('organizer.events', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Events</a></li>
         <li><a href="{{ route('organizer.members', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Members</a></li>
-        <li><a href="{{ route('organizer.edit', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Settings</a></li>
+        @can('update', $organizer)
+            <li><a href="{{ route('organizer.edit', ['organizer' => $organizer]) }}" class="hover:text-purple-500 duration-300">Settings</a></li>
+        @endcan
       </ul>
     
       @auth
