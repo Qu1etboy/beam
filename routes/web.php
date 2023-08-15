@@ -13,7 +13,6 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 use Illuminate\Support\Facades\Mail;
 
 
@@ -29,6 +28,9 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Route::get('/', [EventController::class, 'index'])->name('index');
+
+Route::get('/search', [EventController::class, 'search'])->name('events.search');
+
 Route::get('/event/{event}', [EventController::class, 'show'])->name('event-detail');
 Route::post('/event/{event}', [EventController::class, 'register'])->name('event-register');
 

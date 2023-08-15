@@ -28,7 +28,7 @@ class RegistrantQuestionFactory extends Factory
         return [
             'event_id' => Event::factory(),
             'question' => $this->faker->sentence,
-            'answer' => $this->faker->sentence,
+            // 'answer' => $this->faker->sentence,
         ];
     }
 }

@@ -23,6 +23,12 @@ class EventController extends Controller
         return view('index', compact('events'));
     }
 
+    public function search(Request $request) {
+        $search_query = $request->query('q');
+        $events = Event::search($search_query)->where('is_published', 1)->paginate(10);
+        return view('search', compact('events', 'search_query'));
+    }
+
     /**
      * Create a new event.
      */
