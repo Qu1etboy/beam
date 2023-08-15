@@ -7,6 +7,7 @@ use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class OrganizerController extends Controller
 {
@@ -55,6 +56,49 @@ class OrganizerController extends Controller
         $organization->save();
         // also owner is a member
         $organization->members()->attach($user);
+
+        return redirect()->route('organizer.home');
+    }
+
+    public function edit(Organizer $organizer) {
+
+        Gate::authorize('viewSettings', $organizer);
+
+        return view('organizer.settings', compact('organizer'));
+    }
+
+    public function update(Request $request, Organizer $organizer) {
+        
+        Gate::authorize('update', $organizer);
+
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:255'],
+            'profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg','max:2048'],
+        ]);
+        
+        if ($request->hasFile('profile')) {
+            $file = $request->file('profile');
+            $path = $file->storeAs(
+                'public/organizers',
+                $organizer->id . '.' . $file->getClientOriginalExtension()
+            );
+            $filePath = str_replace('public/', '', $path);
+
+            // Update avatar field in user model
+            $organizer->organizer_profile = $filePath;
+        }
+
+        $organizer->organizer_name = $request->get('name');
+        $organizer->save();
+
+        return redirect()->back();
+    }
+
+    public function destroy(Organizer $organizer) {
+        
+        Gate::authorize('delete', $organizer);
+        
+        $organizer->delete();
 
         return redirect()->route('organizer.home');
     }

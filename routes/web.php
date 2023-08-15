@@ -8,7 +8,6 @@ use App\Http\Controllers\RegistrantQuestionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TaskController;
 use App\Mail\AcceptedMail;
-use App\Mail\TestMail;
 use App\Mail\WelcomeMail;
 use App\Models\Event;
 use Illuminate\Http\Request;
@@ -48,6 +47,11 @@ Route::middleware('auth')->group(function () {
         
         Route::prefix('organizer/{organizer}')->group(function () {
             Route::get('/', [OrganizerController::class, 'events'])->name('organizer.events');
+            Route::get('/settings', [OrganizerController::class, 'edit'])->name('organizer.edit');
+            Route::put('/', [OrganizerController::class, 'update'])->name('organizer.update');
+            Route::delete('/', [OrganizerController::class, 'destroy'])->name('organizer.destroy');
+            
+
             Route::get('/events/create', [OrganizerController::class, 'createEvent'])->name('organizer.create-event');
             Route::post('/events/create', [OrganizerController::class, 'storeEvent'])->name('organizer.store-event');
             Route::get('/members', [OrganizerController::class, 'members'])->name('organizer.members');
@@ -56,17 +60,23 @@ Route::middleware('auth')->group(function () {
             // Define routes related to event
             Route::prefix('events/{event}')->group(function () {
                 Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
+                
                 Route::put('/information', [EventController::class, 'updateInformation'])->name('organizer.event.update-information');
                 Route::get('/information', [EventController::class, 'information'])->name('organizer.event.information');
+                
                 Route::post('/publish',[EventController::class, 'togglePublish'])->name('organizer.event.publish');
+                
                 Route::get('/financial', [OrderController::class, 'financial'])->name('organizer.event.financial');
-                Route::get('/order/add', [OrderController::class, 'addOrder'])->name('organizer.event.add-order');
-                Route::post('/order/store', [OrderController::class, 'storeOrder'])->name('organizer.event.store-order');
-                Route::post('/order/export-csv', [OrderController::class, 'exportOrderToCSV'])->name('organizer.event.export-order-csv');
-                Route::post('/order/export-pdf', [OrderController::class, 'exportOrderToPDF'])->name('organizer.event.export-order-pdf');
+                
+                Route::resource('orders', OrderController::class);
+                
+                Route::post('/orders/export-csv', [OrderController::class, 'exportOrderToCSV'])->name('orders.export-order-csv');
+                Route::post('/orders/export-pdf', [OrderController::class, 'exportOrderToPDF'])->name('orders.export-order-pdf');
+                
                 Route::get('/participants/submission', [EventController::class, 'participantSubmissions'])->name('organizer.event.participants.submission');
                 Route::get('/participants/accepted', [EventController::class, 'participantAccepted'])->name('organizer.event.participants.accepted');
                 Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
+                
                 // Define routes related to event tasks
                 Route::resource('task', TaskController::class)->except(['index', 'show']);
                 Route::prefix('tasks')->group(function () {
