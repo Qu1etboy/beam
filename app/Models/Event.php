@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $fillable = [
         'organizer_id',
@@ -17,6 +18,15 @@ class Event extends Model
         'location',
         'registrant_questions',
     ];
+
+    // public function toSearchableArray()
+    // {
+    //     return [
+    //         'id' => (int) $this->id,
+    //         'event_name' => $this->event_name,
+    //         'is_published' => (bool) $this->is_published,
+    //     ];
+    // }
 
     public function organizer()
     {

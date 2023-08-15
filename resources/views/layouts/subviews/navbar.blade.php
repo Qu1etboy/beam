@@ -4,7 +4,7 @@
             <a href="{{ route('index') }}" class="text-3xl font-bold">Beam</a>
             
             <!-- Desktop search input -->
-            <form class="hidden md:block w-80">
+            <form action="{{ route('events.search') }}" class="hidden md:block w-80">
                 <label for="simple-search" class="sr-only">Search</label>
                 <div class="relative w-full">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -12,7 +12,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <x-text-input type="search" id="simple-search" placeholder="Search event name" class="pl-10" />
+                <x-text-input type="search" id="simple-search" name="q" placeholder="Search event name" class="pl-10" />
                 </div>
             </form>
         </div>
