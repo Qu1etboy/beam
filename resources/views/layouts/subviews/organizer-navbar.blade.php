@@ -1,7 +1,7 @@
 <header class="py-3 px-6 border-b bg-white">
-  <nav class="flex justify-between items-center">
+  <nav class="lg:container mx-auto flex justify-between items-center">
     <div class="flex gap-5">
-      <a href="{{ route('index') }}" class="text-3xl font-bold">Beam <span class="text-base">for <span class="text-purple-800">Organizer</span></span></a>
+      <a href="{{ route('organizer.events', ['organizer' => $organizer] ) }}" class="text-3xl font-bold">Beam <span class="text-base">for <span class="text-purple-800">Organizer</span></span></a>
     </div>
 
     <div class="flex items-center lg:gap-5">
@@ -27,6 +27,10 @@
                       <x-slot name="content">
                           <h2 class="text-sm px-4 pt-4">{{ Auth::user()->name }}</h2>
                           <p  class="text-gray-500 text-xs px-4 pb-3">{{ Auth::user()->email }}</p>
+                           <x-dropdown-link :href="route('index')">
+                                {{ __('Back To Main Site') }}
+                            </x-dropdown-link>
+
                            <x-dropdown-link :href="route('organizer.home')">
                                 {{ __('My Organization') }}
                             </x-dropdown-link>
