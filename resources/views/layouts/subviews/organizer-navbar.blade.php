@@ -1,7 +1,36 @@
 <header class="py-3 px-6 border-b bg-white">
   <nav class="lg:container mx-auto flex justify-between items-center">
-    <div class="flex gap-5">
-      <a href="{{ route('organizer.events', ['organizer' => $organizer] ) }}" class="text-3xl font-bold">Beam <span class="text-base">for <span class="text-purple-800">Organizer</span></span></a>
+    <div class="relative flex items-end gap-5">
+        <a href="{{ route('organizer.events', ['organizer' => $organizer] ) }}" class="text-3xl font-bold py-1">Beam <span class="text-base">for <span class="text-purple-800">Organizer</span></span></a>
+
+        <div class="gap-1 hidden lg:flex items-end">
+            <svg class="text-gray-300 my-1" data-testid="geist-icon" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" width="24" ><path d="M16.88 3.549L7.12 20.451"></path></svg>
+            
+            <x-dropdown align="right" width="48" class="z-20">
+                <x-slot name="trigger">
+                    <button class="flex items-center gap-2 hover:bg-gray-100 px-2 py-1 duration-300 rounded-md">
+                        <x-user-avatar :profile_url="$organizer->organizer_profile" class="w-7 h-7" />
+                        <span>{{ $organizer->organizer_name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-gray-400" aria-hidden="true"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+                    </button>
+                </x-slot>
+
+                <x-slot name="content">
+                    <h2 class="text-sm text-gray-600 px-4 pt-4 mb-2">Your organizations</h2>
+                    
+                    @foreach(Auth::user()->joinedOrganizations as $joinedOrganization)
+                        <x-dropdown-link :href="route('organizer.events', ['organizer' => $joinedOrganization])" class="flex items-center gap-2">
+                            <x-user-avatar :profile_url="$joinedOrganization->organizer_profile" class="w-7 h-7" />
+                            {{ $joinedOrganization->organizer_name }}
+                            @if ($joinedOrganization->id === $organizer->id)
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
+                            @endif
+                        </x-dropdown-link>
+                    @endforeach
+
+                </x-slot>
+            </x-dropdown>
+        </div>
     </div>
 
     <div class="flex items-center lg:gap-5">
