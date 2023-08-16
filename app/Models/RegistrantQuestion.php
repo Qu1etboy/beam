@@ -22,6 +22,6 @@ class RegistrantQuestion extends Model
 
     public function respondents()
     {
-        return $this->belongsToMany(User::class, 'registrant_question_user', 'registrant_question_id', 'user_id');
+        return $this->belongsToMany(User::class, 'registrant_question_user', 'registrant_question_id', 'user_id')->withPivot('answer');
     }
 }

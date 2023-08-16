@@ -69,6 +69,6 @@ class User extends Authenticatable
 
     public function registrantQuestions()
     {
-        return $this->belongsToMany(RegistrantQuestion::class, 'registrant_question_user', 'user_id', 'registrant_question_id');
+        return $this->belongsToMany(RegistrantQuestion::class, 'registrant_question_user', 'user_id', 'registrant_question_id')->withPivot('answer');
     }
 }
