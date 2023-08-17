@@ -44,11 +44,11 @@
             <x-file-input accept="image/*" id="certificate" name="certificates" />
             <x-input-error :messages="$errors->get('certificates')" />
           </div> --}}
-          
+
           <div class="mb-6 col-span-2">
             <x-input-label for="about" :value="__('About')"/>
             <span class="text-sm text-gray-600 mb-1">Let's describe who you are. What you did. Anything you want to show to event organizers, be creative!</span>
-            <textarea id="about" name="about" rows="10" placeholder="Educations, projects, awards, certificates, etc..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">{{ Auth::user()->about }}</textarea>
+            <textarea id="about" name="about" rows="10" placeholder="Education, Projects, Awards, Certificates, etc..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">{{ Auth::user()->about }}</textarea>
             <x-input-error :messages="$errors->get('about')" />
             
             <div class="text-sm text-gray-600 mt-1 space-y-2">
