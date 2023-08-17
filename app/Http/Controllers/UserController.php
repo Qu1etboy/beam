@@ -39,7 +39,8 @@ class UserController extends Controller
             'socials' => ['nullable', 'string', 'max:255'],
             // 'email' => 'required|email|max:255|unique:users,email,' . $user->id, // This line enforces unique emails and ignores the current user
             'profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg','max:2048'],
-            'certificates' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg' ,'max:2048'],
+            // 'certificates' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg' ,'max:2048'],
+            'about' => ['nullable', 'string']
         ]);
 
         $user = User::find(Auth::id());
@@ -70,6 +71,7 @@ class UserController extends Controller
         $user->name = $request->input('first_name') . ' ' . $request->input('last_name');
         // $user->email = Auth::user()->email;
         $user->social = $request->input('socials');
+        $user->about = $request->get('about');
         $user->save();
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }

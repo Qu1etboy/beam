@@ -88,13 +88,15 @@
               <span class="text-sm text-gray-600">Social</span>
               <div x-text="user.social ?? '-'" class="text-gray-900"></div>
             </div>
-            {{-- <div>
+            <div>
               <span class="text-sm text-gray-600">About</span>
-              <div></div>
-            </div> --}}
+              <div x-text="user.about ?? '-'" class="prose"></div>
+            </div>
           </div>
 
-          <h2 class="text-lg font-semibold my-3">Response</h2>
+          <template x-if="question.length > 0">
+            <h2 class="text-lg font-semibold my-3">Response</h2>
+          </template>
           <template x-for="q of question"">
             <div class="mb-2">
               <div x-text="q.question" class="block mb-2 text-sm font-medium text-gray-900"></div>
