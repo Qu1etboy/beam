@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {   
     public function redirectToGoogle() {
+        Session::put('returnUrl', url()->previous());
+
         return Socialite::driver('google')->redirect();
     }
     
@@ -35,6 +37,6 @@ class AuthController extends Controller
     
         Auth::login($newUser);
     
-        return redirect('/');    
+        return redirect()->intended(Session::get('returnUrl', '/'));    
     }
 }
