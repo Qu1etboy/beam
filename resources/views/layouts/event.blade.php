@@ -20,6 +20,21 @@
                     @yield('content')
                 </div>
             </div>
+
+            @if ($errors->any())
+                <div
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-transition
+                    x-init="setTimeout(() => show = false, 2000)"
+                    class="flex items-center justify-between fixed top-0 w-full z-50 bg-red-500 px-20 py-6 text-white"
+                >
+                    {{ __('Your input is incorrect. Please verify and try again.') }}
+                    <button @click="show = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+            @endif
         </div>
     </main>
 

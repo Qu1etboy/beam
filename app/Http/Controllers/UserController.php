@@ -73,6 +73,6 @@ class UserController extends Controller
         $user->social = $request->input('socials');
         $user->about = $request->get('about');
         $user->save();
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+        return redirect()->back()->with('status', 'updated');
     }
 }

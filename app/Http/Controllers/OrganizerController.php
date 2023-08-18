@@ -91,7 +91,7 @@ class OrganizerController extends Controller
         $organizer->organizer_name = $request->get('name');
         $organizer->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('status', 'updated');
     }
 
     public function destroy(Organizer $organizer) {

@@ -120,7 +120,7 @@ class EventController extends Controller
 
         $event->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('status', 'updated');
     }
 
     /**
