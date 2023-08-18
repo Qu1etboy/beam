@@ -42,38 +42,67 @@
       </div>
     </div>
 
-    <section class="container mx-auto p-3 my-5">
+    <nav class="border-b px-3 py-6 sticky top-0 bg-white/60 backdrop-blur-lg">
+      <div class="container mx-auto">
+        <ul class="flex gap-5">
+          <li>
+            <a href="#info" class="text-purple-900 hover:text-black duration-300">Info</a>
+          </li
+          <li>
+            <a href="#register" class="text-purple-900 hover:text-black duration-300">Register</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="my-5">
       {{-- <h2 class="text-3xl font-bold my-3">Event Description</h2> --}}
-      <article class="prose">  
-        {!! $event->event_description !!}
-      </article>
+      <div class="container mx-auto">
+        <article id="info" class="prose mx-auto lg:max-w-6xl p-3">  
+          {!! $event->event_description !!}
+        </article>
+      </div>
       
       <form action="{{ route('event-register', ['event' => $event]) }}" method="POST" class="mt-8">
         @csrf
         
         @if ($event->registrantQuestions->count() > 0)
-          <h2 class="text-3xl font-bold mt-3">Questions</h2>
-          <p class="text-gray-600 mb-6">The event organizer wants you to answer these questions before register for the event.</p>
-        @endif
-        @foreach($event->registrantQuestions as $question)
-          <div class="mb-6">
-            <label for="{{ 'q' . $loop->iteration }}">{{ $loop->iteration . '. ' . $question->question }}</label>
-            <x-text-input id="{{ 'q' . $loop->iteration }}" name="{{ 'q' . $loop->iteration }}" />
-            <x-input-error :messages="[]" />
+          <div>
+            <div class="container lg:max-w-6xl px-3 py-16 mx-auto">
+              <h2 class="text-3xl font-bold mt-3 mb-1">Application Form</h2>
+              <p class="text-gray-600">The event organizer wants you to answer these questions before register for the event.</p>
+              <p class="text-gray-600 mb-6">After fill in the form, click <a href="#register" class="underline">Register</a> to register this event</p>
+              @foreach($event->registrantQuestions as $question)
+                <div class="mb-6">
+                  <label for="{{ 'q' . $loop->iteration }}" class="mb-1">{{ $loop->iteration . '. ' . $question->question }}</label>
+                  <textarea id="{{ 'q' . $loop->iteration }}" name="{{ 'q' . $loop->iteration }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5"></textarea>
+                  <x-input-error :messages="[]" />
+                </div>
+              @endforeach
+            </div>
           </div>
-        @endforeach
-        
-        {{-- If user already registered this event remove register button --}}
-        @if ($is_registered)
-          <div class="text-center border border-purple-300 rounded-lg p-3">You are already registered this event</div>
-        {{-- If user not sign in ask to sign in first --}}
-        @elseif ($event->start_date < date("Y-m-d"))
-          <div class="text-center border border-purple-300 rounded-lg p-3">The application period has closed.</div>
-        @elseif (!Auth::user()) 
-          <a href="{{ url('/auth/google') }}" class="w-full inline-block text-center text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2">Please sign in to register this event</a>
-        @else
-          <x-buttons.primary type="submit" class="w-full">Register</x-buttons.primary> 
         @endif
+        
+        <div id="register" class="bg-gray-100">
+          <div class="container px-3 py-24 mx-auto">
+            <h2 class="text-3xl font-bold mt-3 mb-1">Register This Event</h2>
+            <p class="text-gray-600 mb-6">After you register for this event. The information will be sent to the event organizer. This action can't be undone</p>
+            {{-- If user already registered this event remove register button --}}
+            @if ($is_registered)
+              <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>You are already registered this event</button>
+            {{-- If user not sign in ask to sign in first --}}
+            @elseif ($event->start_date < date("Y-m-d"))
+              <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>The application period has closed</button>
+              {{-- <div class="text-center border border-purple-300 rounded-lg p-3">The application period has closed.</div> --}}
+            @elseif (!Auth::user()) 
+              <a href="{{ url('/auth/google') }}" class="w-full inline-block text-center text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2">Please sign in to register this event</a>
+            @else
+              <x-buttons.primary type="submit" class="w-full">Register</x-buttons.primary> 
+            @endif
+          </div>
+        </div>
+      
+      
       </form>
     </section>
 
