@@ -71,7 +71,7 @@
         <div id="register" class="bg-gray-100">
           <div class="container px-3 py-24 mx-auto">
             <h2 class="text-3xl font-bold mt-3 mb-1">Register This Event</h2>
-            <p class="text-gray-600 mb-6">After you register for this event the information will be sent to the event organizer. This action can't be undone</p>
+            <p class="text-gray-600 mb-6">After you register for this event. The information will be sent to the event organizer. This action can't be undone</p>
             {{-- If user already registered this event remove register button --}}
             @if ($is_registered)
               <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>You are already registered this event</button>
