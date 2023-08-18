@@ -31,6 +31,16 @@
               <p class="max-w-[50ch]">{{ $event->location ? $event->location : "To be announced" }}</p>
             </div>  
           </div>
+
+          @if ($event->start_date && $event->end_date)
+            <div>
+              <a href="{{ route('event.calendar', ['event' => $event] )}}" class="inline-flex items-center gap-3 py-2.5 px-5 mt-4 font-medium text-gray-900 focus:outline-none bg-transparent rounded-lg border border-gray-900 hover:bg-gray-50/40 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-plus"><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><line x1="19" x2="19" y1="16" y2="22"/><line x1="16" x2="22" y1="19" y2="19"/></svg>
+                Add to Calendar
+              </a>
+            </div>
+          @endif
+
           <div class="flex items-center gap-3 mt-8">
             <x-user-avatar :profile_url="$event->organizer->organizer_profile" class="w-20 h-20"/>
             <div>
