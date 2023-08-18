@@ -12,6 +12,7 @@ use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class EventController extends Controller
 {
@@ -201,12 +202,12 @@ class EventController extends Controller
         }
         
         // This event has started or the application has close so can't register anymore
-        if ($event->start_date < date("Y-m-d")) {
+        if ($event->start_date && $event->start_date < date("Y-m-d")) {
             abort(400, 'The application period has closed.');
         }
 
         // This event has started or the application has close so can't register anymore
-        if ($event->end_date < date("Y-m-d")) {
+        if ($event->start_date && $event->end_date < date("Y-m-d")) {
             abort(400, 'Event ended');
         }
 
@@ -229,7 +230,7 @@ class EventController extends Controller
 
         $events = $user->joinedEvents()->get();
         
-        return view('orders', compact('events'));
+        return Redirect::route('orders', ['events' => $events]);
     }
 
     public function togglePublish(Organizer $organizer, Event $event)

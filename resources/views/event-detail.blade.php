@@ -104,10 +104,10 @@
             @elseif (!$event->allow_register || $event->register_start_date > date("Y-m-d"))
               <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>The application period hasn't started</button>
             
-            @elseif ($event->register_end_date < date("Y-m-d") || $event->start_date < date("Y-m-d"))
+            @elseif ($event->register_end_date < date("Y-m-d") || ($event->start_date && $event->start_date < date("Y-m-d")))
               <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>The application period has closed</button>
 
-            @elseif ($event->end_date < date("Y-m-d"))
+            @elseif ($event->end_date && $event->end_date < date("Y-m-d"))
               <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>Event ended</button>
             
             {{-- If user not sign in ask to sign in first --}}
