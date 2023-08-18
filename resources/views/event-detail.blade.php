@@ -42,18 +42,33 @@
       </div>
     </div>
 
+    <nav class="border-b px-3 py-6 sticky top-0 bg-white/60 backdrop-blur-lg">
+      <div class="container mx-auto">
+        <ul class="flex gap-5">
+          <li>
+            <a href="#info" class="text-purple-900 hover:text-black duration-300">Info</a>
+          </li
+          <li>
+            <a href="#register" class="text-purple-900 hover:text-black duration-300">Register</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
     <section class="my-5">
       {{-- <h2 class="text-3xl font-bold my-3">Event Description</h2> --}}
-      <article class="prose max-w-6xl p-3 container mx-auto">  
-        {!! $event->event_description !!}
-      </article>
+      <div class="container mx-auto">
+        <article id="info" class="prose mx-auto lg:max-w-6xl p-3">  
+          {!! $event->event_description !!}
+        </article>
+      </div>
       
       <form action="{{ route('event-register', ['event' => $event]) }}" method="POST" class="mt-8">
         @csrf
         
         @if ($event->registrantQuestions->count() > 0)
           <div>
-            <div class="container max-w-6xl px-3 py-16 mx-auto">
+            <div class="container lg:max-w-6xl px-3 py-16 mx-auto">
               <h2 class="text-3xl font-bold mt-3 mb-1">Application Form</h2>
               <p class="text-gray-600">The event organizer wants you to answer these questions before register for the event.</p>
               <p class="text-gray-600 mb-6">After fill in the form, click <a href="#register" class="underline">Register</a> to register this event</p>
