@@ -8,11 +8,14 @@ use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\RegistrantQuestion;
 use App\Models\User;
+use \Datetime;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Spatie\CalendarLinks\Link;
 
 class EventController extends Controller
 {
@@ -240,5 +243,36 @@ class EventController extends Controller
         $event->save();
 
         return redirect()->back();
+    }
+
+    public function addToCalendar(Event $event) {
+
+        if (!$event->start_date && !$event->end_date) {
+            abort(400, 'This event has not anounced the start date and end date yet');
+        }
+
+        $from = DateTime::createFromFormat('Y-m-d H:i:s', $event->start_date);
+        $to = DateTime::createFromFormat('Y-m-d H:i:s', $event->end_date);
+
+        $eventDetailUrl = route('event-detail', ['event' => $event]);
+
+        $link = Link::create($event->event_name, $from, $to)
+            ->description("Event detail here {$eventDetailUrl}")
+            ->address($event->location);
+
+        // Return in base64 format
+        // dd($link->ics());
+
+        $decodedData = base64_decode(explode(',', $link->ics())[1]);
+
+        $headers = [
+            'Content-Type' => 'text/calendar',
+            'Content-Disposition' => 'attachment; filename="' . $event->id . '-calendar.ics"',
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ];
+
+        return Response::make($decodedData, 200, $headers);
     }
 }

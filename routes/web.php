@@ -32,6 +32,7 @@ Route::get('/', [EventController::class, 'index'])->name('index');
 Route::get('/search', [EventController::class, 'search'])->name('events.search');
 
 Route::get('/event/{event}', [EventController::class, 'show'])->name('event-detail');
+Route::get('/event/{event}/calendar', [EventController::class, 'addToCalendar'])->name('event.calendar');
 Route::post('/event/{event}', [EventController::class, 'register'])->name('event-register');
 
 // Define routes that required user to authenticate first to access
