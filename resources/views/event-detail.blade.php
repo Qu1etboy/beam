@@ -87,18 +87,38 @@
           <div class="container px-3 py-24 mx-auto">
             <h2 class="text-3xl font-bold mt-3 mb-1">Register This Event</h2>
             <p class="text-gray-600 mb-6">After you register for this event. The information will be sent to the event organizer. This action can't be undone</p>
+            
+            @if ($event->register_start_date && $event->register_end_date )
+              <div class="mb-6">
+              Open for register from 
+              <span class="text-purple-800">{{ \Carbon\Carbon::parse($event->register_start_date)->format('d M Y, H:i') }}</span>
+              to 
+              <span class="text-purple-800">{{ \Carbon\Carbon::parse($event->register_end_date)->format('d M Y, H:i') }}</span>
+              </div>
+            @endif  
+            
             {{-- If user already registered this event remove register button --}}
             @if ($is_registered)
               <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>You are already registered this event</button>
-            {{-- If user not sign in ask to sign in first --}}
-            @elseif ($event->start_date < date("Y-m-d"))
+
+            @elseif (!$event->allow_register || $event->register_start_date > date("Y-m-d"))
+              <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>The application period hasn't started</button>
+            
+            @elseif ($event->register_end_date < date("Y-m-d") || $event->start_date < date("Y-m-d"))
               <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>The application period has closed</button>
-              {{-- <div class="text-center border border-purple-300 rounded-lg p-3">The application period has closed.</div> --}}
+
+            @elseif ($event->end_date < date("Y-m-d"))
+              <button type="button" class="w-full text-gray-600 bg-gray-300 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center" disabled>Event ended</button>
+            
+            {{-- If user not sign in ask to sign in first --}}
             @elseif (!Auth::user()) 
               <a href="{{ url('/auth/google') }}" class="w-full inline-block text-center text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2">Please sign in to register this event</a>
+
+            {{-- Okay, allow register  --}}
             @else
               <x-buttons.primary type="submit" class="w-full">Register</x-buttons.primary> 
             @endif
+          
           </div>
         </div>
       
