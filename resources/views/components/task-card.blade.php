@@ -50,8 +50,8 @@
         </x-slot>
     </x-dropdown>
     <div class="flex gap-3 mb-2">
-        <h5 class=" text-xl font-bold tracking-tight text-gray-90">{{ $task->title }}</h5>
-        <a href="{{ route('task.edit', ['organizer' => $organizer, 'event' => $event, 'task' => $task]) }}">
+        <a href="{{ route('task.show', ['organizer' => $organizer, 'event' => $event, 'task' => $task] ) }}" class=" text-xl font-bold tracking-tight text-gray-90">{{ $task->title }}</a>
+        <a href="{{ route('task.edit', ['organizer' => $organizer, 'event' => $event, 'task' => $task] ) }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                 viewBox="0 0 24
                                     24" fill="none" stroke="currentColor"
@@ -99,7 +99,7 @@
             @foreach ($task->assignees->take(2) as $assignee)
                 <img class="w-8 h-8 border-2 border-white rounded-full"
                     src="{{ file_exists('storage/' . $assignee->avatar) ? asset('storage/' . $assignee->avatar) : $assignee->avatar }}"
-                    alt="{{ $assignee->name }}">
+                    alt="{{ $assignee->name }}" title="{{ $assignee->name }}">
             @endforeach
             @if ($task->assignees->count() > 2)
                 <span

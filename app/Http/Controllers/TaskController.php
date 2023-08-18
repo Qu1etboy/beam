@@ -48,6 +48,13 @@ class TaskController extends Controller
         return back()->with('status', 'Task status updated successfully!');
     }
 
+    /**
+     * Store a newly created task for the given event.
+     */
+    public function show(Organizer $organizer, Event $event, Task $task)
+    {
+        return view('organizer.event.tasks.show', compact('organizer', 'event', 'task'));
+    }
 
     /**
      * Store a newly created task for the given event.

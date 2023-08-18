@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
                 Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
                 
                 // Define routes related to event tasks
-                Route::resource('task', TaskController::class)->except(['index', 'show']);
+                Route::resource('task', TaskController::class)->except(['index']);
                 Route::prefix('tasks')->group(function () {
                     Route::get('/board', [TaskController::class, 'board'])->name('organizer.event.tasks.board');
                     Route::get('/list', [TaskController::class, 'list'])->name('organizer.event.tasks.list');
