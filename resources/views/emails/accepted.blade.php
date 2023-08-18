@@ -70,13 +70,13 @@
         </div>
         <div class="content">
             <p>Dear {{ $userName }},</p>
-            <p>We are excited to inform you that your application for the {{ $eventName }} has been accepted! Congratulations on this accomplishment.</p>
+            <p>We are excited to inform you that your application for the {{ $event->event_name }} has been accepted! Congratulations on this accomplishment.</p>
+            <p>Event Details</p>
             <ul>
-                <li>Event Details:</li>
-                <li>Event Name:</li>
-                <li>Date:</li>
-                <li>Time: </li>
-                <li>Location: </li>
+                <li>Event Name: {{ $event->event_name }}</li>
+                <li>Date: from {{ \Carbon\Carbon::parse($event->start_date)->format('d M Y, H:i') }} to {{ \Carbon\Carbon::parse($event->end_date)->format('d M Y, H:i') }}</li>
+                <li>Location: {{ $event->location }}</li>
+                <li>Link: <a href="{{ route('event-detail', ['event' => $event]) }}">{{ route('event-detail', ['event' => $event]) }}</a></li>
             </ul>
             <p>Your dedication and enthusiasm stood out to us during the selection process, and we believe that your participation will contribute greatly to the success of the event.</p>
             <p>Thank you for choosing Beam as your partner in event organization. We're excited to embark on this journey together and create unforgettable experiences. Here's to a future filled with successful events and wonderful memories!</p>

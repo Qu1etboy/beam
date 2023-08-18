@@ -39,7 +39,7 @@ class AcceptedMail extends Mailable
             view: 'emails.accepted',
             with: [
                 'userName' => $this->user->name,
-                'eventName' => $this->event->name,
+                'event' => $this->event,
             ],
         );
     }
