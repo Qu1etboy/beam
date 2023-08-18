@@ -24,10 +24,22 @@ return new class extends Migration
             $table->string('poster_image')->nullable();
             // location, start_date, end_date are null mean "To be announced"
             $table->string('location')->nullable();
+
+            // Time period that allow user to register to this event
+            $table->dateTime('register_start_date')->nullable();
+            $table->dateTime('register_end_date')->nullable();
+
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+            
             // If not published will not show to users
             $table->boolean('is_published')->default(false);
+            
+            // If false, user will not be able to register to this event. 
+            // Which Can be use to promote an event only on our website.
+            // [CONDITION] To enable this you need to set register start date and end date first
+            $table->boolean('allow_register')->default(false);
+            
             $table->timestamps();
         });
     }

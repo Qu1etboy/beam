@@ -44,12 +44,44 @@
     </div>
   </div>
 
-  <!-- Date and Time -->
+  <!-- Register Date and Time -->
   <div class="border rounded-md p-3">
     <div class="flex items-center gap-3 mb-5">
       <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">3</span>
       <div>
-        <h2 class="text-xl font-bold">Date and Time</h2>
+        <h2 class="text-xl font-bold">Register Date and Time</h2>
+        <p class="text-sm text-gray-600">Set the time period that allow candidate to register this event</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-x-3">
+      <div class="mb-6">
+        <x-input-label for="register_start_date" :value="__('Start date & time')"/>
+        <x-text-input type="datetime-local" id="register_start_date" name="register_start_date" value="{{ $event->register_start_date }}" />
+        <x-input-error :messages="$errors->get('register_start_date')" />
+      </div>
+      <div class="mb-6">
+        <x-input-label for="register_end_date" :value="__('End date & time')" />
+        <x-text-input type="datetime-local" id="register_end_date" name="register_end_date" value="{{ $event->register_end_date }}" />
+        <x-input-error :messages="$errors->get('register_end_date')" />
+      </div>
+      <div class="col-span-2">
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" name="allow_register" class="sr-only peer" @if($event->allow_register) checked @endif >
+          <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+          <span class="ml-3 text-sm font-medium text-gray-900">Allow Register</span>
+        </label>
+        <x-input-error :messages="$errors->get('allow_register')" />
+        <p class="text-sm text-gray-600 mt-1">*Allow the candidate to register until the end of the register date</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Date and Time -->
+  <div class="border rounded-md p-3">
+    <div class="flex items-center gap-3 mb-5">
+      <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">4</span>
+      <div>
+        <h2 class="text-xl font-bold">Event Date and Time</h2>
         <p class="text-sm text-gray-600">If not specified, will be display as "To be announced"</p>
       </div>
     </div>
@@ -70,7 +102,7 @@
   <!-- Location -->
   <div class="border rounded-md p-3">
     <div class="flex items-center gap-3 mb-5">
-      <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">4</span>
+      <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">5</span>
       <div>
         <h2 class="text-xl font-bold">Location</h2>
         <p class="text-sm text-gray-600">If not specified, will be display as "To be announced"</p>
@@ -93,7 +125,7 @@
   <!-- Description -->
   <div class="border rounded-md p-3">
     <div class="flex items-center gap-3 mb-5">
-      <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">5</span>
+      <span class="bg-gray-200 rounded-full h-5 w-5 flex items-center justify-center p-5">6</span>
       <h2 class="text-xl font-bold">Description</h2>
     </div>
     <div class="mb-6">

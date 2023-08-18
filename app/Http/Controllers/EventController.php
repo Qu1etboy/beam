@@ -71,11 +71,27 @@ class EventController extends Controller
 
     public function updateInformation(Request $request, Organizer $organizer, Event $event)
     {   
+
+
+        // dd($request);
+
         $validatedData = $request->validate([
             'event_name' => ['required', 'string', 'min:1', 'max:1024'],
             'event_description' => ['nullable', 'string'],
-            'start_date' => ['nullable', 'date', 'after:tomorrow'],
+            'start_date' => ['nullable', 'date', 'after:register_end_date'],
             'end_date' => ['nullable', 'date', 'after:start_date'],
+            'register_start_date' => ['nullable', 'date'],
+            'register_end_date' => ['nullable', 'date', 'after:register_start_date'],
+            'allow_register' => [
+                // 'nullable', 
+                // 'boolean',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ((is_null($request->get('register_start_date')) && is_null($request->get('register_end_date'))) && $value) {
+                        $fail("You can't allow candidate to register if not specified register time period");
+                    }
+                },
+            
+            ],
             'location' => ['nullable', 'string'],
         ]);
 
@@ -88,9 +104,16 @@ class EventController extends Controller
             $event->save();
         }
 
-        // $poster_path = $request->file('poster')->store('posters', 'public');
+        $event->event_name = $request->get('event_name');
+        $event->event_description = $request->get('event_description');
+        $event->start_date = $request->get('start_date');
+        $event->end_date = $request->get('end_date');
+        $event->register_start_date = $request->get('register_start_date');
+        $event->register_end_date = $request->get('register_end_date');
+        $event->allow_register = $request->has('allow_register');
+        $event->location = $request->get('location');
 
-        Event::where('id', $event->id)->update($validatedData);
+        $event->save();
 
         return redirect()->back();
     }
@@ -159,10 +182,29 @@ class EventController extends Controller
         if ($joinedEvent) {
             abort(409, 'You already registered this event.');
         }
+
+        if (!$event->allow_register) {
+            abort(400, 'Not allowed to register this event yet.');
+        }
+        
+        // Not in register date
+        if ($event->register_start_date > date("Y-m-d")) {
+            abort(400, 'The application period hasn\'t started.');
+        }
+
+        // Not in register date
+        if ($event->register_end_date < date("Y-m-d")) {
+            abort(400, 'The application period has closed.');
+        }
         
         // This event has started or the application has close so can't register anymore
         if ($event->start_date < date("Y-m-d")) {
             abort(400, 'The application period has closed.');
+        }
+
+        // This event has started or the application has close so can't register anymore
+        if ($event->end_date < date("Y-m-d")) {
+            abort(400, 'Event ended');
         }
 
         // If event ask user to answer question add it
