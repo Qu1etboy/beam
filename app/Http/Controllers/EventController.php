@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AcceptedMail;
+use App\Mail\RejectedMail;
 use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\RegistrantQuestion;
@@ -160,10 +161,12 @@ class EventController extends Controller
         $event->participants()->sync([$user_id => ['status' => $status]]);
 
         if ($status == "ACCEPTED") {
-            // TODO: sent email to users that they got accepted
+            // Sent email to users that they got accepted
             Mail::to($user->email)->send(new AcceptedMail($user,$event));
         } else {
-            // TODO: sent email to users that they got rejected
+            // Sent email to users that they got rejected
+            Mail::to($user->email)->send(new RejectedMail($user,$event));
+
         }
 
         return redirect()->back();
