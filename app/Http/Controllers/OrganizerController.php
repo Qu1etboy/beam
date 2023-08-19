@@ -46,7 +46,7 @@ class OrganizerController extends Controller
     public function storeOrganization(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:1', 'max:255']
+            'name' => ['required', 'string', 'min:1', 'max:255', 'unique:organizers,organizer_name']
         ]);
         
         $user = User::find(Auth::id());

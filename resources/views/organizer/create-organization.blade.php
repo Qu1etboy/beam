@@ -21,7 +21,11 @@
       <div class="mb-6">
         <x-input-label for="name" :value="__('Organization name')"/>
         <x-text-input id="name" name="name" placeholder="Enter your organization name" />
-        <x-input-error :messages="$errors->get('name')" />
+        @error('name')
+            <div class="bg-gradient-to-r from-red-500 to-red-600 p-2 rounded-md shadow-md text-white text-sm animate-pulse">
+                {{$message}}
+            </div>
+        @enderror
       </div>
       <button type="submit" class="w-full text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Create organization</button>
     </form>
