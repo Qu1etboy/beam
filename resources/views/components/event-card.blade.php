@@ -11,7 +11,7 @@
     <img 
         src="{{ $poster }}" 
         alt="{{ $title . ' poster'}}"
-        class="rounded-lg object-cover h-[300px]"
+        class="rounded-lg object-cover h-[300px] w-[300px]"
         onerror="this.src='https://placehold.co/800x1032';"  
     >
     <div class="mt-3">

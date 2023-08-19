@@ -27,7 +27,7 @@ class EventFactory extends Factory
     {
         return [
             'organizer_id' => Organizer::factory(),
-            'event_name' => $this->faker->catchPhrase,
+            'event_name' => $this->faker->words(2, true),
             'event_description' => $this->faker->paragraph,
             'poster_image' => $this->faker->imageUrl(),
             'location' => $this->faker->city,
