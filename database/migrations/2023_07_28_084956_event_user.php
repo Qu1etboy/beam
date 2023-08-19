@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('status')->default('PENDING'); // ACCEPTED, PENDING, REJECTED
             $table->primary(['event_id', 'user_id']);
+            $table->timestamps();
         });
     }
 
