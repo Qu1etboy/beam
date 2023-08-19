@@ -187,7 +187,7 @@ class EventController extends Controller
 
         $user = User::find($user_id);
 
-        $event->participants()->sync([$user_id => ['status' => $status]]);
+        $event->participants()->syncWithoutDetaching([$user_id => ['status' => $status]]);
 
         if ($status == "ACCEPTED") {
             // Sent email to users that they got accepted
