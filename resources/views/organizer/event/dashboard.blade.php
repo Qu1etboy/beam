@@ -21,16 +21,18 @@
         </div>
     </div>
 
-    <div class="mt-6 flex flexcol justify-around">
-        <div>
+    <div class="mt-6 flex flex-col md:flex-row justify-around gap-8">
+        <div class="md:w-4/12">
             <h2 class="font-bold mb-4 text-xl sm:text-2xl md:text-3xl">Participant Status Distribution</h2>
             <canvas id="participantStatusChart"></canvas>
         </div>
-        <div class="w-1/2">
+        <div class="md:w-8/12">
             <h2 class="font-bold mb-4 text-xl sm:text-2xl md:text-3xl">Daily Event Registrations for {{ date('F') }}</h2>
             <canvas id="dailyRegistrationsChart"></canvas>
         </div>
     </div>
+</div>
+
 
 <script>
     const statusCtx = document.getElementById('participantStatusChart').getContext('2d');
