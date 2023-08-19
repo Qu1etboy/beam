@@ -253,6 +253,11 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code/-/extension-code-2.1.6.tgz#dde8e550cbd5a86f9deefe1afe8b155ee2e1cf34"
   integrity sha512-vFWE74Aipt0kbmWyya+9zvsAgVusbbHx8g3Zqm8iKDt95BY3MWGurCZ3F5uoVuPuWD9VSrbNs4/T6oKbVKc9Ow==
 
+"@tiptap/extension-color@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-color/-/extension-color-2.1.6.tgz#963644749c59013052db6c3c92d393a9b70162b9"
+  integrity sha512-EANKrEuXBQ5vS5leu5+f/MZItQWuDmbe1FMvmGDjWWobh9VRI814hjHjFCyO/yu1SfnqRqGlWYCqj6VKrArWxA==
+
 "@tiptap/extension-document@^2.1.6":
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-document/-/extension-document-2.1.6.tgz#91b1239d4eaa3c12cb382fc9805eedd3d32b1b7c"
@@ -262,6 +267,11 @@
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-dropcursor/-/extension-dropcursor-2.1.6.tgz#539acde0125c76a42f78cec771ed85d7549cb4cd"
   integrity sha512-+nk4XtCp2+lVf1pzwonaOdIolE9AI3HPAtUO7sthHYLDIm1JEQT2GS3+MVDGHdFKxEGUkB5DEcNLtr/xLTQjZQ==
+
+"@tiptap/extension-font-family@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-font-family/-/extension-font-family-2.1.6.tgz#c5673749a6e1ea3177cbfdad6748cebcc2947d5d"
+  integrity sha512-Z2ebqjXd6sSholG6OtMrrMWtRmJBhpxLCFs+wGeGXmS3qYAWUs5Zvk4D6dospD/FBuQ4HmqNx1zK7TvqfNGAdQ==
 
 "@tiptap/extension-gapcursor@^2.1.6":
   version "2.1.6"
@@ -288,10 +298,22 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-horizontal-rule/-/extension-horizontal-rule-2.1.6.tgz#f21b2229f4ed6c3737ea7044cb38b4eda6dd757b"
   integrity sha512-1epXM+4DRlhos+Awj4sHApceO2O26tuqyrZot0Mm+mF0yuCGy3B5fefAgUcxBu/oRuywfDl8cwCzN2E/d8KXtA==
 
+"@tiptap/extension-image@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-image/-/extension-image-2.1.6.tgz#b86ed44c4017a062358a744afc8e0e99861f5bc5"
+  integrity sha512-Ibu3yYDpWPJd9ajduzdJz8xscWNPYayWj+IATXU8FjsNvPkWpRoRZv+txfrTLOkmx8Qd3z30kriHNjZsIYLHkA==
+
 "@tiptap/extension-italic@^2.1.6":
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-italic/-/extension-italic-2.1.6.tgz#8158049065f71b7ecb90a35411cb7e5c5993efc2"
   integrity sha512-o41hil+x2yqFciOiJPx67FnguJ4/aEMU8MotmXekFGHM+I0wFOd4lA5t7HqFU5Si0Z7gyTb/N0wLUbAnbyk/Aw==
+
+"@tiptap/extension-link@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-link/-/extension-link-2.1.6.tgz#facdea5beef493226d4b240770b0c68686247793"
+  integrity sha512-at4tUpb8P2mMqc3jGMsggoKrt2mMWX0uNvoFYpKpnptQvsweCXSV5xi60o1C5kL7f0v/FYvEk4QaQBJmG5DmRg==
+  dependencies:
+    linkifyjs "^4.1.0"
 
 "@tiptap/extension-list-item@^2.1.6":
   version "2.1.6"
@@ -318,10 +340,20 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-text-align/-/extension-text-align-2.1.6.tgz#5c1875e87909a468208310ae71a10ffd1f3199c5"
   integrity sha512-YFgih5eStYlak9NoA6/zwNbWSx2YAdAWRzFwJ5UCrBPbb+ddAX3Ff8ql9PM29Xx2naQCsuM3og9ECek7wbCWpA==
 
+"@tiptap/extension-text-style@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-text-style/-/extension-text-style-2.1.6.tgz#f35ac9eff5b2dde1fea1bfb28cc0ce88491fd8d9"
+  integrity sha512-kmTSs3+AICAvFpgFLSp0y3cvjGfMZNHkG+IH0K5jRD/O85+upNc71Kt1ugh0Drbrg/FdPxrixxnZMXv+YM5QAg==
+
 "@tiptap/extension-text@^2.1.6":
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-text/-/extension-text-2.1.6.tgz#23f36114ee164e3da2fd326145ac7b7f8bd34c56"
   integrity sha512-CqV0N6ngoXZFeJGlQ86FSZJ/0k7+BN3S6aSUcb5DRAKsSEv/Ga1LvSG24sHy+dwjTuj3EtRPJSVZTFcSB17ZSA==
+
+"@tiptap/extension-youtube@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-youtube/-/extension-youtube-2.1.6.tgz#9100138b0a22a9e2cbc571748673d43e6959e762"
+  integrity sha512-jTcV6Mr1bYjzf9Vll5PhlA/qXSdmH/iGKg1iZo956qHQvmakz5/OPlmaauyqZGNvXDg9J5kkzfwibXCIe6enwQ==
 
 "@tiptap/pm@^2.1.6":
   version "2.1.6"
@@ -809,6 +841,11 @@ linkify-it@^4.0.1:
   integrity sha512-C7bfi1UZmoj8+PQx22XyeXCuBlokoyWQL5pWSP+EI6nzRylyThouddufc2c1NDIcP9k5agmN9fLpA7VNJfIiqw==
   dependencies:
     uc.micro "^1.0.1"
+
+linkifyjs@^4.1.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.1.tgz#73d427e3bbaaf4ca8e71c589ad4ffda11a9a5fde"
+  integrity sha512-zFN/CTVmbcVef+WaDXT63dNzzkfRBKT1j464NJQkV7iSgJU0sLBus9W0HBwnXK13/hf168pbrx/V/bjEHOXNHA==
 
 lodash.castarray@^4.4.0:
   version "4.4.0"
