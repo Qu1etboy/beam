@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mx-auto p-3">
-    <h1 class="font-bold text-4xl my-3">My Orders</h1>
+    <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">My Orders</h1>
 
     @if ($events->isNotEmpty())
       <div class="mt-8 space-y-4">
