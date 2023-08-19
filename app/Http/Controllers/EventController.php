@@ -11,7 +11,9 @@ use App\Models\User;
 use \Datetime;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -28,7 +30,8 @@ class EventController extends Controller
         return view('index', compact('events'));
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $search_query = $request->query('q');
         $events = Event::search($search_query)->where('is_published', 1)->paginate(10);
         return view('search', compact('events', 'search_query'));
@@ -63,7 +66,28 @@ class EventController extends Controller
      */
     public function dashboard(Organizer $organizer, Event $event)
     {
-        return view('organizer.event.dashboard', compact('organizer', 'event'));
+        // Assuming there's a created_at column in your pivot table for event-user.
+        $acceptedCount = $event->participants()->wherePivot('status', 'ACCEPTED')->count();
+        $pendingCount = $event->participants()->wherePivot('status', 'PENDING')->count();
+        $rejectedCount = $event->participants()->wherePivot('status', 'REJECTED')->count();
+
+        // Get the number of registration per day
+        $days = [];
+        $registrations = [];
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        $daysInMonth = Carbon::now()->daysInMonth;
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $days[] = (string)$i;
+            $registrations[] = $event->participants()
+                ->whereDate('event_user.created_at', Carbon::create($currentYear, $currentMonth, $i))
+                ->count();
+        }
+
+        // Get total cost of the event
+        $totalCost = $event->getTotalOrderCost();
+
+        return view('organizer.event.dashboard', compact('organizer', 'event', 'acceptedCount', 'pendingCount', 'rejectedCount', 'days', 'registrations', 'totalCost'));
     }
 
     /**
@@ -75,7 +99,7 @@ class EventController extends Controller
     }
 
     public function updateInformation(Request $request, Organizer $organizer, Event $event)
-    {   
+    {
 
 
         // dd($request);
@@ -95,7 +119,7 @@ class EventController extends Controller
                         $fail("You can't allow candidate to register if not specified register time period");
                     }
                 },
-            
+
             ],
             'location' => ['nullable', 'string'],
         ]);
@@ -134,7 +158,7 @@ class EventController extends Controller
         }])->find($event->id);
 
         $participants = $eventWithPendingParticipants->participants;
-        
+
         return view('organizer.event.participants.submission', compact('organizer', 'event', 'participants'));
     }
 
@@ -149,28 +173,28 @@ class EventController extends Controller
         }])->find($event->id);
 
         $participants = $eventWithAcceptedParticipants->participants;
-        
+
         return view('organizer.event.participants.accepted', compact('organizer', 'event', 'participants'));
     }
 
     /**
      * Set between ACCPETED or REJECTED
      */
-    public function setParticipantStatus(Request $request, Organizer $organizer, Event $event) {
+    public function setParticipantStatus(Request $request, Organizer $organizer, Event $event)
+    {
         $user_id = $request->get('user_id');
         $status = $request->get('status');
 
         $user = User::find($user_id);
-        
+
         $event->participants()->sync([$user_id => ['status' => $status]]);
 
         if ($status == "ACCEPTED") {
             // Sent email to users that they got accepted
-            Mail::to($user->email)->send(new AcceptedMail($user,$event));
+            Mail::to($user->email)->send(new AcceptedMail($user, $event));
         } else {
             // Sent email to users that they got rejected
-            Mail::to($user->email)->send(new RejectedMail($user,$event));
-
+            Mail::to($user->email)->send(new RejectedMail($user, $event));
         }
 
         return redirect()->back();
@@ -193,7 +217,7 @@ class EventController extends Controller
         if (!$event->allow_register) {
             abort(400, 'Not allowed to register this event yet.');
         }
-        
+
         // Not in register date
         if ($event->register_start_date > date("Y-m-d")) {
             abort(400, 'The application period hasn\'t started.');
@@ -203,7 +227,7 @@ class EventController extends Controller
         if ($event->register_end_date < date("Y-m-d")) {
             abort(400, 'The application period has closed.');
         }
-        
+
         // This event has started or the application has close so can't register anymore
         if ($event->start_date && $event->start_date < date("Y-m-d")) {
             abort(400, 'The application period has closed.');
@@ -226,13 +250,12 @@ class EventController extends Controller
 
             $question = RegistrantQuestion::with('respondents')->find($question->id);
             $question->respondents()->attach(Auth::id(), ['answer' => $answer]);
-
         });
 
-        $event->participants()->attach($user->id);
+        $event->participants()->attach($user->id, ['created_at' => now(), 'updated_at' => now()]);
 
         $events = $user->joinedEvents()->get();
-        
+
         return Redirect::route('orders', ['events' => $events]);
     }
 
@@ -245,7 +268,8 @@ class EventController extends Controller
         return redirect()->back();
     }
 
-    public function addToCalendar(Event $event) {
+    public function addToCalendar(Event $event)
+    {
 
         if (!$event->start_date && !$event->end_date) {
             abort(400, 'This event has not anounced the start date and end date yet');
