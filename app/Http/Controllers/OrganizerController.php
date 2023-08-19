@@ -72,7 +72,7 @@ class OrganizerController extends Controller
         Gate::authorize('update', $organizer);
 
         $request->validate([
-            'name' => ['required', 'string', 'min:1', 'max:255'],
+            'name' => ['required', 'string', 'min:1', 'max:255', 'unique:organizers,organizer_name'],
             'profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
         
@@ -126,7 +126,7 @@ class OrganizerController extends Controller
     public function storeEvent(Request $request, Organizer $organizer)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:1', 'max:1024']
+            'name' => ['required', 'string', 'min:1', 'max:1024', 'unique:events,event_name']
         ]);
 
         $event = new Event;

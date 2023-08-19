@@ -13,7 +13,11 @@
       <div class="my-6">
         <x-input-label for="name" :value="__('Event name')"/>
         <x-text-input id="name" name="name" placeholder="Enter your event name" />
-        <x-input-error :messages="$errors->get('name')" />
+        @error('name')  
+            <div class="bg-gradient-to-r from-red-500 to-red-600 p-2 rounded-md shadow-md text-white text-sm animate-pulse">
+                {{$message}}
+            </div>
+        @enderror
         <p class="text-sm text-gray-600 mt-2">After creating an event. You can go to the Event Information page to edit your event information. Don't worry you can change it later.</p>
       </div>
 
