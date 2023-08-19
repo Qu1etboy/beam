@@ -107,3 +107,18 @@
 
   </nav>
 </header>
+
+<div class="hidden lg:hidden" id="menu">
+    @include('layouts.subviews.organizer-navbar-mobile')
+</div>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById('menu');
+    if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+    } else {
+        menu.classList.add('hidden');
+    }
+}
+</script>
