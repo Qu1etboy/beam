@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\AcceptedMail;
-use App\Mail\RejectedMail;
+use App\Mail\SubmissionResultMail;
 use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\RegistrantQuestion;
 use App\Models\User;
 use \Datetime;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -197,7 +194,7 @@ class EventController extends Controller
             $body = $this->replaceSpecialSymbol($body, $user, $event);
             $subject = $this->replaceSpecialSymbol($subject, $user, $event);
 
-            Mail::to($user->email)->send(new AcceptedMail($subject, $body));
+            Mail::to($user->email)->send(new SubmissionResultMail($subject, $body));
         } else {
             // Sent email to users that they got rejected
             $subject = $event->rejected_email_subject ? $event->rejected_email_subject : Event::$DEFAULT_REJECTED_MAIL_SUBJECT; 
@@ -206,7 +203,7 @@ class EventController extends Controller
             $body = $this->replaceSpecialSymbol($body, $user, $event);
             $subject = $this->replaceSpecialSymbol($subject, $user, $event);
             
-            Mail::to($user->email)->send(new RejectedMail($subject, $body));
+            Mail::to($user->email)->send(new SubmissionResultMail($subject, $body));
         }
 
         return redirect()->back();
@@ -323,9 +320,11 @@ class EventController extends Controller
         ]);
 
         $body = $request->get('accepeted_email_body');
-        // $body = $this->replaceSpecialSymbol($body, Auth::user(), $event);
+        $subject = $request->get('accepeted_email_subject');
 
-        dd($body);
+        $event->accepeted_email_subject = $subject;
+        $event->accepeted_email_body = $body;
+        $event->save();
         
         return redirect()->back()->with('status', 'updated');
     }
@@ -337,9 +336,11 @@ class EventController extends Controller
         ]);
 
         $body = $request->get('rejected_email_body');
-        // $body = $this->replaceSpecialSymbol($body, Auth::user(), $event);
+        $subject = $request->get('rejected_email_subject');
 
-        dd($body);
+        $event->rejected_email_subject = $subject;
+        $event->rejected_email_body = $body;
+        $event->save();
         
         return redirect()->back()->with('status', 'updated');
     }

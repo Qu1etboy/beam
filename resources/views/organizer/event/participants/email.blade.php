@@ -69,7 +69,8 @@
             <div>
                 <h2 class="text-xl mb-6">Write your rejected email</h2>
 
-                <form class="space-y-3">
+                <form  class="space-y-3" action="{{ route('organizer.event.participants.email.rejected', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
+                    @csrf
                     <div>
                         <x-input-label :value="__('From (owner email)')"/>
                         <div>{{ $organizer->owner->email }}</div>                        
