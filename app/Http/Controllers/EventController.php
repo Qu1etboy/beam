@@ -348,9 +348,9 @@ class EventController extends Controller
     private function replaceSpecialSymbol($text, $user, $event) {
         $text = str_replace("{ user.name }", $user->name, $text);
         $text = str_replace("{ event.name }", $event->event_name, $text);
-        $text = str_replace("{ event.start_date }", $event->start_date, $text);
-        $text = str_replace("{ event.end_date }", $event->end_date, $text);
-        $text = str_replace("{ event.location }", $event->location, $text);
+        $text = str_replace("{ event.start_date }", $event->start_date ? \Carbon\Carbon::parse($event->start_date)->format('d M Y, H:i') : "To be announced", $text);
+        $text = str_replace("{ event.end_date }", $event->end_date ? \Carbon\Carbon::parse($event->end_date)->format('d M Y, H:i') :"To be announced", $text);
+        $text = str_replace("{ event.location }", $event->location ? $event->location : "To be announced", $text);
         $text = str_replace("{ event.organizer_name }", $event->organizer->organizer_name, $text);
 
         return $text;
