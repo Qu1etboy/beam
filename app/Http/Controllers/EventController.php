@@ -62,6 +62,17 @@ class EventController extends Controller
         return view('event-detail', ['event' => $event, 'owner' => $owner, 'is_registered' => $is_registered]);
     }
 
+     /**
+     * Delete the specified event.
+     */
+    public function destroy(Organizer $organizer, Event $event)
+    {
+
+        $event->delete();
+
+        return redirect()->back();
+    }
+
     /**
      * Show the dashboard for the given event.
      */

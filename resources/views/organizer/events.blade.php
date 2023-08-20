@@ -19,15 +19,41 @@
 
         @foreach($events as $event)
             <!-- Event card-->
-            <x-event-card 
-                {{-- :href="route('event.show', $event->id)"  --}}
-                :href="route('organizer.event.dashboard', ['organizer' => $organizer->id, 'event' => $event->id])"
-                :poster="asset('storage/' . $event->poster_image)"
-                :start_date="$event->start_date ? \Carbon\Carbon::parse($event->start_date)->format('d M Y, H:i') : null"
-                :end_date="$event->end_date ? \Carbon\Carbon::parse($event->end_date)->format('d M Y, H:i') : null"
-                :title="$event->event_name"
-                :location="$event->location"
-            /> 
+            <div class="relative group">
+                <x-event-card 
+                    {{-- :href="route('event.show', $event->id)"  --}}
+                    :href="route('organizer.event.dashboard', ['organizer' => $organizer->id, 'event' => $event->id])"
+                    :poster="asset('storage/' . $event->poster_image)"
+                    :start_date="$event->start_date ? \Carbon\Carbon::parse($event->start_date)->format('d M Y, H:i') : null"
+                    :end_date="$event->end_date ? \Carbon\Carbon::parse($event->end_date)->format('d M Y, H:i') : null"
+                    :title="$event->event_name"
+                    :location="$event->location"
+                /> 
+
+                <div class="group-hover:block hidden absolute top-0 right-0 m-3">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-more-horizontal bg-gray-300/70 text-gray-700 rounded-lg "><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">            
+                            <x-dropdown-link class="text-red-500 flex items-center gap-2">
+                                <form action="{{ route('organizer.event.destroy', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" onclick="confirm('Are you sure you want to delete this event?')" class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                                        Delete Event
+                                    </button>
+                                </form>
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
+
+            </div>
         @endforeach
     </section>
     @else

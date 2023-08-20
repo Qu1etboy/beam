@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
             Route::delete('/members/{user}', [OrganizerController::class, 'removeMember'])->name('organizer.remove-member');
             // Define routes related to event
             Route::prefix('events/{event}')->group(function () {
+                Route::delete('/', [EventController::class, 'destroy'])->name('organizer.event.destroy');
+                
                 Route::get('/dashboard', [EventController::class, 'dashboard'])->name('organizer.event.dashboard');
                 
                 Route::put('/information', [EventController::class, 'updateInformation'])->name('organizer.event.update-information');
