@@ -4,6 +4,10 @@
 
 @section('content')
 <div class="p-3">
+    <a href="{{ url()->previous() }}" class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+      Back
+    </a>
     <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Add Order</h1>
 
     <form action="{{ route('orders.store', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
