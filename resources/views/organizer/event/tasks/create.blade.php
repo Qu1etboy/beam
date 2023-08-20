@@ -4,28 +4,28 @@
 
 @section('sub-content')
   <div>
-    <a href="{{ url()->previous() }}" class="flex items-center gap-2">
+    <a href="{{ route('organizer.event.tasks.list',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
       Back
     </a>
-    
+
     <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Add Task</h1>
     
     <form action="{{ route('task.store', ['organizer' => $organizer, 'event' => $event]) }}" method="POST">
       @csrf
       <div class="mb-6">
         <x-input-label for="title" :value="__('Task name')"/>
-        <x-text-input type="text" id="title" name="title" placeholder="Enter task name" />
+        <x-text-input type="text" id="title" name="title" value="{{ old('title', '') }}" placeholder="Enter task name" />
         <x-input-error :messages="$errors->get('title')" />
       </div>
       <div class="mb-6">
         <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Task description</label>
-        <textarea type="text" id="description" name="description" placeholder="Enter task description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5"></textarea>
+        <textarea type="text" id="description" name="description" placeholder="Enter task description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">{{ old('description', '') }}</textarea>
         <x-input-error :messages="$errors->get('description')" />
       </div>
       <div class="mb-6">
         <x-input-label for="due_date" :value="__('Due date')"/>
-        <x-text-input type="date" id="due_date" name="due_date" placeholder="Enter due date" />
+        <x-text-input type="date" id="due_date" name="due_date" value="{{ old('due_date', '') }}" placeholder="Enter due date" />
         <x-input-error :messages="$errors->get('due_date')" />
       </div>
       
@@ -136,7 +136,7 @@
 
       <div class="mb-6">
         <label for="priority" class="block mb-2 text-sm font-medium text-gray-900">Task Priority</label>
-        <select id="countries" name="priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">
+        <select id="priority" name="priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">
           <option selected>Choose a priority</option>
           <option value="{{ \App\Models\Task::PRIORITY_LOW }}">Low</option>
           <option value="{{ \App\Models\Task::PRIORITY_MEDIUM }}">Medium</option>
