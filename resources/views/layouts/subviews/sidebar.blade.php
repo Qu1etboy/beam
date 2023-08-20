@@ -30,15 +30,15 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-question"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M10 10.3c.2-.4.5-.8.9-1a2.1 2.1 0 0 1 2.6.4c.3.4.5.8.5 1.3 0 1.3-2 2-2 2"/><path d="M12 17h.01"/></svg>
       Registrant Questions
     </a>
-    <a href="{{ route('organizer.event.participants.submission',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.participants') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }} flex items-center gap-2">
+    <a href="{{ route('organizer.event.participants.submission',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.participants.*') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }} flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-2"><path d="M14 19a6 6 0 0 0-12 0"/><circle cx="8" cy="9" r="4"/><path d="M22 19a6 6 0 0 0-6-6 4 4 0 1 0 0-8"/></svg>
       Participants
     </a>
-    <a href="{{ route('organizer.event.tasks.list',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.tasks.list') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }} flex items-center gap-2">
+    <a href="{{ route('organizer.event.tasks.list',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.tasks.*') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }} flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-list"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
       Tasks
     </a>
-    <a href="{{ route('organizer.event.financial',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.financial') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }} flex items-center gap-2">
+    <a href="{{ route('organizer.event.financial',['organizer' => $organizer->id, 'event' => $event->id]) }}" class="{{ request()->routeIs('organizer.event.financial', 'orders.*') ? 'bg-purple-600 block hover:bg-purple-900 rounded-lg px-2.5 py-3' : 'block hover:bg-purple-900 rounded-lg px-2.5 py-3' }} flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
       Financial
     </a>
