@@ -316,7 +316,9 @@ class EventController extends Controller
     public function storeAcceptedMail(Request $request, Organizer $organizer, Event $event) {
         $request->validate([
             'accepeted_email_subject' => ['required', 'string', 'min:1', 'max:255'],
-            'accepeted_email_body' => ['required', 'string']
+            'accepeted_email_body' => ['required', 'min:8']
+        ],[
+            'accepeted_email_body.min' => 'The accepted email body is required'
         ]);
 
         $body = $request->get('accepeted_email_body');
@@ -332,7 +334,9 @@ class EventController extends Controller
     public function storeRejectedMail(Request $request, Organizer $organizer, Event $event) {
         $request->validate([
             'rejected_email_subject' => ['required', 'string', 'min:1', 'max:255'],
-            'rejected_email_body' => ['required', 'string']
+            'rejected_email_body' => ['required', 'min:8']
+        ], [
+            'rejected_email_body.min' => 'The rejected email body is required'
         ]);
 
         $body = $request->get('rejected_email_body');

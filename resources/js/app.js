@@ -41,6 +41,7 @@ document.addEventListener("alpine:init", () => {
                     ],
                     content: content,
                     onCreate({ editor }) {
+                        document.getElementById(id).value = editor.getHTML();
                         _this.updatedAt = Date.now();
                     },
                     onUpdate({ editor }) {

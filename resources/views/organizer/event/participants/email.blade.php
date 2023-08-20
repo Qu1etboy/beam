@@ -60,6 +60,7 @@
                         <div x-data="editor(@js($event->accepeted_email_body ? $event->accepeted_email_body : App\Models\Event::$DEFAULT_ACCEPTED_MAIL_BODY), 'accepeted_email_body')">
                             <x-rich-text-editor />
                             <input :id="id" type="hidden" name="accepeted_email_body" />
+                            <x-input-error :messages="$errors->get('accepeted_email_body')" />
                         </div>
                         
                     </div>
@@ -108,6 +109,7 @@
                         <div x-data="editor(@js($event->rejected_email_body ? $event->rejected_email_body : App\Models\Event::$DEFAULT_REJECTED_MAIL_BODY), 'rejected_email_body')">
                             <x-rich-text-editor />
                             <input :id="id" type="hidden" name="rejected_email_body" />
+                            <x-input-error :messages="$errors->get('rejected_email_body')" />
                         </div>
                     </div>
                     <x-buttons.primary type="submit">Save</x-buttons.primary>
