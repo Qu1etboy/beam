@@ -40,7 +40,11 @@
     <div class="mb-6">
       <x-input-label for="name" :value="__('Event name')"/>
       <x-text-input id="name" name="event_name" value="{{ $event->event_name }}" placeholder="Enter your event name" />
-      <x-input-error :messages="$errors->get('event_name')" />
+      @error('event_name')  
+            <div class="bg-gradient-to-r from-red-500 to-red-600 p-2 rounded-md shadow-md text-white text-sm animate-pulse">
+                {{$message}}
+            </div>
+        @enderror
     </div>
   </div>
 

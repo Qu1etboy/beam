@@ -105,7 +105,7 @@ class EventController extends Controller
         // dd($request);
 
         $validatedData = $request->validate([
-            'event_name' => ['required', 'string', 'min:1', 'max:1024'],
+            'event_name' => ['required', 'string', 'min:1', 'max:1024','unique:events,event_name,' . $event->id],
             'event_description' => ['nullable', 'string'],
             'start_date' => ['nullable', 'date', 'after:register_end_date'],
             'end_date' => ['nullable', 'date', 'after:start_date'],
