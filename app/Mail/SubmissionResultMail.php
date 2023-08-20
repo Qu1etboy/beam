@@ -9,15 +9,22 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AcceptedMail extends Mailable
+class SubmissionResultMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $subject;
+    public $body;
+
+
     /**
      * Create a new message instance.
      */
-    public function __construct(protected User $user, protected Event $event)
+    public function __construct($subject, $body
+    )
     {
-
+        $this->subject = $subject;
+        $this->body = $body;
     }
 
     /**
@@ -26,7 +33,7 @@ class AcceptedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "Your application's result for {$this->event->event_name}",
+            subject: $this->subject,
         );
     }
 
@@ -36,10 +43,9 @@ class AcceptedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.accepted',
+            view: 'emails.submission',
             with: [
-                'userName' => $this->user->name,
-                'event' => $this->event,
+                'body' => $this->body,
             ],
         );
     }

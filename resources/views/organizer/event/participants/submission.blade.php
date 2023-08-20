@@ -5,6 +5,21 @@
 @section('content')
 <div class="p-3">
     <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl my-3">Participants</h1>
+    
+    <div class="text-gray-600">
+        <p>
+          When clicking accept or reject the candidate. 
+          We will send an email to notify the result they got. 
+          You can also customize the email content or use the default template provide by us.
+        </p>
+        <a 
+          href="{{ route('organizer.event.participants.email', ['organizer' => $organizer, 'event' => $event]) }}"
+          class="inline-block text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 my-2"
+        >
+          Draft Email
+        </a>
+    </div>
+
     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
       <ul class="flex flex-wrap -mb-px">
           <li class="mr-2">

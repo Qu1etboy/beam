@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\AcceptedMail;
-use App\Mail\RejectedMail;
+use App\Mail\SubmissionResultMail;
 use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\RegistrantQuestion;
 use App\Models\User;
 use \Datetime;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -190,10 +187,23 @@ class EventController extends Controller
 
         if ($status == "ACCEPTED") {
             // Sent email to users that they got accepted
-            Mail::to($user->email)->send(new AcceptedMail($user, $event));
+
+            $subject = $event->accepted_email_subject ? $event->accepted_email_subject : Event::$DEFAULT_ACCEPTED_MAIL_SUBJECT; 
+            $body = $event->accepeted_email_body ? $event->accepeted_email_body : Event::$DEFAULT_ACCEPTED_MAIL_BODY;
+
+            $body = $this->replaceSpecialSymbol($body, $user, $event);
+            $subject = $this->replaceSpecialSymbol($subject, $user, $event);
+
+            Mail::to($user->email)->send(new SubmissionResultMail($subject, $body));
         } else {
             // Sent email to users that they got rejected
-            Mail::to($user->email)->send(new RejectedMail($user, $event));
+            $subject = $event->rejected_email_subject ? $event->rejected_email_subject : Event::$DEFAULT_REJECTED_MAIL_SUBJECT; 
+            $body = $event->rejected_email_body ? $event->rejected_email_body : Event::$DEFAULT_REJECTED_MAIL_BODY;
+
+            $body = $this->replaceSpecialSymbol($body, $user, $event);
+            $subject = $this->replaceSpecialSymbol($subject, $user, $event);
+            
+            Mail::to($user->email)->send(new SubmissionResultMail($subject, $body));
         }
 
         return redirect()->back();
@@ -298,4 +308,64 @@ class EventController extends Controller
 
         return Response::make($decodedData, 200, $headers);
     }
+
+    public function createDraftEmail(Organizer $organizer, Event $event) {
+        return view('organizer.event.participants.email', compact('organizer', 'event'));
+    }
+
+    public function storeAcceptedMail(Request $request, Organizer $organizer, Event $event) {
+        $request->validate([
+            'accepeted_email_subject' => ['required', 'string', 'min:1', 'max:255'],
+            'accepeted_email_body' => ['required', 'string']
+        ]);
+
+        $body = $request->get('accepeted_email_body');
+        $subject = $request->get('accepeted_email_subject');
+
+        $event->accepeted_email_subject = $subject;
+        $event->accepeted_email_body = $body;
+        $event->save();
+        
+        return redirect()->back()->with('status', 'updated');
+    }
+
+    public function storeRejectedMail(Request $request, Organizer $organizer, Event $event) {
+        $request->validate([
+            'rejected_email_subject' => ['required', 'string', 'min:1', 'max:255'],
+            'rejected_email_body' => ['required', 'string']
+        ]);
+
+        $body = $request->get('rejected_email_body');
+        $subject = $request->get('rejected_email_subject');
+
+        $event->rejected_email_subject = $subject;
+        $event->rejected_email_body = $body;
+        $event->save();
+        
+        return redirect()->back()->with('status', 'updated');
+    }
+
+    private function replaceSpecialSymbol($text, $user, $event) {
+        $text = str_replace("{ user.name }", $user->name, $text);
+        $text = str_replace("{ event.name }", $event->event_name, $text);
+        $text = str_replace("{ event.start_date }", $event->start_date ? \Carbon\Carbon::parse($event->start_date)->format('d M Y, H:i') : "To be announced", $text);
+        $text = str_replace("{ event.end_date }", $event->end_date ? \Carbon\Carbon::parse($event->end_date)->format('d M Y, H:i') :"To be announced", $text);
+        $text = str_replace("{ event.location }", $event->location ? $event->location : "To be announced", $text);
+        $text = str_replace("{ event.organizer_name }", $event->organizer->organizer_name, $text);
+
+        return $text;
+    }
+
 }
+
+/* 
+{ user.name }
+
+{ event.name }
+
+{ event.start_date }
+
+{ event.end_date }
+
+{ event.location }
+*/

@@ -78,6 +78,10 @@ Route::middleware('auth')->group(function () {
                 
                 Route::get('/participants/submission', [EventController::class, 'participantSubmissions'])->name('organizer.event.participants.submission');
                 Route::get('/participants/accepted', [EventController::class, 'participantAccepted'])->name('organizer.event.participants.accepted');
+                Route::get('/participants/email', [EventController::class, 'createDraftEmail'])->name('organizer.event.participants.email');
+                Route::post('/participants/email/accepted', [EventController::class, 'storeAcceptedMail'])->name('organizer.event.participants.email.accepted');
+                Route::post('/participants/email/rejected', [EventController::class, 'storeRejectedMail'])->name('organizer.event.participants.email.rejected');
+                
                 Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
                 
                 // Define routes related to event tasks
@@ -212,12 +216,12 @@ Route::get('/test/send-email', function (Request $request) {
     
 })->name('test.send-email');
 
-Route::get('/test/send-email', function (Request $request) {
+// Route::get('/test/send-email', function (Request $request) {
 
-    Mail::to("urawit3240@gmail.com")->send(new AcceptedMail(Auth::user(), Event::event()));
+//     Mail::to("urawit3240@gmail.com")->send(new AcceptedMail(Auth::user(), Event::event()));
 
-    return "successfully sent email";
+//     return "successfully sent email";
     
-})->name('test.send-email');
+// })->name('test.send-email');
 
 require __DIR__ . '/auth.php';
