@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth scroll-py-20	">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth scroll-py-20">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,13 +36,7 @@
           </div>
       @endif
 
-      <!-- CK Editor -->
-      <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-      <script type="text/javascript">
-        $(document).ready(function () {
-            $('.ckeditor').ckeditor();
-        });
-
+      <script>
         // Initialize google map api (setup places autocomplete and map)
         function initMap() {
           const map = new google.maps.Map(document.getElementById("map"), {

@@ -2,18 +2,14 @@
 
 @section('body')
     <main>
-        <div class="lg:grid lg:grid-cols-5 w-full lg:h-screen">
-            <div class="hidden lg:block">
-                @include('layouts.subviews.sidebar')
-            </div>
-            <div class="col-span-4 lg:overflow-y-auto">
+        <div class="w-full lg:h-screen">
+            <div class="lg:ml-[275px]">
                 <div class="top-0">
                     @include('layouts.subviews.organizer-navbar', ['organizer' => $organizer])
-                    
-                    <!-- Mobile Sidebar -->
-                    <div class="hidden lg:hidden" id="mobile-sidebar">
-                        @include('layouts.subviews.sidebar')
-                    </div>
+                </div>
+
+                <div id="sidebar" class="hidden lg:block lg:fixed top-0 left-0 lg:w-[275px]">
+                    @include('layouts.subviews.sidebar')
                 </div>
                 
                 <div class="p-4">
@@ -40,7 +36,7 @@
 
     <script>
         function toggleMenu() {
-            const menu = document.getElementById('mobile-sidebar');
+            const menu = document.getElementById('sidebar');
             if (menu.classList.contains('hidden')) {
                 menu.classList.remove('hidden')
             } else {
@@ -208,7 +204,7 @@
                 };
             },
             };
-        }
+        } 
 
 
     </script>

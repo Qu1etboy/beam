@@ -130,7 +130,11 @@
     </div>
     <div class="mb-6">
       <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Event description</label>
-      <textarea id="description" class="ckeditor form-control" name="event_description">{!! $event->event_description !!}</textarea>
+      {{-- <textarea id="description" class="ckeditor form-control" name="event_description">{!! $event->event_description !!}</textarea> --}}
+      <div x-data="editor(@js($event->event_description), 'event_description')">
+        <x-rich-text-editor />
+        <input :id="id" type="hidden" name="event_description" />
+      </div>
     </div>
   </div>
 

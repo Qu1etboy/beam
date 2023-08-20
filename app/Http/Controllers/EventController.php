@@ -101,7 +101,6 @@ class EventController extends Controller
     public function updateInformation(Request $request, Organizer $organizer, Event $event)
     {
 
-
         // dd($request);
 
         $validatedData = $request->validate([

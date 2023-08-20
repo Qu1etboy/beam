@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tiptap {
+    @apply w-full focus:outline-none focus:ring-0;
+}
