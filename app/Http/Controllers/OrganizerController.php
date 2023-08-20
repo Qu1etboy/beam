@@ -72,7 +72,7 @@ class OrganizerController extends Controller
         Gate::authorize('update', $organizer);
 
         $request->validate([
-            'name' => ['required', 'string', 'min:1', 'max:255', 'unique:organizers,organizer_name'],
+            'name' => ['required', 'string', 'min:1', 'max:255', 'unique:organizers,organizer_name,' . $organizer->id],
             'profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
         
