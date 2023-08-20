@@ -216,12 +216,12 @@ Route::get('/test/send-email', function (Request $request) {
     
 })->name('test.send-email');
 
-Route::get('/test/send-email', function (Request $request) {
+// Route::get('/test/send-email', function (Request $request) {
 
-    Mail::to("urawit3240@gmail.com")->send(new AcceptedMail(Auth::user(), Event::event()));
+//     Mail::to("urawit3240@gmail.com")->send(new AcceptedMail(Auth::user(), Event::event()));
 
-    return "successfully sent email";
+//     return "successfully sent email";
     
-})->name('test.send-email');
+// })->name('test.send-email');
 
 require __DIR__ . '/auth.php';
