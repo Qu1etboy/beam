@@ -1,6 +1,6 @@
 @extends('layouts.event')
 
-@section('title', 'Financial - Beam Organizer')
+@section('title', $event->event_name . "'s " . 'Financial - Beam Organizer')
 
 @section('content')
 <div class="p-3">

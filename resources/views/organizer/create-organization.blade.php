@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Create - Beam Organizer')
+@section('title', 'Create Organization - Beam Organizer')
 
 @section('body')
 <div class="w-full h-screen grid grid-cols-1 md:grid-cols-2">

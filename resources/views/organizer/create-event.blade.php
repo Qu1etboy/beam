@@ -1,6 +1,6 @@
 @extends('layouts.organizer')
 
-@section('title', 'Create Event - Beam Organizer')
+@section('title', 'Create Event for ' . $organizer->organizer_name . ' - Beam Organizer')
 
 @section('content')
 <div class="container mx-auto p-3">

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Beam Organizer')
+@section('title', 'Select Your Organization - Beam')
 
 @section('content')
     <div class="container mx-auto p-3">

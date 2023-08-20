@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Beam')
+@section('title',  $events->total() > 0 ? ($events->total() . ($events->total() > 1 ? " Events " : " Event ") . "Found - Beam") : ('No Events Found - Beam') )
 
 @section('content')
 <div>

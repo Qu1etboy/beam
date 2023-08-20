@@ -1,6 +1,6 @@
 @extends('layouts.task')
 
-@section('title', 'Tasks - Beam Organizer')
+@section('title', $task->title . ' - ' . $event->event_name . "'s " . 'Tasks - Beam Organizer')
 
 @section('sub-content')
   <div>
