@@ -14,6 +14,15 @@
               <a href="{{ route('organizer.event.participants.accepted', ['organizer' => $organizer, 'event' => $event]) }}" class="inline-block p-4 hover:text-gray-600 hover:border-gray-300 border-transparent marker:border-b-2 rounded-t-lg active" aria-current="page">Accepted</a>
           </li>
       </ul>
+
+      <div>
+        <p>
+          Before accept or reject the candidate you can write a draft email to use for sending to everyone. 
+          If you not write it. We will use a default template for you
+        </p>
+        <a href="{{ route('organizer.event.participants.email', ['organizer' => $organizer, 'event' => $event]) }}">Draft Email</a>
+      </div>
+
     </div>
 
     <div class="overflow-x-auto" 

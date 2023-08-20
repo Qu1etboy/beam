@@ -298,4 +298,9 @@ class EventController extends Controller
 
         return Response::make($decodedData, 200, $headers);
     }
+
+    public function createDraftEmail(Organizer $organizer, Event $event) {
+        return view('organizer.event.participants.email', compact('organizer', 'event'));
+    }
+
 }

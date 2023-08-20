@@ -78,6 +78,8 @@ Route::middleware('auth')->group(function () {
                 
                 Route::get('/participants/submission', [EventController::class, 'participantSubmissions'])->name('organizer.event.participants.submission');
                 Route::get('/participants/accepted', [EventController::class, 'participantAccepted'])->name('organizer.event.participants.accepted');
+                Route::get('/participants/email', [EventController::class, 'createDraftEmail'])->name('organizer.event.participants.email');
+                
                 Route::put('/participants', [EventController::class, 'setParticipantStatus'])->name('organizer.event.set-participants-status');
                 
                 // Define routes related to event tasks
