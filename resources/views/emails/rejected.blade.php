@@ -66,31 +66,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Your application's result for {{ $event->event_name }}</h1>
+            <h1>{{ $subject }}</h1>
         </div>
         <div class="content">
-            <p>Dear {{ $userName }},</p>
-            <p>
-                I trust this email finds you well. Thank you for taking the time to apply for participation in {{ $event->event_name }}. We appreciate your interest in being a part of this event.
-            </p>
-            <p>
-                After careful consideration and a thorough review of all applications, we regret to inform you that your application for participation has not been selected on this occasion. We understand the dedication and effort you put into your application, and we want to assure you that this decision was not made lightly.
-            </p>
-            
-            <p>
-                Our selection process was highly competitive, and unfortunately, we had a limited number of spots available. Please know that your application stood out, and we were impressed by your abilities.
-            </p>
-
-            <p>
-                We genuinely appreciate your interest in {{ $event->event_name }} and the enthusiasm you expressed in your application. We encourage you to continue pursuing your passion and goals, and we hope that you'll consider applying for future events organized by us.
-            </p>
-
-            <p>
-                Thank you once again for considering {{ $event->event_name }}. We wish you all the best in your future endeavors and hope to cross paths in the future.
-            </p>
-            
-            <p>Best regards,</p>
-            <p>{{ $event->organizer->organizer_name }}</p>
+            {!! $body !!}
         </div>
         <div class="footer">
             <p>Follow us on Instagram to stay updated on the latest event trends, tips, and community happenings!</p>
