@@ -23,7 +23,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::where('is_published', true)->paginate(10);
+        // Get the published upcoming events order by start_date
+        $events = Event::where('is_published', true)
+                    ->where('end_date', '>', Carbon::now())
+                    ->orderBy('start_date')
+                    ->paginate(10);
         return view('index', compact('events'));
     }
 

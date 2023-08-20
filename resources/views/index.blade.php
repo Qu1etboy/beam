@@ -17,7 +17,7 @@
     @endif
 
     <section id="events" class="container mx-auto p-3 mt-5">
-        <h1 class="font-bold text-4xl my-3">All Events</h1>
+        <h1 class="font-bold text-4xl my-3">Upcoming Events</h1>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-3 gap-y-6 place-items-center my-8">
             @foreach($events as $event)
                 <x-event-card 
