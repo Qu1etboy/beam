@@ -10,6 +10,7 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Youtube from "@tiptap/extension-youtube";
 import FontFamily from "@tiptap/extension-font-family";
+import Underline from "@tiptap/extension-underline";
 
 document.addEventListener("alpine:init", () => {
     Alpine.data("editor", (content, id) => {
@@ -36,6 +37,7 @@ document.addEventListener("alpine:init", () => {
                         }),
                         Youtube,
                         FontFamily,
+                        Underline,
                     ],
                     content: content,
                     onCreate({ editor }) {
@@ -52,8 +54,7 @@ document.addEventListener("alpine:init", () => {
                             "Figtree";
 
                         document.getElementById("select-color").value =
-                            editor.getAttributes("textStyle").color ??
-                            "black";
+                            editor.getAttributes("textStyle").color ?? "black";
 
                         // Update selected typography at caret position
                         const heading = editor.getAttributes("heading");
@@ -102,6 +103,12 @@ document.addEventListener("alpine:init", () => {
             },
             toggleBlockquote() {
                 editor.chain().focus().toggleBlockquote().run();
+            },
+            toggleUnderline() {
+                editor.chain().focus().toggleUnderline().run();
+            },
+            toggleStrike() {
+                editor.chain().focus().toggleStrike().run();
             },
             undo() {
                 editor.chain().focus().undo().run();

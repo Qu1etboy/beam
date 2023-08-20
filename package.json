@@ -24,6 +24,7 @@
         "@tiptap/extension-link": "^2.1.6",
         "@tiptap/extension-text-align": "^2.1.6",
         "@tiptap/extension-text-style": "^2.1.6",
+        "@tiptap/extension-underline": "^2.1.6",
         "@tiptap/extension-youtube": "^2.1.6",
         "@tiptap/pm": "^2.1.6",
         "@tiptap/starter-kit": "^2.1.6"

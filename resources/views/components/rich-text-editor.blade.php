@@ -2,7 +2,7 @@
   <template x-if="isLoaded()">
       <!-- Menu -->
       <div class="flex flex-wrap items-center gap-5 p-3 bg-gray-100">
-        <button
+        {{-- <button
           type="button"
           @click="undo()"
           :disabled="!editor.can().chain().focus().undo().run()"
@@ -19,7 +19,7 @@
           <span class="sr-only">redo</span>
         </button>
 
-        <div class="border-l border-1 border-gray-300 h-[25px]"></div>
+        <div class="border-l border-1 border-gray-300 h-[25px]"></div> --}}
 
         <input
           type="color"
@@ -79,6 +79,22 @@
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-italic"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
           <span class="sr-only">Italic</span>
+        </button>
+        <button
+          type="button"
+          @click="toggleUnderline()"
+          :class="isActive('underline', updatedAt) ? 'text-purple-600' : '' "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-underline"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
+          <span class="sr-only">Underline</span>
+        </button>
+        <button
+          type="button"
+          @click="toggleStrike()"
+          :class="isActive('strike', updatedAt) ? 'text-purple-600' : '' "
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-strikethrough"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" x2="20" y1="12" y2="12"/></svg>
+          <span class="sr-only">Strike</span>
         </button>
 
         <button
