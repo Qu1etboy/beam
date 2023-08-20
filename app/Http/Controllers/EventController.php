@@ -251,16 +251,27 @@ class EventController extends Controller
             abort(400, 'Event ended');
         }
 
-        // If event ask user to answer question add it
-        $event->registrantQuestions->each(function ($question, $index) use ($request) {
+        $errors = [];
+
+        // If event ask user to answer question, then check errors first
+        $event->registrantQuestions->each(function ($question, $index) use ($request, &$errors) {
             $answer = $request->get('q' . (string) ($index + 1));
 
-            // dd($question);
-
             if ($answer == null) {
-                return abort(400, 'Questions is required');
+                $errors['q' . ($index + 1)] = 'Question is required';
+                return;
             }
+        });
 
+        // If their was an error redirect back with status error
+        if (!empty($errors)) {
+            return redirect()->back()->with('status', 'error')->withInput();
+        }
+
+        // If no error added it to database
+        $event->registrantQuestions->each(function ($question, $index) use ($request) {
+            $answer = $request->get('q' . (string) ($index + 1));
+    
             $question = RegistrantQuestion::with('respondents')->find($question->id);
             $question->respondents()->attach(Auth::id(), ['answer' => $answer]);
         });

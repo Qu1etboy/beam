@@ -85,12 +85,26 @@
               @foreach($event->registrantQuestions as $question)
                 <div class="mb-6">
                   <label for="{{ 'q' . $loop->iteration }}" class="mb-1">{{ $loop->iteration . '. ' . $question->question }}</label>
-                  <textarea id="{{ 'q' . $loop->iteration }}" name="{{ 'q' . $loop->iteration }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5"></textarea>
-                  <x-input-error :messages="[]" />
+                  <textarea id="{{ 'q' . $loop->iteration }}" name="{{ 'q' . $loop->iteration }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">{{ old('q' . $loop->iteration, '')}}</textarea>
+                  {{-- <x-input-error :messages="$errors['q' . $loop->iteration]" /> --}}
                 </div>
               @endforeach
             </div>
           </div>
+           @if (session('status') === 'error')
+                <div
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-transition
+                    x-init="setTimeout(() => show = false, 2000)"
+                    class="flex items-center justify-between fixed top-0 w-full z-50 bg-red-500 px-20 py-6 text-white"
+                >
+                    {{ __('Please fill out the form.') }}
+                    <button @click="show = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+            @endif
         @endif
         
         <div id="register" class="bg-gray-100">
