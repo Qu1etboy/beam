@@ -317,7 +317,7 @@ class EventController extends Controller
 
         $link = Link::create($event->event_name, $from, $to)
             ->description("Event detail here {$eventDetailUrl}")
-            ->address($event->location);
+            ->address($event->location ? $event->location : "");
 
         // Return in base64 format
         // dd($link->ics());
