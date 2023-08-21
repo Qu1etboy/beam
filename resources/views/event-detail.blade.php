@@ -13,7 +13,7 @@
           src="{{ file_exists('storage/' . $event->poster_image) ? asset('storage/' . $event->poster_image) : $event->poster_image }}"
           alt="poster"
           class="object-cover w-full h-[500px] z-[2]"    
-          onerror="this.src='https://placehold.co/800x1032';"  
+          onerror="this.src='https://fakeimg.pl/800x1032/f0f0f0/bfbfbf?text={{ $event->event_name }}';"  
         >
         <div class="p-8 md:p-16 col-span-2 flex flex-col justify-center bg-white/70 backdrop-blur-lg z-[2]">
           <div class="space-y-3">

@@ -12,7 +12,7 @@
         src="{{ $poster }}" 
         alt="{{ $title . ' poster'}}"
         class="rounded-lg object-cover h-[300px] w-[300px]"
-        onerror="this.src='https://placehold.co/800x1032';"  
+        onerror="this.src='https://fakeimg.pl/800x1032/f0f0f0/bfbfbf?text={{ $title }}' "  
     >
     <div class="mt-3">
         <span class="text-sm text-red-500">
