@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="p-3">
-    <h1 class="font-bold mb-8 text-2xl sm:text-3xl md:text-4xl my-3">Event Dashboard</h1>
+    <h1 class="my-3 mb-8 text-2xl font-bold sm:text-3xl md:text-4xl">Event Dashboard</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
         <div href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
             <h5 class="mb-2 text-2xl font-bold tracking-tight">Submission</h5>
             <p class="text-lg font-normal text-gray-700">{{ $event->participants()->count() }}</p>
@@ -21,13 +21,13 @@
         </div>
     </div>
 
-    <div class="mt-6 flex flex-col md:flex-row justify-around gap-8">
+    <div class="flex flex-col justify-around gap-8 mt-6 md:flex-row">
         <div class="md:w-4/12">
-            <h2 class="font-bold mb-4 text-xl sm:text-2xl md:text-3xl">Participant Status Distribution</h2>
+            <h2 class="mb-4 text-xl font-bold sm:text-2xl md:text-3xl">Participant Status Distribution</h2>
             <canvas id="participantStatusChart"></canvas>
         </div>
         <div class="md:w-8/12">
-            <h2 class="font-bold mb-4 text-xl sm:text-2xl md:text-3xl">Daily Event Registrations for {{ date('F') }}</h2>
+            <h2 class="mb-4 text-xl font-bold sm:text-2xl md:text-3xl">Daily Event Registrations for {{ date('F') }}</h2>
             <canvas id="dailyRegistrationsChart"></canvas>
         </div>
     </div>
@@ -51,8 +51,8 @@
             }]
         }
     });
-    let ctx = document.getElementById('dailyRegistrationsChart').getContext('2d');
-    let dailyRegistrationsChart = new Chart(ctx, {
+    let dailyRegistrationsCtx = document.getElementById('dailyRegistrationsChart').getContext('2d');
+    let dailyRegistrationsChart = new Chart(dailyRegistrationsCtx, {
         type: 'bar',
         data: {
             labels: @json($days),  // e.g. ['1', '2', '3', ...]
