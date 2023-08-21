@@ -14,7 +14,11 @@
           <x-text-input type="email" id="email" name="email" placeholder="Email" class="mb-2.5"/>
           <x-buttons.primary type="submit">Invite</x-buttons.primary> 
         </div>
-        <x-input-error :messages="$errors->get('email')" />
+        @error('email')
+            <div class="bg-gradient-to-r from-red-500 to-red-600 p-2 rounded-md shadow-md text-white text-sm animate-pulse">
+                {{$message}}
+            </div>
+        @enderror
       </div>
     </form>
 
