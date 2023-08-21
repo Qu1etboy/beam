@@ -81,7 +81,7 @@ class TaskController extends Controller
                     $member_ids = json_decode($value, true);
 
                     if (count($member_ids) <= 0) {
-                        $fail('Please assignee member to do this task');
+                        $fail('Please assign member to do this task');
                     }
                 },
                 function ($attribute, $value, $fail) use ($organizer) {
