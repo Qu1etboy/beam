@@ -54,6 +54,11 @@ class EventController extends Controller
     {
         $user = User::find(Auth::id());
         $owner = $event->organizer->owner;
+
+        if (!$event->is_published) {
+            return redirect()->back();
+        }
+
         $is_registered = false;
         if ($user) {
             // Check if user already registered this event
