@@ -36,6 +36,16 @@ git push origin <feature_name>
 
 ## Local Development
 
+In `.env` file add google client id and google client secret
+
+```
+GOOGLE_CLIENT_ID=<your_google_client_id>
+GOOGLE_CLIENT_SECRET=<your_google_client_secret>
+GOOGLE_CALLBACK_URL=http://localhost:80/auth/google/callback
+```
+
+Which can be found in [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+
 Install laravel dependencies
 
 ```sh
@@ -77,12 +87,19 @@ Link storage
 sail artisan storage:link
 ```
 
+For Laravel Scout and Meilisearch
+
+```
+sail artisan scout:sync-index-settings
+sail artisan scout:flush "App\Models\Event"
+sail artisan scout:import "App\Models\Event"
+```
+
 Run dev server
 
 ```sh
 sail yarn dev
 ```
-
 
 ## Accessing the app
 
