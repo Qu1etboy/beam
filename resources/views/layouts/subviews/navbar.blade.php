@@ -75,7 +75,7 @@
     </nav>
 
     <!-- Mobile search input -->
-    <form class="w-full container mx-auto md:hidden block mt-2">
+    <form action="{{ route('events.search') }}" class="w-full container mx-auto md:hidden block mt-2">
         <label for="simple-search" class="sr-only">Search</label>
         <div class="relative w-full">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
